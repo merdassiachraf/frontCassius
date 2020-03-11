@@ -1,0 +1,41 @@
+.select-post-add {
+  background: transparent;
+}
+.All-selector {
+  display: flex;
+}
+.full-selector {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 20px 10px 10px;
+}
+.label-post-add {
+  margin-right: 15px;
+  margin-bottom: 10px;
+  font-size:20px;
+}
+.add-picture-button {
+    margin: 20px 0px 0px 230px;
+}
+.select-post-add{
+    font-size: 18px;
+    padding: 5px;
+}
+.option-add-post{
+    color:black
+}
+.all-post-card{
+    margin-top: 80px;
+    margin-right: 100px;
+
+}
+.right-animation-add{
+    margin-top: 100px;
+}
+
+.add-title{
+    font-size: 38px;
+    font-family: monospace;
+    margin-bottom: 15px 0px;
+    
+}

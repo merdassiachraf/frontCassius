@@ -1,0 +1,48 @@
+.post-carousel {
+  width: 500px;
+  margin-top: 50px;
+}
+.carousel-picture {
+  border: solid 3px white;
+}
+.car-info {
+  display: flex;
+}
+.left-car-info {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 20px;
+}
+.right-car-info {
+  font-family: monospace;
+  font-weight: bolder;
+  font-size: 20px;
+}
+.car-infos {
+  padding: 20px;
+  margin-top: 50px;
+}
+.publish-agency h3 {
+  font-weight: bold;
+  font-family: cursive;
+  width:170px
+}
+.publish-agency a {
+  font-weight: bold;
+  font-size: 30px;
+}
+.publish-agency{
+    margin-top: 100px;
+}
+.alert-reduction{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.alert-reduction p{
+    font-size: 15px;
+}
+.alert-reduction h4{
+    font-size: 18px;
+  
+}
