@@ -8,13 +8,17 @@ import 'react-dates/initialize';
 
 //liens Css Local
 import "./containers/NavBar/NavBar.css";
-import "./containers/AddPictures/AddPictures.css"
 import "./containers/AddPost/AddPost.css"
 import "./containers/Home/Home.css"
 import "./containers/SignUp/SignUp.css"
 import "./containers/Login/Login.css"
 import "./containers/AgencyProfil/AgencyProfil.css"
 import "./containers/PostPage/PostPage.css"
+import "./containers/AgenciesList/AgenciesList.css"
+import "./containers/PostsList/PostsList.css"
+import "./containers/PostUser/PostUser.css"
+import "./containers/ClientProfil/ClientProfil.css"
+
 
 //lien css Mdboostrap
 import "@fortawesome/fontawesome-free/css/all.min.css";

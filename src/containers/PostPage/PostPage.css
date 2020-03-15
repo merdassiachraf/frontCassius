@@ -3,7 +3,7 @@
   margin-top: 50px;
 }
 .carousel-picture {
-  border: solid 3px white;
+  border: solid 2px white;
 }
 .car-info {
   display: flex;
@@ -34,15 +34,17 @@
 .publish-agency{
     margin-top: 100px;
 }
-.alert-reduction{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-.alert-reduction p{
+
+.alert-notice p{
     font-size: 15px;
 }
-.alert-reduction h4{
+.alert-notice h4{
     font-size: 18px;
-  
+    margin-left: 150px;
+}
+.reservation-time{
+  display: flex;
+}
+.reservation-label{
+  font-size: 15px;
 }

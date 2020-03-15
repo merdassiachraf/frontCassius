@@ -3,7 +3,7 @@ import { Avatar } from "antd";
 
 import { MDBMask, MDBBtn, MDBView, MDBContainer } from "mdbreact";
 
-class ClientProfil extends Component {
+class AgencyProfil extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,4 +72,4 @@ class ClientProfil extends Component {
     );
   }
 }
-export default ClientProfil;
+export default AgencyProfil;

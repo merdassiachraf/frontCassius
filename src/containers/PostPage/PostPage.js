@@ -18,7 +18,7 @@ import {
   MDBInput
 } from "mdbreact";
 
-class Home extends Component {
+class PostPage extends Component {
   state = {
     modal: false,
     startDate: "",
@@ -48,19 +48,6 @@ class Home extends Component {
                     <img src="https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg" />
                   </div>
                 </Carousel>
-                <MDBContainer>
-                  <MDBAlert color="success" className="alert-reduction">
-                    <h4 className="alert-heading">
-                      <MDBIcon icon="exclamation-triangle" />
-                      &nbsp;&nbsp;Important!
-                    </h4>
-                    <hr/>
-                    <p className="mb-0">
-                      Each reservation more than a month, benefits from a
-                      reduction of 20%
-                    </p>
-                  </MDBAlert>
-                </MDBContainer>
               </div>
               <div className="car-infos">
                 <MDBTypography blockquote bqColor="danger">
@@ -134,36 +121,58 @@ class Home extends Component {
                     Reservation formulaire
                   </MDBModalHeader>
                   <MDBModalBody>
-                    <label>Start Date :</label>
-                    <MDBInput
-                      icon="calendar-alt"
-                      type="date"
-                      onChange={(e) =>
-                        this.setState({ startDate: e.target.value })
-                      }
-                    />
-                    <label>Return Date :</label>
-                    <MDBInput
-                      icon="calendar-alt"
-                      type="date"
-                      onChange={(e) =>
-                        this.setState({ endDate: e.target.value })
-                      }
-                    />
-                    <label>Start Time :</label>
-                    <MDBInput
-                      icon="clock"
-                      type="time"
-                      onChange={(e) =>
-                        this.setState({ startTime: e.target.value })
-                      }
-                    />
-                    <label>Return Time :</label>
-                    <MDBInput
-                      icon="clock"
-                      type="time"
-                      value={this.state.startTime}
-                    />
+                    <MDBAlert className="alert-notice" color="success">
+                      <h4 className="alert-heading"><MDBIcon icon="exclamation-triangle" />&nbsp;&nbsp; Important</h4>
+                      <hr />
+                      <p className="mb-0">
+                        Whenever you need to, be sure to use margin utilities to
+                        keep things nice and tidy.
+                      </p>
+                    </MDBAlert>
+                    <div className="reservation-time">
+                      <label className="reservation-label">Start Date :</label>
+                      <MDBInput
+                        icon="calendar-alt"
+                        type="date"
+                        onChange={(e) =>
+                          this.setState({ startDate: e.target.value })
+                        }
+                        size="sm"
+                      />
+                      <label className="reservation-label">Return Date :</label>
+                      <MDBInput
+                        icon="calendar-alt"
+                        type="date"
+                        onChange={(e) =>
+                          this.setState({ endDate: e.target.value })
+                        }
+                        size="sm"
+                      />
+                    </div>
+                    <div className="reservation-time">
+                      <label className="reservation-label">Start Time :</label>
+                      <MDBInput
+                        icon="clock"
+                        type="time"
+                        onChange={(e) =>
+                          this.setState({ startTime: e.target.value })
+                        }
+                        size="sm"
+                      />
+                      <label className="reservation-label">Return Time :</label>
+                      <MDBInput
+                        icon="clock"
+                        type="time"
+                        value={this.state.startTime}
+                        size="sm"
+                      />
+                    </div>
+                    <div className="reservation-time">
+                      <h6>Price per day : </h6>
+                    </div>
+                    <div className="reservation-time">
+                      <h6>Total : </h6>
+                    </div>
                   </MDBModalBody>
                   <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={this.toggle}>
@@ -190,4 +199,4 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+export default PostPage;
