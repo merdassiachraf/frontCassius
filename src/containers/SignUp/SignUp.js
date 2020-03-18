@@ -18,20 +18,69 @@ class AddPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientPicture: "",
-      clientAdress: "",
-      clientState: "",
-      clientCountry: "",
-      clientCountryCode: "",
-      clientPhoneNumber: 0,
-      clientName: "",
-      clientEmail: "",
-      clientPassword: "",
-      account: ""
+      newClient: {
+        clientPicture: "",
+        clientAdress: "",
+        clientState: "",
+        clientCountry: "",
+        clientCountryCode: "",
+        clientPhoneNumber: 0,
+        clientName: "",
+        clientEmail: "",
+        clientConfirmEmail: "",
+        clientPassword: "",
+        clientConfirmPassword: ""
+      },
+      account: "",
+      newAgency: {
+        agencyPicture: "",
+        agencyAdress: "",
+        agencyState: "",
+        agencyCountry: "",
+        agencyCountryCode: "",
+        agencyPhoneNumber: 0,
+        agencyName: "",
+        agencyEmail: "",
+        agencyConfirmEmail: "",
+        agencyPassword: "",
+        agencyConfirmPassword: ""
+      }
     };
   }
   onChange = (e) => {
     console.log(`radio checked:${e.target.value}`);
+  };
+  handleClientAlert = () => {
+    if (this.state.clientPicture === "") return alert("");
+    if (this.state.clientAdress === "") return alert("Must put ");
+    if (this.state.clientState === "")
+      return alert("ou indicate the state where you live");
+    if (this.state.clientCountry === "") return alert("");
+    if (this.state.clientCountryCode === "") return alert("");
+    if (this.state.clientPhoneNumber === 0) return alert("");
+    if (this.state.clientName === "") return alert("");
+    if (this.state.clientEmail === "") return alert("");
+    if (this.state.clientConfirmEmail === this.state.clientEmail)
+      return alert("");
+    if (this.state.clientPassword === "") return alert("");
+    if (this.state.clientConfirmPassword === this.state.clientPassword)
+      return alert("");
+  };
+  handleAgencyAlert = () => {
+    if (this.state.agencyPicture === "") return alert("");
+    if (this.state.agencyAdress === "") return alert("Must put ");
+    if (this.state.agencyState === "")
+      return alert("ou indicate the state where you live");
+    if (this.state.agencyCountry === "") return alert("");
+    if (this.state.agencyCountryCode === "") return alert("");
+    if (this.state.agencyPhoneNumber === 0) return alert("");
+    if (this.state.agencyName === "") return alert("");
+    if (this.state.agencyEmail === "") return alert("");
+    if (this.state.agencyConfirmEmail === this.state.agencyEmail)
+      return alert("");
+    if (this.state.agencyPassword === "") return alert("");
+    if (this.state.agencyConfirmPassword === this.state.agencyPassword)
+      return alert("");
   };
   render() {
     return (
@@ -88,8 +137,22 @@ class AddPost extends Component {
                           <hr className="hr-light" />
                           <div className="All-selector">
                             <div className="left-side-selector">
-                              <MDBInput icon="user" label="Full Name" />
-                              <MDBInput icon="location-arrow" label="Adress" />
+                              <MDBInput
+                                icon="user"
+                                label="Full Name"
+                                onChange={(e) =>
+                                  this.setState({ clientName: e.target.value })
+                                }
+                              />
+                              <MDBInput
+                                icon="location-arrow"
+                                label="Adress"
+                                onChange={(e) =>
+                                  this.setState({
+                                    clientAdress: e.target.value
+                                  })
+                                }
+                              />
 
                               <div className="full-selector">
                                 <label className="label-post-add">
@@ -134,7 +197,14 @@ class AddPost extends Component {
                                     <MDBIcon icon="map-marker-alt" />
                                     &nbsp;&nbsp;State:
                                   </label>
-                                  <select class="select-post-add">
+                                  <select
+                                    class="select-post-add"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        clientState: e.target.value
+                                      })
+                                    }
+                                  >
                                     <option
                                       className="option-add-post"
                                       value=""
@@ -234,7 +304,14 @@ class AddPost extends Component {
                                     <MDBIcon icon="map-marker-alt" />
                                     &nbsp;&nbsp; State:
                                   </label>
-                                  <select class="select-post-add">
+                                  <select
+                                    class="select-post-add"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        clientState: e.target.value
+                                      })
+                                    }
+                                  >
                                     <option
                                       className="option-add-post"
                                       value=""
@@ -313,7 +390,14 @@ class AddPost extends Component {
                                     <MDBIcon icon="map-marker-alt" />
                                     &nbsp;&nbsp; Model:
                                   </label>
-                                  <select class="select-post-add">
+                                  <select
+                                    class="select-post-add"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        clientState: e.target.value
+                                      })
+                                    }
+                                  >
                                     <option
                                       className="option-add-post"
                                       value=""
@@ -434,7 +518,14 @@ class AddPost extends Component {
                                     <MDBIcon icon="map-marker-alt" />
                                     &nbsp;&nbsp; State:
                                   </label>
-                                  <select class="select-post-add">
+                                  <select
+                                    class="select-post-add"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        clientState: e.target.value
+                                      })
+                                    }
+                                  >
                                     <option
                                       className="option-add-post"
                                       value=""
@@ -576,7 +667,14 @@ class AddPost extends Component {
                                     <MDBIcon icon="map-marker-alt" />
                                     &nbsp;&nbsp; State:
                                   </label>
-                                  <select class="select-post-add">
+                                  <select
+                                    class="select-post-add"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        clientState: e.target.value
+                                      })
+                                    }
+                                  >
                                     <option
                                       className="option-add-post"
                                       value=""
@@ -824,11 +922,49 @@ class AddPost extends Component {
                               )}
                             </div>
                             <div className="right-side-selector">
-                              <MDBInput icon="phone-square-alt" label="Phone Number" />
-                              <MDBInput icon="envelope-open" label="E-mail" />
-                              <MDBInput icon="envelope-open" label="Confirm E-mail" />
-                              <MDBInput icon="unlock-alt" label="Password" />
-                              <MDBInput icon="unlock-alt" label="Confirm Password" />
+                              <MDBInput
+                                icon="phone-square-alt"
+                                label="Phone Number"
+                                onChange={(e) =>
+                                  this.setState({
+                                    clientPhoneNumber: e.target.value
+                                  })
+                                }
+                              />
+                              <MDBInput
+                                icon="envelope-open"
+                                label="E-mail"
+                                onChange={(e) =>
+                                  this.setState({ clientEmail: e.target.value })
+                                }
+                              />
+                              <MDBInput
+                                icon="envelope-open"
+                                label="Confirm E-mail"
+                                onChange={(e) =>
+                                  this.setState({
+                                    clientConfirmEmail: e.target.value
+                                  })
+                                }
+                              />
+                              <MDBInput
+                                icon="unlock-alt"
+                                label="Password"
+                                onChange={(e) =>
+                                  this.setState({
+                                    clientPassword: e.target.value
+                                  })
+                                }
+                              />
+                              <MDBInput
+                                icon="unlock-alt"
+                                label="Confirm Password"
+                                onChange={(e) =>
+                                  this.setState({
+                                    clientConfirmPassword: e.target.value
+                                  })
+                                }
+                              />
                             </div>
                           </div>
                           <div className="text-center mt-4 black-text">
@@ -859,8 +995,18 @@ class AddPost extends Component {
                           <hr className="hr-light" />
                           <div className="All-selector">
                             <div className="left-side-selector">
-                            <MDBInput icon="vihara" label="Agency Name" />
-                            <MDBInput icon="location-arrow" label="Adress" />
+                              <MDBInput
+                                icon="vihara"
+                                label="Agency Name"
+                                onchange={(e) =>
+                                  this.setState({ agencyName: e.target.value })
+                                }
+                              />
+                              <MDBInput
+                                icon="location-arrow"
+                                label="Adress"
+                                onChange={(e) => this.setState({ agency })}
+                              />
 
                               <div className="full-selector">
                                 <label className="label-post-add">
@@ -975,31 +1121,40 @@ class AddPost extends Component {
                                 </select>
                               </div>
                               <div className="full-selector">
-                                  <label className="label-post-add">
-                                    <MDBIcon icon="mobile-alt" />
-                                    &nbsp;&nbsp; Country Phone code :
-                                  </label>
-                                  <select
-                                    onChange={(e) =>
-                                      this.setState({
-                                        clientCountryCode: e.target.value
-                                      })
-                                    }
-                                    value="+216"
-                                    class="select-post-add"
-                                  >
-                                    <option className="option-add-post">
-                                      +216
-                                    </option>
-                                  </select>
-                                </div>   
+                                <label className="label-post-add">
+                                  <MDBIcon icon="mobile-alt" />
+                                  &nbsp;&nbsp; Country Phone code :
+                                </label>
+                                <select
+                                  onChange={(e) =>
+                                    this.setState({
+                                      clientCountryCode: e.target.value
+                                    })
+                                  }
+                                  value="+216"
+                                  class="select-post-add"
+                                >
+                                  <option className="option-add-post">
+                                    +216
+                                  </option>
+                                </select>
+                              </div>
                             </div>
                             <div className="right-side-selector">
-                              <MDBInput icon="phone-square-alt" label="Phone Number" />
+                              <MDBInput
+                                icon="phone-square-alt"
+                                label="Phone Number"
+                              />
                               <MDBInput icon="envelope-open" label="E-mail" />
-                              <MDBInput icon="envelope-open" label="Confirm E-mail" />
+                              <MDBInput
+                                icon="envelope-open"
+                                label="Confirm E-mail"
+                              />
                               <MDBInput icon="unlock-alt" label="Password" />
-                              <MDBInput icon="unlock-alt" label="Confirm Password" />
+                              <MDBInput
+                                icon="unlock-alt"
+                                label="Confirm Password"
+                              />
                             </div>
                           </div>
                           <div className="text-center mt-4 black-text">
