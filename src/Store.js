@@ -1,8 +1,9 @@
 import {createStore} from "redux"
 
-import {agenciesReducer} from "./redux/agency/AgenciesReducer"
+
+import {rootReducer} from "./rootReducer"
 
 
-const store = createStore(agenciesReducer)
+const store = createStore(rootReducer)
 
 export default store

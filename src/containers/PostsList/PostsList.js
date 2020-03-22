@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+
+import { PostCard } from "./PostsCard";
+
 import {
   MDBMask,
   MDBView,
@@ -13,17 +17,36 @@ class PostsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      search: "",
       brand: "",
       model: "",
       fuel: "",
       transmission: "",
       state: "",
       minPricePerDay: 0,
-      maxPricePerDay: 0,
-      previous: "previous",
-      addPicture: ""
+      maxPricePerDay: 999999999999999999,
+      brand: "",
+      search1: "",
+      model1: "",
+      fuel1: "",
+      transmission1: "",
+      state1: "",
+      minPricePerDay1: 0,
+      maxPricePerDay1: 999999999999999999
     };
   }
+  handleClickSearch = () => {
+    this.setState({
+      search: this.state.search1,
+      brand: this.state.brand1,
+      model: this.state.model1,
+      fuel: this.state.fuel1,
+      transmission: this.state.transmission1,
+      state: this.state.state1,
+      minPricePerDay: this.state.minPricePerDay1,
+      maxPricePerDay: this.state.maxPricePerDay1
+    });
+  };
   render() {
     return (
       <div id="">
@@ -37,6 +60,7 @@ class PostsList extends Component {
                     icon="search"
                     className="white-text "
                     size="sm"
+                    onChange={(e) => this.setState({ search1: e.target.value })}
                   />
                 </div>
                 <div className="filtre-price white-text">
@@ -49,14 +73,23 @@ class PostsList extends Component {
                       type="number"
                       className="input-filtre-post-price"
                       size="sm"
+                      onChange={(e) =>
+                        this.setState({ minPricePerDay1: e.target.value })
+                      }
                     />
                   </div>
                   <div className="vertical-price">
                     <label className="label-filtre-post-price">
                       <MDBIcon icon="dollar-sign" size="sm" />
-                      &nbsp;&nbsp;Min Price :
+                      &nbsp;&nbsp;Max Price :
                     </label>
-                    <input type="number" className="input-filtre-post-price" />
+                    <input
+                      type="number"
+                      className="input-filtre-post-price"
+                      onChange={(e) =>
+                        this.setState({ maxPricePerDay1: e.target.value })
+                      }
+                    />
                   </div>
                 </div>
 
@@ -66,8 +99,7 @@ class PostsList extends Component {
                     &nbsp;&nbsp; Brand :
                   </label>
                   <select
-                    onChange={(e) => this.setState({ brand: e.target.value })}
-                    value={this.state.brand}
+                    onChange={(e) => this.setState({ brand1: e.target.value })}
                     className="select-posts-filtre"
                   >
                     <option className="option-filtre-post" value="" selected>
@@ -83,7 +115,7 @@ class PostsList extends Component {
                     <option className="option-filtre-post">Volkswagen</option>
                   </select>
                 </div>
-                {this.state.brand === "BMW" ? (
+                {this.state.brand1 === "BMW" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -91,8 +123,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -114,7 +147,7 @@ class PostsList extends Component {
                       <option className="option-filtre-post">i8</option>
                     </select>
                   </div>
-                ) : this.state.brand === "Hyundai" ? (
+                ) : this.state.brand1 === "Hyundai" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -122,8 +155,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -153,8 +187,7 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) => this.setState({ model1: e.target.value })}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -172,7 +205,7 @@ class PostsList extends Component {
                       <option className="option-filtre-post">Explorer</option>
                     </select>
                   </div>
-                ) : this.state.brand === "Kia" ? (
+                ) : this.state.brand1 === "Kia" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -180,8 +213,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -199,7 +233,7 @@ class PostsList extends Component {
                       <option className="option-filtre-post">Cadenza</option>
                     </select>
                   </div>
-                ) : this.state.brand === "Nissan" ? (
+                ) : this.state.brand1 === "Nissan" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -207,8 +241,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -225,7 +260,7 @@ class PostsList extends Component {
                       <option className="option-filtre-post">Terra</option>
                     </select>
                   </div>
-                ) : this.state.brand === "Peugeot" ? (
+                ) : this.state.brand1 === "Peugeot" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -233,8 +268,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="ooption-filtre-post" value="" selected>
                         Choose the Model
@@ -252,7 +288,7 @@ class PostsList extends Component {
                       <option className="option-filtre-post">Boxer</option>
                     </select>
                   </div>
-                ) : this.state.brand === "Toyota" ? (
+                ) : this.state.brand1 === "Toyota" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -260,8 +296,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -279,7 +316,7 @@ class PostsList extends Component {
                       <option className="option-filtre-post">Fortuner</option>
                     </select>
                   </div>
-                ) : this.state.brand === "Volkswagen" ? (
+                ) : this.state.brand1 === "Volkswagen" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -287,8 +324,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -314,8 +352,9 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model: e.target.value })}
-                      value={this.state.model}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the brand first
@@ -329,9 +368,7 @@ class PostsList extends Component {
                     &nbsp;&nbsp; Fuel :
                   </label>
                   <select
-                    onChange={(e) => this.setState({ fuel: e.target.value })}
-                    value={this.state.fuel}
-                    onChange={(e) => this.setState({ fuel: e.target.value })}
+                    onChange={(e) => this.setState({ fuel1: e.target.value })}
                     className="select-posts-filtre"
                   >
                     <option className="option-filtre-post" value="" selected>
@@ -348,10 +385,9 @@ class PostsList extends Component {
                     &nbsp;&nbsp; Transmission :
                   </label>
                   <select
-                    value={this.state.transmission}
                     onChange={(e) =>
                       this.setState({
-                        transmission: e.target.value
+                        transmission1: e.target.value
                       })
                     }
                     className="select-posts-filtre"
@@ -369,12 +405,7 @@ class PostsList extends Component {
                     <MDBIcon icon="globe-africa" />
                     &nbsp;&nbsp; Country :
                   </label>
-                  <select
-                    onChange={(e) => this.setState({ country: e.target.value })}
-                    value={this.state.country}
-                    onChange={(e) => this.setState({ country: "Tunisia" })}
-                    className="select-posts-filtre"
-                  >
+                  <select className="select-posts-filtre">
                     <option
                       className="option-filtre-post"
                       value="Tunisia"
@@ -390,9 +421,7 @@ class PostsList extends Component {
                     &nbsp;&nbsp; State :
                   </label>
                   <select
-                    onChange={(e) => this.setState({ state: e.target.value })}
-                    value={this.state.state}
-                    onChange={(e) => this.setState({ state: e.target.value })}
+                    onChange={(e) => this.setState({ state1: e.target.value })}
                     className="select-posts-filtre"
                   >
                     <option className="option-filtre-post" value="" selected>
@@ -424,9 +453,26 @@ class PostsList extends Component {
                     <option className="option-filtre-post">Zaghouan</option>
                   </select>
                 </div>
+                <MDBBtn color="amber" onClick={this.handleClickSearch}>Search</MDBBtn>
               </div>
 
-              <div className="posts-list-view"></div>
+              <div className="posts-list-view">
+                {this.props.posts
+                  .filter(
+                    (post) =>
+                      post.agencyName.includes(this.state.search) &&
+                      post.brand.includes(this.state.brand) &&
+                      post.model.includes(this.state.model) &&
+                      post.fuel.includes(this.state.fuel) &&
+                      post.transmission.includes(this.state.transmission) &&
+                      post.state.includes(this.state.state) &&
+                      post.pricePerDay >= this.state.minPricePerDay &&
+                      post.pricePerDay <= this.state.maxPricePerDay
+                  )
+                  .map((post) => (
+                    <PostCard post={post} />
+                  ))}
+              </div>
             </MDBContainer>
           </MDBMask>
         </MDBView>
@@ -434,4 +480,11 @@ class PostsList extends Component {
     );
   }
 }
-export default PostsList;
+
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts.posts
+  };
+};
+
+export default connect(mapStateToProps)(PostsList);

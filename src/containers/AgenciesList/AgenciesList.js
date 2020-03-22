@@ -147,7 +147,7 @@ class PostsList extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    agencies: state.agencies
+    agencies: state.agencies.agencies
   };
 };
 

@@ -21,6 +21,7 @@ import "./containers/PostsList/PostsList.css"
 import "./containers/PostUser/PostUser.css"
 import "./containers/ClientProfil/ClientProfil.css"
 import "./containers/AgenciesList/AgencyCard.css"
+import "./containers/PostsList/PostsCard.css"
 
 
 //lien css Mdboostrap

@@ -6,8 +6,11 @@
   align-items: center;
   background: linear-gradient(110deg, #cda98c 30%, #8c967a 30%);
   margin-top: 85px;
-  height: 590px;
+  height: 587px;
   box-shadow: 5px 3px 6px 1px black;
+  position: fixed;
+  left: 0;
+  bottom:0
 }
 .posts-filtre-input {
   width: 165px;
@@ -49,4 +52,14 @@
 }
 .vertical-price label {
   font-size: 15px;
+}
+.posts-list-view{
+  position: fixed;
+  right: 0;
+  top:100px;
+  width:1050px;
+  height: 700px;
+  display:flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
 }

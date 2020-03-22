@@ -22,8 +22,8 @@ function App() {
         {/* <Login/> */}
         {/* <AgencyProfil/> */}
         {/* <PostPage/> */}
-        <AgenciesList/>
-        {/* <PostsList/> */}
+        {/* <AgenciesList/> */}
+        <PostsList/>
         {/* <PostUser/> */}
         {/* <ClientProfil /> */}
       </div>
