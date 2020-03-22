@@ -15,20 +15,25 @@ class PostsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      brand: "",
-      model: "",
-      fuel: "",
-      transmission: "",
       state: "",
-      minPricePerDay: 0,
-      maxPricePerDay: 0,
-      previous: "previous",
-      addPicture: "",
+      state1: "",
       search: "",
+      search1: "",
       sort: ""
     };
   }
+  handleChangeState = (e) => {
+    this.setState({ state1: e.target.value });
+  };
+  handleChangeSearch = (e) => {
+    this.setState({ search1: e.target.value });
+  };
+  handleClickSearch = () => {
+    this.setState({ search: this.state.search1, state: this.state.state1 });
+  };
+
   render() {
+    console.log(this.state.sort);
     return (
       <div id="">
         <MDBView src="https://images.pexels.com/photos/27406/pexels-photo-27406.jpg?cs=srgb&dl=building-modern-glass-tall-27406.jpg&fm=jpg">
@@ -41,7 +46,7 @@ class PostsList extends Component {
                     icon="search"
                     className="white-text search-input"
                     size="sm"
-                    onChange={(e) => this.setState({ search: e.target.value })}
+                    onChange={(e) => this.handleChangeSearch(e)}
                   />
                 </div>
                 <div className="posts-filtre-select white-text">
@@ -49,12 +54,7 @@ class PostsList extends Component {
                     <MDBIcon icon="globe-africa" />
                     &nbsp;&nbsp; Country :
                   </label>
-                  <select
-                    onChange={(e) => this.setState({ country: e.target.value })}
-                    value={this.state.country}
-                    onChange={(e) => this.setState({ country: "Tunisia" })}
-                    className="select-posts-filtre"
-                  >
+                  <select className="select-posts-filtre">
                     <option
                       className="option-filtre-post"
                       value="Tunisia"
@@ -70,9 +70,7 @@ class PostsList extends Component {
                     &nbsp;&nbsp; State :
                   </label>
                   <select
-                    onChange={(e) => this.setState({ state: e.target.value })}
-                    value={this.state.state}
-                    onChange={(e) => this.setState({ state: e.target.value })}
+                    onChange={(e) => this.handleChangeState(e)}
                     className="select-posts-filtre"
                   >
                     <option className="option-filtre-post" value="" selected>
@@ -104,56 +102,41 @@ class PostsList extends Component {
                     <option className="option-filtre-post">Zaghouan</option>
                   </select>
                 </div>
-                <MDBBtn color="info">Search</MDBBtn>
+                <MDBBtn color="info" onClick={(e) => this.handleClickSearch(e)}>
+                  Search
+                </MDBBtn>
               </div>
 
               <div>
-                {this.props.agencies.length === 0 ? (
-                  <h1 id="empty-agency">Sorry, there is no agency </h1>
-                ) : (
-                  <div>
-                    <div className="sort-agencies">
-                      <label className="sort-label">
-                        Sort by:
-                      </label>
-                      <select
-                        onChange={(e) =>
-                          this.setState({ sort: e.target.value })
-                        }
-                        className="sort-select"
-                      >
-                          <option
-                          className="sort-option"
-                          value=""
-                          selected
-                        >
+                
+                <div>
+                  <div className="sort-agencies">
+                    <label className="sort-label">Sort by:</label>
+                    <select
+                      onChange={this.handleChangeSearch}
+                      className="sort-select"
+                    >
+                      <option className="sort-option" value="">
                         ---
-                        </option>
-                        <option
-                          className="sort-option"
-                        >
-                        A-Z
-                        </option>
-                        <option
-                          className="sort-option"
-                        >
-                        Z-A
-                        </option>
-                      </select>
-                    </div>
-                    <div className="posts-list-view">
-                      {this.props.agencies
-                        .filter(
-                          (agency) =>
-                            agency.agencyName.toLowerCase().includes(this.state.search.toLowerCase()) &&
-                            agency.agencyState.includes(this.state.state)
-                        )
-                        .map((agency) => (
-                          <AgencyCard agency={agency} />
-                        ))}
-                    </div>
+                      </option>
+                      <option className="sort-option">A-Z</option>
+                      <option className="sort-option">Z-A</option>
+                    </select>
                   </div>
-                )}
+                  <div className="posts-list-view">
+                    {this.props.agencies
+                      .filter(
+                        (agency) =>
+                          agency.agencyName
+                            .toLowerCase()
+                            .includes(this.state.search.toLowerCase()) &&
+                          agency.agencyState.includes(this.state.state)
+                      )
+                      .map((agency) => (
+                        <AgencyCard agency={agency} />
+                      ))}
+                  </div>
+                </div>
               </div>
             </MDBContainer>
           </MDBMask>
@@ -167,9 +150,5 @@ const mapStateToProps = (state) => {
     agencies: state.agencies
   };
 };
-const mapDispatchToProps = () => {
-  return {
-    filtreAgency: () => dispatchEvent(filtreAgency)
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
+
+export default connect(mapStateToProps)(PostsList);

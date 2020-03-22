@@ -1,10 +1,21 @@
-import { Posts } from "./PostsData"
+import { posts } from "./PostsData";
 
-export default function Posts (state = Posts, action) {
-    switch (action.type) {
-      case 'ADD_POSTS':
-        return state.concat([action.text])
-      default:
-        return state
-    }
+const initialState = {
+  posts
+};
+
+export const postsReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case "ADDPOSTS":
+      return { ...state };
+    case "DELETEPOST":
+      return { ...state };
+    case "EDITPOST":
+      return { ...state };
+    case "FILTREPOST":
+      return { ...state, search: payload };
+    default:
+      return state;
   }
+};
