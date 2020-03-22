@@ -25,7 +25,7 @@ class PostsList extends Component {
       state: "",
       minPricePerDay: 0,
       maxPricePerDay: 999999999999999999,
-      brand: "",
+      brand1: "",
       search1: "",
       model1: "",
       fuel1: "",
