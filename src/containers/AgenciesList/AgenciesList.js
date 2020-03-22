@@ -1,6 +1,15 @@
 import React, { Component } from "react";
-
-import { MDBMask, MDBView, MDBContainer, MDBInput, MDBIcon } from "mdbreact";
+import { connect } from "react-redux";
+import { filtreAgency } from "../../redux/agency/AgencyAction";
+import {
+  MDBMask,
+  MDBView,
+  MDBContainer,
+  MDBInput,
+  MDBIcon,
+  MDBBtn
+} from "mdbreact";
+import AgencyCard from "./AgencyCard";
 
 class PostsList extends Component {
   constructor(props) {
@@ -14,7 +23,9 @@ class PostsList extends Component {
       minPricePerDay: 0,
       maxPricePerDay: 0,
       previous: "previous",
-      addPicture: ""
+      addPicture: "",
+      search: "",
+      sort: ""
     };
   }
   render() {
@@ -30,6 +41,7 @@ class PostsList extends Component {
                     icon="search"
                     className="white-text search-input"
                     size="sm"
+                    onChange={(e) => this.setState({ search: e.target.value })}
                   />
                 </div>
                 <div className="posts-filtre-select white-text">
@@ -92,9 +104,57 @@ class PostsList extends Component {
                     <option className="option-filtre-post">Zaghouan</option>
                   </select>
                 </div>
+                <MDBBtn color="info">Search</MDBBtn>
               </div>
 
-              <div className="posts-list-view"></div>
+              <div>
+                {this.props.agencies.length === 0 ? (
+                  <h1 id="empty-agency">Sorry, there is no agency </h1>
+                ) : (
+                  <div>
+                    <div className="sort-agencies">
+                      <label className="sort-label">
+                        Sort by:
+                      </label>
+                      <select
+                        onChange={(e) =>
+                          this.setState({ sort: e.target.value })
+                        }
+                        className="sort-select"
+                      >
+                          <option
+                          className="sort-option"
+                          value=""
+                          selected
+                        >
+                        ---
+                        </option>
+                        <option
+                          className="sort-option"
+                        >
+                        A-Z
+                        </option>
+                        <option
+                          className="sort-option"
+                        >
+                        Z-A
+                        </option>
+                      </select>
+                    </div>
+                    <div className="posts-list-view">
+                      {this.props.agencies
+                        .filter(
+                          (agency) =>
+                            agency.agencyName.toLowerCase().includes(this.state.search.toLowerCase()) &&
+                            agency.agencyState.includes(this.state.state)
+                        )
+                        .map((agency) => (
+                          <AgencyCard agency={agency} />
+                        ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </MDBContainer>
           </MDBMask>
         </MDBView>
@@ -102,4 +162,14 @@ class PostsList extends Component {
     );
   }
 }
-export default PostsList;
+const mapStateToProps = (state) => {
+  return {
+    agencies: state.agencies
+  };
+};
+const mapDispatchToProps = () => {
+  return {
+    filtreAgency: () => dispatchEvent(filtreAgency)
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(PostsList);

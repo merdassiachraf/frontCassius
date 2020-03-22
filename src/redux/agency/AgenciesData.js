@@ -1,4 +1,4 @@
-const agencies = [
+export const agencies = [
   {
     id: 0,
     agencyName: "Merdassi",
@@ -68,7 +68,7 @@ const agencies = [
     id: 5,
     agencyName: "Mega Car",
     agencyAdress: "on face de lycée Franko Arab",
-    agencystate: "Bizerte",
+    agencyState: "Bizerte",
     agencyCountry: "Tunisia",
     agencyCountryCode: "+216",
     agencyPhoneNumber: 90000000,

@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import 'react-dates/initialize';
+import {Provider} from 'react-redux'
 
+import * as serviceWorker from "./serviceWorker";
+
+import App from "./App";
+import store from "./Store"
 
 //liens Css Local
 import "./containers/NavBar/NavBar.css";
@@ -18,6 +20,7 @@ import "./containers/AgenciesList/AgenciesList.css"
 import "./containers/PostsList/PostsList.css"
 import "./containers/PostUser/PostUser.css"
 import "./containers/ClientProfil/ClientProfil.css"
+import "./containers/AgenciesList/AgencyCard.css"
 
 
 //lien css Mdboostrap
@@ -25,15 +28,12 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css'; 
-
 import 'antd/dist/antd.css'; 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

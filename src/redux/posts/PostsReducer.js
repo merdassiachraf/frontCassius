@@ -1,4 +1,4 @@
-import { Posts } from "../data/Posts"
+import { Posts } from "./PostsData"
 
 export default function Posts (state = Posts, action) {
     switch (action.type) {

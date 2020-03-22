@@ -1005,7 +1005,7 @@ class AddPost extends Component {
                               <MDBInput
                                 icon="location-arrow"
                                 label="Adress"
-                                onChange={(e) => this.setState({ agency })}
+                                onChange={(e) => this.setState({ agencyAdress:e.target.value })}
                               />
 
                               <div className="full-selector">
