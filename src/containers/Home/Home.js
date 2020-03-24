@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 import Icon from "../../atests/logo/Icon";
 
 import {
@@ -48,29 +50,34 @@ class Home extends Component {
                           <MDBIcon
                             className="text-danger"
                             icon="fas fa-star-and-crescent"
-                          ></MDBIcon> &nbsp;
+                          ></MDBIcon>{" "}
+                          &nbsp;
                           <MDBIcon className="text-danger" icon="heart" />
                         </h1>
                         <hr className="hr-light white-text" />
                       </div>
                       <div className="home-buttons">
-                        <MDBBtn
-                          className="font-weight-bold black-text"                          
-                          color="success"
-                          style={{ fontSize: 21, height: 70, width: 300 }}
-                        >
-                          Start Navigation &nbsp; &nbsp;
-                          <MDBIcon icon="shopping-cart" />
-                        </MDBBtn>
-                        <MDBBtn
-                          className="font-weight-bold "
-                          color="amber"
-                          style={{ fontSize: 21, height: 70, width: 300 }}
-                        >
-                          <MDBIcon icon="star" />
-                          &nbsp; &nbsp; Sign Up &nbsp; &nbsp;
-                          <MDBIcon icon="star" />
-                        </MDBBtn>
+                        <Link to="/posts_list">
+                          <MDBBtn
+                            className="font-weight-bold black-text"
+                            color="success"
+                            style={{ fontSize: 21, height: 70, width: 300 }}
+                          >
+                            Start Navigation &nbsp; &nbsp;
+                            <MDBIcon icon="shopping-cart" />
+                          </MDBBtn>
+                        </Link>
+                        <Link to="/signup">
+                          <MDBBtn
+                            className="font-weight-bold "
+                            color="amber"
+                            style={{ fontSize: 21, height: 70, width: 300 }}
+                          >
+                            <MDBIcon icon="star" />
+                            &nbsp; &nbsp; Sign Up &nbsp; &nbsp;
+                            <MDBIcon icon="star" />
+                          </MDBBtn>
+                        </Link>
                       </div>
                     </div>
                   </MDBAnimation>

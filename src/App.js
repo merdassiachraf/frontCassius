@@ -1,5 +1,7 @@
 import React from "react";
 
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import NavBar from "./containers/NavBar/NavBar";
 import Home from "./containers/Home/Home";
 import AddPost from "./containers/AddPost/AddPost";
@@ -14,19 +16,23 @@ import ClientProfil from "./containers/ClientProfil/ClientProfil";
 
 function App() {
   return (
-      <div className="App">
+    <div className="App">
+      <Router>
         <NavBar />
-        {/* <AddPost/> */}
-        {/* <Home/> */}
-        {/* <SignUp/> */}
-        {/* <Login/> */}
-        {/* <AgencyProfil/> */}
-        {/* <PostPage/> */}
-        {/* <AgenciesList/> */}
-        <PostsList/>
-        {/* <PostUser/> */}
-        {/* <ClientProfil /> */}
-      </div>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/add_post" component={AddPost} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={Login} />
+          <Route path="/agency" component={AgencyProfil} />
+          <Route path="/post" component={PostPage} />
+          <Route path="/agencies_list" component={AgenciesList} />
+          <Route path="/posts_list" component={PostsList} />
+          <Route path="/post_user" component={PostUser} />
+          <Route path="/client_user" component={ClientProfil} />
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

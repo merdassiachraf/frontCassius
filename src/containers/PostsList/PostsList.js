@@ -47,6 +47,26 @@ class PostsList extends Component {
       maxPricePerDay: this.state.maxPricePerDay1
     });
   };
+  handleClickReset = () => {
+    this.setState({
+      search: "",
+      brand: "",
+      model: "",
+      fuel: "",
+      transmission: "",
+      state: "",
+      minPricePerDay: 0,
+      maxPricePerDay: 999999999999999999,
+      search1: "",
+      brand1: "",
+      model1: "",
+      fuel1: "",
+      transmission1: "",
+      state1: "",
+      minPricePerDay1: 0,
+      maxPricePerDay1: 999999999999999999
+    });
+  };
   render() {
     return (
       <div id="">
@@ -61,6 +81,7 @@ class PostsList extends Component {
                     className="white-text "
                     size="sm"
                     onChange={(e) => this.setState({ search1: e.target.value })}
+                    value={this.state.search1}
                   />
                 </div>
                 <div className="filtre-price white-text">
@@ -76,6 +97,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ minPricePerDay1: e.target.value })
                       }
+                      value={this.state.minPricePerDay1}
                     />
                   </div>
                   <div className="vertical-price">
@@ -89,6 +111,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ maxPricePerDay1: e.target.value })
                       }
+                      value={this.state.maxPricePerDay1}
                     />
                   </div>
                 </div>
@@ -101,6 +124,7 @@ class PostsList extends Component {
                   <select
                     onChange={(e) => this.setState({ brand1: e.target.value })}
                     className="select-posts-filtre"
+                    value={this.state.brand1}
                   >
                     <option className="option-filtre-post" value="" selected>
                       Choose the brand
@@ -126,6 +150,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -158,6 +183,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -179,7 +205,7 @@ class PostsList extends Component {
                       <option className="option-filtre-post">H350</option>
                     </select>
                   </div>
-                ) : this.state.brand === "Ford" ? (
+                ) : this.state.brand1 === "Ford" ? (
                   <div className="posts-filtre-select white-text">
                     <label className="label-posts-filtre">
                       <MDBIcon icon="question-circle" />
@@ -187,7 +213,10 @@ class PostsList extends Component {
                     </label>
                     <select
                       className="select-posts-filtre"
-                      onChange={(e) => this.setState({ model1: e.target.value })}
+                      onChange={(e) =>
+                        this.setState({ model1: e.target.value })
+                      }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -216,6 +245,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -244,6 +274,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -271,6 +302,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="ooption-filtre-post" value="" selected>
                         Choose the Model
@@ -299,6 +331,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -327,6 +360,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the Model
@@ -355,6 +389,7 @@ class PostsList extends Component {
                       onChange={(e) =>
                         this.setState({ model1: e.target.value })
                       }
+                      value={this.state.model1}
                     >
                       <option className="option-filtre-post" value="" selected>
                         Choose the brand first
@@ -370,6 +405,7 @@ class PostsList extends Component {
                   <select
                     onChange={(e) => this.setState({ fuel1: e.target.value })}
                     className="select-posts-filtre"
+                    value={this.state.fuel1}
                   >
                     <option className="option-filtre-post" value="" selected>
                       Choose the fuel
@@ -391,6 +427,7 @@ class PostsList extends Component {
                       })
                     }
                     className="select-posts-filtre"
+                    value={this.state.transmission1}
                   >
                     <option className="option-filtre-post" value="" selected>
                       Choose the transmission
@@ -423,6 +460,7 @@ class PostsList extends Component {
                   <select
                     onChange={(e) => this.setState({ state1: e.target.value })}
                     className="select-posts-filtre"
+                    value={this.state.state1}
                   >
                     <option className="option-filtre-post" value="" selected>
                       Choose the state
@@ -453,7 +491,22 @@ class PostsList extends Component {
                     <option className="option-filtre-post">Zaghouan</option>
                   </select>
                 </div>
-                <MDBBtn color="amber" onClick={this.handleClickSearch}>Search</MDBBtn>
+                <div>
+                  <MDBBtn
+                    color="amber"
+                    size="sm"
+                    onClick={this.handleClickSearch}
+                  >
+                    Search
+                  </MDBBtn>
+                  <MDBBtn
+                    color="danger"
+                    size="sm"
+                    onClick={this.handleClickReset}
+                  >
+                    Reset
+                  </MDBBtn>
+                </div>
               </div>
 
               <div className="posts-list-view">

@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import {
   MDBNavbar,
-  MDBNavbarBrand,
   MDBNavbarNav,
   MDBNavItem,
   MDBNavLink,
@@ -16,7 +16,6 @@ import {
   MDBContainer
 } from "mdbreact";
 import Icon from "../../atests/logo/Icon";
-
 
 class NavBar extends React.Component {
   state = {
@@ -38,83 +37,81 @@ class NavBar extends React.Component {
     );
     return (
       <div id="addpicture-main">
-        <Router>
-          <div>
-            <MDBNavbar dark expand="md" fixed="top">
-              <MDBContainer>
-                {/* <MDBNavbarBrand className="logo-home-name" style={{height:10}}><strong>
+        <div>
+          <MDBNavbar dark expand="md" fixed="top">
+            <MDBContainer>
+              {/* <MDBNavbarBrand className="logo-home-name" style={{height:10}}><strong>
                   <Icon/>CASSIUS</strong>
                 </MDBNavbarBrand> */}
-                <MDBNavbarToggler
-                  onClick={this.toggleCollapse("navbarCollapse")}
-                />
-                <MDBCollapse
-                  id="navbarCollapse"
-                  isOpen={this.state.collapseID}
-                  navbar
-                >
-                  <MDBNavbarNav left>
-                    <MDBNavItem active>
-                      <MDBNavLink
-                        className=" font-weight-normal left-navbar"
-                        to="#!"
+              <MDBNavbarToggler
+                onClick={this.toggleCollapse("navbarCollapse")}
+              />
+              <MDBCollapse
+                id="navbarCollapse"
+                isOpen={this.state.collapseID}
+                navbar
+              >
+                <MDBNavbarNav left>
+                  <MDBNavItem>
+                    <MDBNavLink
+                      className=" font-weight-normal left-navbar"
+                      to="/"
+                    >
+                      Home
+                    </MDBNavLink>
+                  </MDBNavItem>
+                  <MDBNavItem>
+                    <MDBNavLink
+                      className=" font-weight-normal left-navbar"
+                      to="posts_list"
+                    >
+                      Posts
+                    </MDBNavLink>
+                  </MDBNavItem>
+                  <MDBNavItem>
+                    <MDBNavLink
+                      className=" font-weight-normal left-navbar"
+                      to="/agencies_list"
+                    >
+                      Agencies
+                    </MDBNavLink>
+                  </MDBNavItem>
+                </MDBNavbarNav>
+                <MDBNavbarNav right>
+                  <MDBNavItem>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        nav
+                        caret
+                        className="font-weight-normal right-navbar"
                       >
-                        Home
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink
-                        className=" font-weight-normal left-navbar"
-                        to="#!"
-                      >
-                        Posts
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink
-                        className=" font-weight-normal left-navbar"
-                        to="#!"
-                      >
-                        Agencies
-                      </MDBNavLink>
-                    </MDBNavItem>
-                  </MDBNavbarNav>
-                  <MDBNavbarNav right>
-                    <MDBNavItem>
-                      <MDBDropdown>
-                        <MDBDropdownToggle
-                          nav
-                          caret
-                          className="font-weight-normal right-navbar"
+                        <MDBIcon icon="user" /> &nbsp;Account
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu className="dropdown-default">
+                        <MDBNavLink
+                          to="/signup"
+                          className="font-weight-normal Account-connection black-text font-weight-normal"
                         >
-                          <MDBIcon icon="user" /> &nbsp;Account
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu className="dropdown-default">
-                          <MDBDropdownItem
-                            className="font-weight-normal account-connection font-weight-normal"
-                            href="#!"
-                          >
-                            <MDBIcon icon="sign-in-alt" /> &nbsp;&nbsp; Sign Up
-                          </MDBDropdownItem>
-                          <hr className=" black-text" />
+                          <MDBIcon icon="sign-in-alt" /> &nbsp;&nbsp; Sign Up
+                        </MDBNavLink>
+                        <hr className=" black-text" />
 
-                          <MDBDropdownItem
-                            className="font-weight-normal Account-connection font-weight-normal"
-                            href="#!"
-                          >
-                            <MDBIcon far icon="user-circle" />
-                            &nbsp;&nbsp; Login
-                          </MDBDropdownItem>
-                        </MDBDropdownMenu>
-                      </MDBDropdown>
-                    </MDBNavItem>
-                  </MDBNavbarNav>
-                </MDBCollapse>
-              </MDBContainer>
-            </MDBNavbar>
-            {this.state.collapseID && overlay}
-          </div>
-        </Router>
+                        <MDBNavLink
+                          className="font-weight-normal black-text Account-connection font-weight-normal"
+                          to="/signin"
+                        >
+                          <MDBIcon far icon="user-circle" />
+                          &nbsp;&nbsp; Sign In
+                        </MDBNavLink>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBNavItem>
+                </MDBNavbarNav>
+              </MDBCollapse>
+            </MDBContainer>
+          </MDBNavbar>
+          {this.state.collapseID && overlay}
+        </div>
       </div>
     );
   }

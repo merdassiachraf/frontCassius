@@ -15,7 +15,7 @@ export const PostCard = ({ post }) => {
           </h6>
           <h6>{post.pricePerDay} dt/day</h6>
         </div>
-        <div>
+        <div className="avatar-post">
           <Avatar
             style={{ backgroundColor: "#87d068" }}
             src={post.agencyPicture}
