@@ -156,14 +156,11 @@ class AddPost extends Component {
                       Create your account for free
                     </h1>
                     <hr className="hr-light white-text" />
-                    <h5 bold className="mb-4 white-text ">
-                      Choose the type of your account :
-                    </h5>
                     <div className="account-types">
                       <MDBBtn
                         disabled={this.state.clientActive}
                         color="warning"
-                        className="white-text font-weight-bold d-flex  account-type"
+                        className="white-text font-weight-bold d-flex  account-type choose-type"
                         onClick={this.handleClickClient}
                       >
                         Client&nbsp;&nbsp;
@@ -172,7 +169,7 @@ class AddPost extends Component {
                       <MDBBtn
                         disabled={this.state.agencyActive}
                         color="success"
-                        className="white-text font-weight-bold d-flex account-type"
+                        className="white-text font-weight-bold d-flex account-type choose-type"
                         onClick={this.handleClickAgency}
                       >
                         Agency&nbsp;&nbsp;
@@ -193,10 +190,15 @@ class AddPost extends Component {
                       <MDBAnimation type="fadeInRight" delay=".3s">
                         <MDBCard
                           id="classic-card "
-                          style={{ padding: 20, width: 440, marginTop: 50 }}
+                          style={{
+                            padding: 20,
+                            width: 660,
+                            height: 570,
+                            marginTop: 20
+                          }}
                         >
                           <MDBCardBody className="white-text social-body">
-                            <h4 className="white-text">Sign up with</h4>
+                            <h4 className="white-text">Sign up with :</h4>
                             <div className="row Fmy-3 auth-buttons ">
                               <MDBBtn
                                 type="button"
@@ -251,7 +253,15 @@ class AddPost extends Component {
                   ) : (
                     <MDBCol md="" xl="5" className="mb-4 all-post-card">
                       <MDBAnimation type="fadeInRight" delay=".3s">
-                        <MDBCard id="classic-card" style={{ width: 540 }}>
+                        <MDBCard
+                          id="classic-card"
+                          style={{
+                            padding: 20,
+                            width: 660,
+                            height: 570,
+                            marginTop: 20
+                          }}
+                        >
                           <MDBCardBody className="white-text">
                             <h3 className=" text-center add-title font-weight-bold">
                               <MDBIcon icon="user-edit" />
@@ -1131,10 +1141,15 @@ class AddPost extends Component {
                       <MDBAnimation type="fadeInRight" delay=".3s">
                         <MDBCard
                           id="classic-card "
-                          style={{ padding: 20, width: 440, marginTop: 50 }}
+                          style={{
+                            padding: 20,
+                            width: 660,
+                            height: 570,
+                            marginTop: 20
+                          }}
                         >
                           <MDBCardBody className="white-text social-body">
-                            <h4 className="white-text">Sign up with</h4>
+                            <h4 className="white-text">Sign up with :</h4>
                             <div className="row Fmy-3 auth-buttons ">
                               <MDBBtn
                                 type="button"
@@ -1399,13 +1414,10 @@ class AddPost extends Component {
                     className="mb-4 all-post-card social-auth"
                   >
                     <MDBAnimation type="fadeInRight" delay=".3s">
-                      <MDBCard
-                        id="classic-card "
-                        style={{ padding: 20, width: 440, marginTop: 50 }}
-                      >
+                    
                         <MDBCardBody className="white-text social-body">
-                          <h4 className="white-text">
-                            Or choose the type of your account please on the
+                          <h1 className="white-text">
+                            Choose the type of your account please on the
                             left side
                             <br />
                             <MDBIcon
@@ -1413,9 +1425,8 @@ class AddPost extends Component {
                               size="lg"
                               icon="arrow-alt-circle-left"
                             />
-                          </h4>
+                          </h1>
                         </MDBCardBody>
-                      </MDBCard>
                     </MDBAnimation>
                   </MDBCol>
                 )}

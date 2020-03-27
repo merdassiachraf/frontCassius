@@ -77,6 +77,8 @@
 .social-body {
   display: flex;
   flex-direction: column;
+  width : 90%;
+  margin-top:100px;
 }
 .account-types {
   display: flex;
@@ -90,4 +92,7 @@
 display: flex;
 justify-content: space-between;
 align-items: center;
+}
+.choose-type{
+  width:200px;
 }

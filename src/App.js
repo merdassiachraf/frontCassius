@@ -20,16 +20,16 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/add_post" component={AddPost} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={Login} />
-          <Route path="/agency" component={AgencyProfil} />
-          <Route path="/post" component={PostPage} />
-          <Route path="/agencies_list" component={AgenciesList} />
-          <Route path="/posts_list" component={PostsList} />
-          <Route path="/post_user" component={PostUser} />
-          <Route path="/client_user" component={ClientProfil} />
+          <Route path="/" name="Cassius" exact component={Home} />
+          <Route path="/add_post" name="Add Post" component={AddPost} />
+          <Route path="/signup" name="Register" component={SignUp} />
+          <Route path="/signin" name="Sign In" component={Login} />
+          <Route path="/agency" name ="" component={AgencyProfil} />
+          <Route path="/post" name="" component={PostPage} />
+          <Route path="/agencies_list" name="Agencies List" component={AgenciesList} />
+          <Route path="/posts_list" name="Posts List" component={PostsList} />
+          <Route path="/post_user" name="" component={PostUser} />
+          <Route path="/client_user" name="" component={ClientProfil} />
         </Switch>
       </Router>
     </div>
