@@ -44,7 +44,17 @@
 }
 .reservation-time{
   display: flex;
+  align-items: center;
 }
 .reservation-label{
   font-size: 15px;
+}
+.calcul-total{
+  display: flex;
+  align-items: center;
+}
+.price-view{
+font-family: monospace;
+margin:0 15px;
+border-bottom: solid 2px gray;
 }

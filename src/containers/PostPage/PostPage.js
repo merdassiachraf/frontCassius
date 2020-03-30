@@ -24,7 +24,29 @@ class PostPage extends Component {
     startDate: "",
     endDate: "",
     startTime: "",
-    endtTime: ""
+    endTime: "",
+    totalOfDays: 0,
+    pricePerDay: 120,
+    totalPrice: 0
+  };
+
+  handleCalculDays = () => {
+    var start = new Date(this.state.startDate);
+    var end = new Date(this.state.endDate);
+    var total = 0;
+    this.state.endDate != "" && this.state.startDate != ""
+      ? this.state.endDate > this.state.startDate
+        ? (total = (end - start) / 86400000)
+        : alert("superieur")
+      : alert("put start and end");
+    this.setState({ totalOfDays: total });
+  };
+
+  handleTotalPrice = () => {
+    this.handleCalculDays();
+    this.setState({
+      totalPrice: this.state.totalOfDays * this.state.pricePerDay
+    });
   };
 
   toggle = () => {
@@ -33,7 +55,7 @@ class PostPage extends Component {
     });
   };
   render() {
-    console.log(this.state.dayCount);
+    console.log(this.state.totalOfDays);
     return (
       <div>
         <MDBView src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -122,7 +144,10 @@ class PostPage extends Component {
                   </MDBModalHeader>
                   <MDBModalBody>
                     <MDBAlert className="alert-notice" color="success">
-                      <h4 className="alert-heading"><MDBIcon icon="exclamation-triangle" />&nbsp;&nbsp; Important</h4>
+                      <h4 className="alert-heading">
+                        <MDBIcon icon="exclamation-triangle" />
+                        &nbsp;&nbsp; Important
+                      </h4>
                       <hr />
                       <p className="mb-0">
                         Whenever you need to, be sure to use margin utilities to
@@ -165,13 +190,28 @@ class PostPage extends Component {
                         type="time"
                         value={this.state.startTime}
                         size="sm"
+                        onChange={(e) =>
+                          this.setState({ endTime: e.target.value })
+                        }
                       />
                     </div>
                     <div className="reservation-time">
-                      <h6>Price per day : </h6>
+                      <h5>Price per day : </h5>{" "}
+                      <h5 className="price-view"> {this.state.pricePerDay} </h5>
+                      <h5>dt/day</h5>
                     </div>
-                    <div className="reservation-time">
-                      <h6>Total : </h6>
+                    <div className="calcul-total">
+                      <h5>Total : </h5>{" "}
+                      <h5 className="price-view">{this.state.totalPrice}</h5>
+                      <MDBBtn
+                        rounded
+                        size="sm"
+                        onClick={this.handleTotalPrice}
+                        outline
+                        color="primary"
+                      >
+                        Calcul
+                      </MDBBtn>
                     </div>
                   </MDBModalBody>
                   <MDBModalFooter>
