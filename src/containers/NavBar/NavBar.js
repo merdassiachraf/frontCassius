@@ -13,18 +13,18 @@ import {
   MDBDropdownToggle,
   MDBCollapse,
   MDBIcon,
-  MDBContainer
+  MDBContainer,
 } from "mdbreact";
 import Icon from "../../atests/logo/Icon";
 
 class NavBar extends React.Component {
   state = {
-    collapseID: ""
+    collapseID: "",
   };
 
   toggleCollapse = (collapseID) => () =>
     this.setState((prevState) => ({
-      collapseID: prevState.collapseID !== collapseID ? collapseID : ""
+      collapseID: prevState.collapseID !== collapseID ? collapseID : "",
     }));
 
   render() {
@@ -57,7 +57,8 @@ class NavBar extends React.Component {
                       className=" font-weight-normal left-navbar"
                       to="/"
                     >
-                      Home
+                      <MDBIcon icon="home" />
+                      &nbsp; Home
                     </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
@@ -65,15 +66,16 @@ class NavBar extends React.Component {
                       className=" font-weight-normal left-navbar"
                       to="posts_list"
                     >
-                      Posts
+                      <MDBIcon icon="car-alt" />
+                      &nbsp;&nbsp;Posts
                     </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
                     <MDBNavLink
                       className=" font-weight-normal left-navbar"
                       to="/agencies_list"
-                    >
-                      Agencies
+                    ><MDBIcon icon="id-card-alt" />
+                      &nbsp; Agencies
                     </MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>

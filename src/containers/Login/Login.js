@@ -29,6 +29,7 @@ class Login extends Component {
       },
     };
   }
+
   changeHandler = (event) => {
     this.setState({
       [event.target.name]: {
@@ -37,7 +38,9 @@ class Login extends Component {
       },
     });
   };
+
   render() {
+    console.log(this.state.password ,"password", this.state.email,"Email")
     return (
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/38537/woodland-road-falling-leaf-natural-38537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
