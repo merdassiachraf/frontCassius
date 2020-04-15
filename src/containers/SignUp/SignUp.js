@@ -54,13 +54,13 @@ class AddPost extends Component {
     });
   };
 
-  submitHandler = (event) => {
-    event.preventDefault();
-    event.target.className += " was-validated";
+  submitHandler = (e) => {
+    e.preventDefault();
+    e.target.className += " was-validated";
   };
 
-  changeHandler = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleChangeName = (e) => {
@@ -212,9 +212,13 @@ class AddPost extends Component {
                               &nbsp; &nbsp; Github
                             </MDBBtn>
                           </div>
-                          <div>
-                            <MDBBtn onClick={this.handleClickFields}>
-                              Sign Up
+                          <div className="field-button">
+                            <MDBBtn
+                              className="font-weight-bold black-text"
+                              onClick={this.handleClickFields}
+                            >
+                              Sign Up &nbsp;
+                              <MDBIcon icon="share" />
                             </MDBBtn>
                           </div>
                         </MDBCardBody>
@@ -237,7 +241,7 @@ class AddPost extends Component {
                         <MDBCardBody className="white-text">
                           <h3 className=" text-center add-title font-weight-bold">
                             <MDBIcon icon="user-edit" />
-                            &nbsp; "Your Information"
+                            &nbsp; Your Information
                           </h3>
                           <hr className="hr-light" />
                           <form
@@ -286,7 +290,8 @@ class AddPost extends Component {
                                 />
                                 <small
                                   id="emailHelp"
-                                  className="form-text text-muted white-text"
+                                  className="form-text white-text"
+                                  style={{ fontSize: 11 }}
                                 >
                                   We'll never share your email with anyone else.
                                 </small>
@@ -345,12 +350,13 @@ class AddPost extends Component {
                                 <label
                                   className="custom-control-label"
                                   htmlFor="invalidCheck"
+                                  style={{ fontSize: 15 }}
                                 >
                                   Agree to terms and conditions
                                 </label>
                                 <div
                                   className="invalid-feedback"
-                                  style={{ height: 250 }}
+                                  style={{ fontSize: 15 }}
                                 >
                                   You must agree before submitting.
                                 </div>
@@ -367,8 +373,9 @@ class AddPost extends Component {
                                     : this.handleClickAgency
                                 }
                               >
-                                Social Account &nbsp; &nbsp;
-                                <MDBIcon icon="hand-point-left" size="lg" />
+                                {" "}
+                                <MDBIcon icon="reply" size="lg" />
+                                &nbsp; &nbsp; Social Account
                               </MDBBtn>
                               <MDBBtn
                                 type="submit"
@@ -387,7 +394,7 @@ class AddPost extends Component {
                   </MDBCol>
                 ) : this.state.accountStep === "Fill the fields" &&
                   this.state.role === "Agency" ? (
-                    <MDBCol md="" xl="5" className="mb-4 all-post-card">
+                  <MDBCol md="" xl="5" className="mb-4 all-post-card">
                     <MDBAnimation type="fadeInRight" delay=".3s">
                       <MDBCard
                         id="classic-card"
@@ -401,7 +408,7 @@ class AddPost extends Component {
                         <MDBCardBody className="white-text">
                           <h3 className=" text-center add-title font-weight-bold">
                             <MDBIcon icon="clipboard-list" />
-                            &nbsp; "Agency Information"
+                            &nbsp; Agency Information
                           </h3>
                           <hr className="hr-light" />
                           <form
@@ -412,8 +419,8 @@ class AddPost extends Component {
                             <MDBRow>
                               <MDBCol md="4" className="mb-3">
                                 <MDBInput
-                                  icon="user"
-                                  label="name"
+                                  icon="chess-rook"
+                                  label="Agency name"
                                   value={this.state.name}
                                   name="name"
                                   onChange={this.changeHandler}
@@ -437,7 +444,8 @@ class AddPost extends Component {
                                 />
                                 <small
                                   id="emailHelp"
-                                  className="form-text text-muted"
+                                  className="form-text white-text"
+                                  style={{ fontSize: 11 }}
                                 >
                                   We'll never share your email with anyone else.
                                 </small>
@@ -496,10 +504,14 @@ class AddPost extends Component {
                                 <label
                                   className="custom-control-label"
                                   htmlFor="invalidCheck"
+                                  style={{ fontSize: 15 }}
                                 >
                                   Agree to terms and conditions
                                 </label>
-                                <div className="invalid-feedback">
+                                <div
+                                  className="invalid-feedback"
+                                  style={{ fontSize: 15 }}
+                                >
                                   You must agree before submitting.
                                 </div>
                               </div>
@@ -515,8 +527,8 @@ class AddPost extends Component {
                                     : this.handleClickAgency
                                 }
                               >
-                                Social Account &nbsp; &nbsp;
-                                <MDBIcon icon="hand-point-left" size="lg" />
+                                <MDBIcon icon="reply" size="lg" />
+                                &nbsp; &nbsp; Social Account
                               </MDBBtn>
                               <MDBBtn
                                 type="submit"
@@ -532,8 +544,7 @@ class AddPost extends Component {
                         </MDBCardBody>
                       </MDBCard>
                     </MDBAnimation>
-                    </MDBCol>
-                  
+                  </MDBCol>
                 ) : (
                   <MDBCol
                     md=""
