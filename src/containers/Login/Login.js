@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 import {
   MDBMask,
@@ -12,10 +12,31 @@ import {
   MDBIcon,
   MDBCard,
   MDBModalFooter,
-  MDBCardBody
+  MDBCardBody,
 } from "mdbreact";
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: {
+        value: "",
+        valid: false,
+      },
+      password: {
+        value: "",
+        valid: false,
+      },
+    };
+  }
+  changeHandler = (event) => {
+    this.setState({
+      [event.target.name]: {
+        value: event.target.value,
+        valid: !!event.target.value,
+      },
+    });
+  };
   render() {
     return (
       <div id="classicformpage">
@@ -26,7 +47,7 @@ class Login extends Component {
                 <MDBCol md="6">
                   <MDBCard
                     className="login-card"
-                    style={{ width: 400 , height:550, background: "white" }}
+                    style={{ width: 400, height: 550, background: "white" }}
                   >
                     <MDBCardBody className="mx-4">
                       <div className="text-center">
@@ -35,18 +56,28 @@ class Login extends Component {
                         </h3>
                       </div>
                       <MDBInput
-                        label="Your email"
-                        group
+                        value={this.state.email.value}
+                        className={
+                          this.state.email.valid ? "is-valid" : "is-invalid"
+                        }
+                        onChange={this.changeHandler}
                         type="email"
                         validate
-                        error="wrong"
-                        success="right"
-                        className="black-text"
+                        id="materialFormRegisterConfirmEx3"
+                        name="email"
+                        label="Your Email address"
                         icon="envelope"
                       />
                       <MDBInput
+                      value={this.state.password.value}
+                        className={
+                          this.state.password.valid ? "is-valid" : "is-invalid"
+                        }
+                        onChange={this.changeHandler}
+                        type="email"
+                        id="materialFormRegisterConfirmEx3"
+                        name="password"
                         label="Your password"
-                        group
                         type="password"
                         validate
                         containerClass="mb-0"
@@ -104,7 +135,7 @@ class Login extends Component {
                           color="black"
                           outline
                           className="z-depth-1a"
-                          style={{ width: 55,marginLeft:15 }}
+                          style={{ width: 55, marginLeft: 15 }}
                         >
                           <MDBIcon fab icon="github" className="black-text" />
                         </MDBBtn>
@@ -114,9 +145,10 @@ class Login extends Component {
                       <p className="font-small grey-text d-flex justify-content-end">
                         Not a member?
                         <Link to="/signup">
-                        <a href="#!" className="blue-text ml-1">
-                          Sign Up 
-                        </a></Link>
+                          <a href="#!" className="blue-text ml-1">
+                            Sign Up
+                          </a>
+                        </Link>
                       </p>
                     </MDBModalFooter>
                   </MDBCard>

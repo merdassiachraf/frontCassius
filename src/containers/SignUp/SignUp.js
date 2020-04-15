@@ -19,128 +19,92 @@ class AddPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newClient: {
-        clientPicture: "",
-        clientAdress: "",
-        clientState: "",
-        clientCountry: "",
-        clientCountryCode: "",
-        clientPhoneNumber: 0,
-        clientName: "",
-        clientEmail: "",
-        clientConfirmEmail: "",
-        clientPassword: "",
-        clientConfirmPassword: "",
-      },
-      account: "",
-      newAgency: {
-        agencyPicture: "",
-        agencyAdress: "",
-        agencyState: "",
-        agencyCountry: "",
-        agencyCountryCode: "",
-        agencyPhoneNumber: 0,
-        agencyName: "",
-        agencyEmail: "",
-        agencyConfirmEmail: "",
-        agencyPassword: "",
-        agencyConfirmPassword: "",
-      },
-      agencyActive: false,
-      clientActive: false,
-      normalAccountAgency: false,
-      socialAccountAgency: true,
-      normalAccountClient: false,
-      socialAccountClient: true,
+      role: "",
+      accountStep: "",
+      agencyButton: false,
+      clientButton: false,
+      fname: "",
+      lname: "",
+      email: "",
+      confirmEmail: "",
+      password: "",
+      confirmPassword: "",
     };
   }
+
   handleClickClient = () => {
-    this.handleClickSocialAgency();
     this.setState({
-      clientActive: true,
-      account: "Client",
-      agencyActive: false,
+      role: "Client",
+      accountStep: "Social",
+      agencyButton: false,
+      clientButton: true,
     });
   };
   handleClickAgency = () => {
-    this.handleClickSocialClient();
     this.setState({
-      agencyActive: true,
-      account: "Agency",
-      clientActive: false,
+      role: "Agency",
+      accountStep: "Social",
+      agencyButton: true,
+      clientButton: false,
     });
   };
-  handleClickNormalAgency = () => {
+  handleClickFields = () => {
     this.setState({
-      normalAccountAgency: true,
-      socialAccountAgency: false,
-      normalAccountClient: false,
-      socialAccountClient: true,
+      accountStep: "Fill the fields",
     });
-  };
-  handleClickSocialAgency = () => {
-    this.setState({
-      normalAccountAgency: false,
-      socialAccountAgency: true,
-      normalAccountClient: false,
-      socialAccountClient: true,
-    });
-  };
-  handleClickNormalClient = () => {
-    this.setState({
-      normalAccountAgency: false,
-      socialAccountAgency: true,
-      normalAccountClient: true,
-      socialAccountClient: false,
-    });
-  };
-  handleClickSocialClient = () => {
-    this.setState({
-      normalAccountAgency: false,
-      socialAccountAgency: true,
-      normalAccountClient: false,
-      socialAccountClient: true,
-    });
-  };
-  handleClientAlert = () => {
-    if (this.state.clientPicture === "") return alert("");
-    if (this.state.clientAdress === "") return alert("Must put ");
-    if (this.state.clientState === "")
-      return alert("ou indicate the state where you live");
-    if (this.state.clientCountry === "") return alert("");
-    if (this.state.clientCountryCode === "") return alert("");
-    if (this.state.clientPhoneNumber === 0) return alert("");
-    if (this.state.clientName === "") return alert("");
-    if (this.state.clientEmail === "") return alert("");
-    if (this.state.clientConfirmEmail === this.state.clientEmail)
-      return alert("");
-    if (this.state.clientPassword === "") return alert("");
-    if (this.state.clientConfirmPassword === this.state.clientPassword)
-      return alert("");
-  };
-  handleAgencyAlert = () => {
-    if (this.state.agencyPicture === "") return alert("");
-    if (this.state.agencyAdress === "") return alert("Must put ");
-    if (this.state.agencyState === "")
-      return alert("ou indicate the state where you live");
-    if (this.state.agencyCountry === "") return alert("");
-    if (this.state.agencyCountryCode === "") return alert("");
-    if (this.state.agencyPhoneNumber === 0) return alert("");
-    if (this.state.agencyName === "") return alert("");
-    if (this.state.agencyEmail === "") return alert("");
-    if (this.state.agencyConfirmEmail === this.state.agencyEmail)
-      return alert("");
-    if (this.state.agencyPassword === "") return alert("");
-    if (this.state.agencyConfirmPassword === this.state.agencyPassword)
-      return alert("");
   };
 
-  onSubmit = (e) => {
-    axios
-      .post("/users/signup", newUser)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.response.data));
+  submitHandler = (event) => {
+    event.preventDefault();
+    event.target.className += " was-validated";
   };
+
+  changeHandler = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleChangeName = (e) => {
+    this.changeHandler(e);
+    this.setState({ name: e.target.value });
+  };
+
+  handleChangeFname = (e) => {
+    this.changeHandler(e);
+    this.setState({ fname: e.target.value });
+  };
+
+  handleChangeLname = (e) => {
+    this.changeHandler(e);
+    this.setState({ lname: e.target.value });
+  };
+
+  handleChangePassword = (e) => {
+    this.changeHandler(e);
+    this.setState({ password: e.target.value });
+  };
+
+  handleChangePassword2 = (e) => {
+    this.changeHandler(e);
+    this.setState({ confirmPassword: e.target.value });
+  };
+
+  handleChangeEmail = (e) => {
+    this.changeHandler(e);
+    this.setState({ email: e.target.value });
+  };
+
+  handleChangeEmail2 = (e) => {
+    this.changeHandler(e);
+    this.setState({ confirmEmail: e.target.value });
+  };
+
+  // onSubmit = (e) => {
+  //   axios
+  //     .post("/users/signup", newUser)
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err.response.data));
+  // };
+
   render() {
     console.log(
       "normal:",
@@ -166,18 +130,18 @@ class AddPost extends Component {
                     <hr className="hr-light white-text" />
                     <div className="account-types">
                       <MDBBtn
-                        disabled={this.state.clientActive}
+                        disabled={this.state.clientButton}
                         color="warning"
-                        className="white-text font-weight-bold d-flex  account-type choose-type"
+                        className="black-text font-weight-bold d-flex account-type choose-type"
                         onClick={this.handleClickClient}
                       >
                         Client&nbsp;&nbsp;
                         <MDBIcon icon="user" />
                       </MDBBtn>
                       <MDBBtn
-                        disabled={this.state.agencyActive}
+                        disabled={this.state.agencyButton}
                         color="success"
-                        className="white-text font-weight-bold d-flex account-type choose-type"
+                        className="black-text font-weight-bold d-flex account-type choose-type"
                         onClick={this.handleClickAgency}
                       >
                         Agency&nbsp;&nbsp;
@@ -186,312 +150,390 @@ class AddPost extends Component {
                     </div>
                   </MDBAnimation>
                 </MDBCol>
+                {this.state.accountStep === "Social" &&
+                (this.state.role === "Client" ||
+                  this.state.role === "Agency") ? (
+                  <MDBCol
+                    md=""
+                    xl="5"
+                    className="mb-4 all-post-card social-auth"
+                  >
+                    <MDBAnimation type="fadeInRight" delay=".3s">
+                      <MDBCard
+                        id="classic-card "
+                        style={{
+                          padding: 20,
+                          width: 660,
+                          height: 570,
+                          marginTop: 20,
+                        }}
+                      >
+                        <MDBCardBody className="white-text social-body">
+                          <h4 className="white-text">Sign up with :</h4>
+                          <div className="row Fmy-3 auth-buttons ">
+                            <MDBBtn
+                              type="button"
+                              color="blue"
+                              className="mr-md-3 z-depth-1a white-text"
+                              style={{ width: 250, height: 50 }}
+                            >
+                              <MDBIcon
+                                fab
+                                icon="facebook-f"
+                                className=" white-text text-center"
+                              />
+                              &nbsp; &nbsp; Facebook
+                            </MDBBtn>
+                            <MDBBtn
+                              type="button"
+                              color="danger"
+                              className="z-depth-1a white-text"
+                              style={{ width: 250, height: 50 }}
+                            >
+                              <MDBIcon
+                                fab
+                                icon="google-plus-g"
+                                className=" white-text "
+                              />
+                              &nbsp; &nbsp; Google+
+                            </MDBBtn>
 
-                {this.state.account === "Client" ? (
-                  this.state.normalAccountClient === false &&
-                  this.state.socialAccountClient === true ? (
-                    <MDBCol
-                      md=""
-                      xl="5"
-                      className="mb-4 all-post-card social-auth"
-                    >
-                      <MDBAnimation type="fadeInRight" delay=".3s">
-                        <MDBCard
-                          id="classic-card "
-                          style={{
-                            padding: 20,
-                            width: 660,
-                            height: 570,
-                            marginTop: 20,
-                          }}
-                        >
-                          <MDBCardBody className="white-text social-body">
-                            <h4 className="white-text">Sign up with :</h4>
-                            <div className="row Fmy-3 auth-buttons ">
-                              <MDBBtn
-                                type="button"
-                                color="blue"
-                                className="mr-md-3 z-depth-1a white-text"
-                                style={{ width: 250, height: 50 }}
-                              >
-                                <MDBIcon
-                                  fab
-                                  icon="facebook-f"
-                                  className=" white-text text-center"
-                                />
-                                &nbsp; &nbsp; Facebook
-                              </MDBBtn>
-                              <MDBBtn
-                                type="button"
-                                color="danger"
-                                className="z-depth-1a white-text"
-                                style={{ width: 250, height: 50 }}
-                              >
-                                <MDBIcon
-                                  fab
-                                  icon="google-plus-g"
-                                  className=" white-text "
-                                />
-                                &nbsp; &nbsp; Google+
-                              </MDBBtn>
-
-                              <MDBBtn
-                                type="button"
-                                color="black"
-                                className="z-depth-1a white-text"
-                                style={{ width: 250, height: 50 }}
-                              >
-                                <MDBIcon
-                                  fab
-                                  icon="github"
-                                  className=" white-text"
-                                />
-                                &nbsp; &nbsp; Github
-                              </MDBBtn>
-                            </div>
-                            <div>
-                              <MDBBtn onClick={this.handleClickNormalClient}>
-                                normal account
-                              </MDBBtn>
-                            </div>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBAnimation>
-                    </MDBCol>
-                  ) : (
-                    <MDBCol md="" xl="5" className="mb-4 all-post-card">
-                      <MDBAnimation type="fadeInRight" delay=".3s">
-                        <MDBCard
-                          id="classic-card"
-                          style={{
-                            padding: 20,
-                            width: 660,
-                            height: 570,
-                            marginTop: 20,
-                          }}
-                        >
-                          <MDBCardBody className="white-text">
-                            <h3 className=" text-center add-title font-weight-bold">
-                              <MDBIcon icon="user-edit" />
-                              &nbsp;Your Information
-                            </h3>
-                            <hr className="hr-light" />
-                            <div className="All-selector">
-                              <div className="left-side-selector">
+                            <MDBBtn
+                              type="button"
+                              color="black"
+                              className="z-depth-1a white-text"
+                              style={{ width: 250, height: 50 }}
+                            >
+                              <MDBIcon
+                                fab
+                                icon="github"
+                                className=" white-text"
+                              />
+                              &nbsp; &nbsp; Github
+                            </MDBBtn>
+                          </div>
+                          <div>
+                            <MDBBtn onClick={this.handleClickFields}>
+                              Sign Up
+                            </MDBBtn>
+                          </div>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBAnimation>
+                  </MDBCol>
+                ) : this.state.accountStep === "Fill the fields" &&
+                  this.state.role === "Client" ? (
+                  <MDBCol md="" xl="5" className="mb-4 all-post-card">
+                    <MDBAnimation type="fadeInRight" delay=".3s">
+                      <MDBCard
+                        id="classic-card"
+                        style={{
+                          padding: 20,
+                          width: 660,
+                          height: 570,
+                          marginTop: 20,
+                        }}
+                      >
+                        <MDBCardBody className="white-text">
+                          <h3 className=" text-center add-title font-weight-bold">
+                            <MDBIcon icon="user-edit" />
+                            &nbsp; "Your Information"
+                          </h3>
+                          <hr className="hr-light" />
+                          <form
+                            className="needs-validation"
+                            onSubmit={this.submitHandler}
+                            noValidate
+                          >
+                            <MDBRow>
+                              <MDBCol md="4" className="mb-3">
                                 <MDBInput
                                   icon="user"
-                                  label="Firts Name"
-                                  onChange={(e) =>
-                                    this.setState({
-                                      clientName: e.target.value,
-                                    })
-                                  }
+                                  label="First name"
+                                  value={this.state.fname}
+                                  name="fname"
+                                  onChange={this.handleChangeFname}
+                                  type="text"
+                                  id="defaultFormRegisterNameEx"
+                                  className="form-control white-text"
+                                  required
                                 />
+                              </MDBCol>
+                              <MDBCol md="4" className="mb-3">
                                 <MDBInput
                                   icon="user"
-                                  label="Last Name"
-                                  onChange={(e) =>
-                                    this.setState({
-                                      clientName: e.target.value,
-                                    })
-                                  }
+                                  label="Last name"
+                                  value={this.state.lname}
+                                  name="lname"
+                                  onChange={this.handleChangeLname}
+                                  type="text"
+                                  id="defaultFormRegisterEmailEx2"
+                                  className="form-control white-text"
+                                  required
                                 />
+                              </MDBCol>
+                              <MDBCol md="4" className="mb-3">
                                 <MDBInput
-                                  icon="envelope-open"
-                                  label="E-mail"
-                                  onChange={(e) =>
-                                    this.setState({
-                                      clientEmail: e.target.value,
-                                    })
-                                  }
+                                  icon="envelope"
+                                  label="Email"
+                                  value={this.state.email}
+                                  onChange={this.handleChangeEmail}
+                                  type="email"
+                                  id="defaultFormRegisterConfirmEx3"
+                                  className="form-control white-text"
+                                  name="email"
+                                  required
                                 />
-                                <MDBInput
-                                  icon="envelope-open"
-                                  label="Confirm E-mail"
-                                  onChange={(e) =>
-                                    this.setState({
-                                      clientConfirmEmail: e.target.value,
-                                    })
-                                  }
-                                />
-                                <MDBInput
-                                  icon="unlock-alt"
-                                  label="Password"
-                                  onChange={(e) =>
-                                    this.setState({
-                                      clientPassword: e.target.value,
-                                    })
-                                  }
-                                />
-                                <MDBInput
-                                  icon="unlock-alt"
-                                  label="Confirm Password"
-                                  onChange={(e) =>
-                                    this.setState({
-                                      clientConfirmPassword: e.target.value,
-                                    })
-                                  }
-                                />
-                              </div>
-                            </div>
-                            <div className="text-center mt-4 black-text">
-                              <div className=" choose-account">
-                                <MDBBtn
-                                  className=" font-weight-bold  btn-md"
-                                  color="warning"
-                                  style={{ fontSize: 14 }}
-                                  onClick={this.handleClickSocialClient}
+                                <small
+                                  id="emailHelp"
+                                  className="form-text text-muted white-text"
                                 >
-                                  Social Account &nbsp; &nbsp;
-                                  <MDBIcon icon="hand-point-left" size="lg" />
-                                </MDBBtn>
-                                <MDBBtn
-                                  className=" font-weight-bold  btn-md"
-                                  color="deep-orange"
-                                  style={{ fontSize: 14 }}
+                                  We'll never share your email with anyone else.
+                                </small>
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBRow>
+                              <MDBCol md="4" className="mb-3">
+                                <MDBInput
+                                  icon="envelope"
+                                  label="Confirm email"
+                                  value={this.state.confirmEmail}
+                                  onChange={this.handleChangeEmail2}
+                                  type="email"
+                                  id="defaultFormRegisterPasswordEx4"
+                                  className="form-control white-text"
+                                  name="confirmEmail"
+                                  required
+                                />
+                              </MDBCol>
+                              <MDBCol md="4" className="mb-3">
+                                <MDBInput
+                                  value={this.state.password}
+                                  label="password"
+                                  icon="unlock-alt"
+                                  onChange={this.handleChangePassword}
+                                  type="password"
+                                  id="defaultFormRegisterPasswordEx5"
+                                  className="form-control white-text"
+                                  name="state"
+                                  required
+                                />
+                              </MDBCol>
+                              <MDBCol md="4" className="mb-3">
+                                <MDBInput
+                                  value={this.state.confirmPassword}
+                                  icon="unlock-alt"
+                                  label="Confirm password"
+                                  onChange={this.handleChangePassword2}
+                                  type="password"
+                                  id="defaultFormRegisterPasswordEx6"
+                                  className="form-control white-text"
+                                  name="confirmPassword"
+                                  required
+                                />
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBCol md="4" className="mb-3">
+                              <div className="custom-control custom-checkbox pl-3">
+                                <input
+                                  className="custom-control-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="invalidCheck"
+                                  required
+                                />
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor="invalidCheck"
                                 >
-                                  Register &nbsp; &nbsp;
-                                  <MDBIcon icon="save" size="lg" />
-                                </MDBBtn>
+                                  Agree to terms and conditions
+                                </label>
+                                <div
+                                  className="invalid-feedback"
+                                  style={{ height: 250 }}
+                                >
+                                  You must agree before submitting.
+                                </div>
                               </div>
-                            </div>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBAnimation>
-                    </MDBCol>
-                  )
-                ) : this.state.account === "Agency" ? (
-                  this.state.normalAccountAgency === false &&
-                  this.state.socialAccountAgency === true ? (
-                    <MDBCol
-                      md=""
-                      xl="5"
-                      className="mb-4 all-post-card social-auth"
-                    >
-                      <MDBAnimation type="fadeInRight" delay=".3s">
-                        <MDBCard
-                          id="classic-card "
-                          style={{
-                            padding: 20,
-                            width: 660,
-                            height: 570,
-                            marginTop: 20,
-                          }}
-                        >
-                          <MDBCardBody className="white-text social-body">
-                            <h4 className="white-text">Sign up with :</h4>
-                            <div className="row Fmy-3 auth-buttons ">
+                            </MDBCol>
+                            <div className=" choose-account text-center mt-4 black-text">
                               <MDBBtn
-                                type="button"
-                                color="blue"
-                                className="mr-md-3 z-depth-1a white-text"
-                                style={{ width: 250, height: 50 }}
+                                className=" font-weight-bold  btn-md"
+                                color="warning"
+                                style={{ fontSize: 14 }}
+                                onClick={
+                                  this.state.role === "Client"
+                                    ? this.handleClickClient
+                                    : this.handleClickAgency
+                                }
                               >
-                                <MDBIcon
-                                  fab
-                                  icon="facebook-f"
-                                  className=" white-text text-center"
-                                />
-                                &nbsp; &nbsp; Facebook
+                                Social Account &nbsp; &nbsp;
+                                <MDBIcon icon="hand-point-left" size="lg" />
                               </MDBBtn>
                               <MDBBtn
-                                type="button"
-                                color="danger"
-                                className="z-depth-1a white-text"
-                                style={{ width: 250, height: 50 }}
+                                type="submit"
+                                className=" font-weight-bold  btn-md"
+                                color="deep-orange"
+                                style={{ fontSize: 14 }}
                               >
-                                <MDBIcon
-                                  fab
-                                  icon="google-plus-g"
-                                  className=" white-text "
-                                />
-                                &nbsp; &nbsp; Google+
-                              </MDBBtn>
-
-                              <MDBBtn
-                                type="button"
-                                color="black"
-                                className="z-depth-1a white-text"
-                                style={{ width: 250, height: 50 }}
-                              >
-                                <MDBIcon
-                                  fab
-                                  icon="github"
-                                  className=" white-text"
-                                />
-                                &nbsp; &nbsp; Github
+                                Register &nbsp; &nbsp;
+                                <MDBIcon icon="save" size="lg" />
                               </MDBBtn>
                             </div>
-                            <div>
-                              <MDBBtn onClick={this.handleClickNormalAgency}>
-                                normal account
-                              </MDBBtn>
-                            </div>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBAnimation>
-                    </MDBCol>
-                  ) : (
+                          </form>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBAnimation>
+                  </MDBCol>
+                ) : this.state.accountStep === "Fill the fields" &&
+                  this.state.role === "Agency" ? (
                     <MDBCol md="" xl="5" className="mb-4 all-post-card">
-                      <MDBAnimation type="fadeInRight" delay=".3s">
-                        <MDBCard id="classic-card" style={{ width: 540 }}>
-                          <MDBCardBody className="white-text">
-                            <h3 className=" text-center add-title font-weight-bold">
-                              <MDBIcon icon="building" />
-                              &nbsp;Your Agency Information
-                            </h3>
-                            <hr className="hr-light" />
-                            <div className="All-selector">
-                              <div className="left-side-selector">
+                    <MDBAnimation type="fadeInRight" delay=".3s">
+                      <MDBCard
+                        id="classic-card"
+                        style={{
+                          padding: 20,
+                          width: 660,
+                          height: 570,
+                          marginTop: 20,
+                        }}
+                      >
+                        <MDBCardBody className="white-text">
+                          <h3 className=" text-center add-title font-weight-bold">
+                            <MDBIcon icon="clipboard-list" />
+                            &nbsp; "Agency Information"
+                          </h3>
+                          <hr className="hr-light" />
+                          <form
+                            className="needs-validation"
+                            onSubmit={this.submitHandler}
+                            noValidate
+                          >
+                            <MDBRow>
+                              <MDBCol md="4" className="mb-3">
                                 <MDBInput
-                                  icon="vihara"
-                                  label="Agency Name"
-                                  onchange={(e) =>
-                                    this.setState({
-                                      name: e.target.value,
-                                    })
-                                  }
+                                  icon="user"
+                                  label="name"
+                                  value={this.state.name}
+                                  name="name"
+                                  onChange={this.changeHandler}
+                                  type="text"
+                                  id="defaultFormRegisterEmailEx"
+                                  className="form-control"
+                                  required
                                 />
-                              </div>
-                              <div className="right-side-selector">
-                                <MDBInput icon="envelope-open" label="E-mail" />
+                              </MDBCol>
+                              <MDBCol md="4" className="mb-3">
                                 <MDBInput
-                                  icon="envelope-open"
-                                  label="Confirm E-mail"
+                                  icon="envelope"
+                                  label="Email"
+                                  value={this.state.email}
+                                  onChange={this.changeHandler}
+                                  type="email"
+                                  id="defaultFormRegisterConfirmEx2"
+                                  className="form-control"
+                                  name="email"
+                                  required
                                 />
-                                <MDBInput icon="unlock-alt" label="Password" />
+                                <small
+                                  id="emailHelp"
+                                  className="form-text text-muted"
+                                >
+                                  We'll never share your email with anyone else.
+                                </small>
+                              </MDBCol>
+                              <MDBCol md="4" className="mb-3">
+                                <MDBInput
+                                  icon="envelope"
+                                  label="Confirm email"
+                                  value={this.state.confirmEmail}
+                                  onChange={this.changeHandler}
+                                  type="email"
+                                  id="defaultFormRegisterPasswordEx3"
+                                  className="form-control"
+                                  name="confirmEmail"
+                                  required
+                                />
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBRow>
+                              <MDBCol md="4" className="mb-3">
+                                <MDBInput
+                                  label="password"
+                                  icon="unlock-alt"
+                                  value={this.state.password}
+                                  onChange={this.changeHandler}
+                                  type="password"
+                                  id="defaultFormRegisterPasswordEx4"
+                                  className="form-control"
+                                  name="password"
+                                  required
+                                />
+                              </MDBCol>
+                              <MDBCol md="4" className="mb-3">
                                 <MDBInput
                                   icon="unlock-alt"
-                                  label="Confirm Password"
+                                  label="Confirm password"
+                                  value={this.state.confirmPassword}
+                                  onChange={this.changeHandler}
+                                  type="password"
+                                  id="defaultFormRegisterPasswordEx4"
+                                  className="form-control"
+                                  name="confirmPassword"
+                                  required
                                 />
-                              </div>
-                            </div>
-                            <div className="text-center mt-4 black-text">
-                              <div className=" choose-account">
-                                <MDBBtn
-                                  className=" font-weight-bold  btn-md"
-                                  color="warning"
-                                  style={{ fontSize: 14 }}
-                                  onClick={this.handleClickSocialAgency}
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBCol md="4" className="mb-3">
+                              <div className="custom-control custom-checkbox pl-3">
+                                <input
+                                  className="custom-control-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="invalidCheck"
+                                  required
+                                />
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor="invalidCheck"
                                 >
-                                  Social Account &nbsp; &nbsp;
-                                  <MDBIcon icon="hand-point-left" size="lg" />
-                                </MDBBtn>
-                                <MDBBtn
-                                  className=" font-weight-bold  btn-md"
-                                  color="deep-orange"
-                                  style={{ fontSize: 14 }}
-                                >
-                                  Register &nbsp; &nbsp;
-                                  <MDBIcon icon="save" size="lg" />
-                                </MDBBtn>
+                                  Agree to terms and conditions
+                                </label>
+                                <div className="invalid-feedback">
+                                  You must agree before submitting.
+                                </div>
                               </div>
+                            </MDBCol>
+                            <div className=" choose-account text-center mt-4 black-text">
+                              <MDBBtn
+                                className=" font-weight-bold  btn-md"
+                                color="warning"
+                                style={{ fontSize: 14 }}
+                                onClick={
+                                  this.state.role === "Client"
+                                    ? this.handleClickClient
+                                    : this.handleClickAgency
+                                }
+                              >
+                                Social Account &nbsp; &nbsp;
+                                <MDBIcon icon="hand-point-left" size="lg" />
+                              </MDBBtn>
+                              <MDBBtn
+                                type="submit"
+                                className=" font-weight-bold  btn-md"
+                                color="deep-orange"
+                                style={{ fontSize: 14 }}
+                              >
+                                Register &nbsp; &nbsp;
+                                <MDBIcon icon="save" size="lg" />
+                              </MDBBtn>
                             </div>
-                          </MDBCardBody>
-                        </MDBCard>
-                      </MDBAnimation>
+                          </form>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBAnimation>
                     </MDBCol>
-                  )
+                  
                 ) : (
                   <MDBCol
                     md=""
