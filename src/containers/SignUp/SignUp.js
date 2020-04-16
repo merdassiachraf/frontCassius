@@ -84,12 +84,11 @@ class AddPost extends Component {
     this.setState({ agree: !this.state.agree });
   };
   onAgreeModal = (e) => {
-    this.toggle()
+    this.toggle();
     this.setState({ agree: true });
   };
 
   submitHandler = (e) => {
-    e.preventDefault();
     e.target.className += " was-validated";
   };
 
@@ -122,6 +121,7 @@ class AddPost extends Component {
   };
 
   onSubmit = (e) => {
+    e.preventDefault();
     this.onAlert();
     if (
       this.state.agree === true &&
@@ -147,7 +147,10 @@ class AddPost extends Component {
           confirmPassword: this.state.confirmPassword,
           role: this.state.role,
         };
-        console.log(newUser);
+        axios
+          .post("/users/signup", newUser)
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err.response.data));
       }
       if (this.state.role === "Agency" && this.state.name != "") {
         const newUser = {
@@ -160,14 +163,12 @@ class AddPost extends Component {
           confirmPassword: this.state.confirmPassword,
           role: this.state.role,
         };
+        axios
+          .post("http://localhost:5000/users/signup", newUser)
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
       }
     }
-    // if (newUser != {}) {
-    //   axios
-    //     .post("/users/signup", newUser)
-    //     .then((res) => console.log(res.data))
-    //     .catch((err) => console.log(err.response.data));
-    // }
   };
 
   render() {
@@ -244,62 +245,76 @@ class AddPost extends Component {
                         }}
                       >
                         <MDBCardBody className="white-text social-body">
-                        <div>
-                          <h3 id="social-h3" className="white-text">Sign up with :</h3>
-                          <div className="row Fmy-3 auth-buttons ">
-                            <MDBBtn
-                              type="button"
-                              color="blue"
-                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
-                              style={{ marginTop:20 ,width: 250, height: 50 }}
-                            >
-                              <MDBIcon
-                                fab
-                                icon="facebook-f"
-                                className=" white-text text-center font-weight-bold"
-                              />
-                              &nbsp; &nbsp; Facebook
-                            </MDBBtn>
-                            <MDBBtn
-                              type="button"
-                              color="danger"
-                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
-                              style={{ marginTop:20 ,width: 250, height: 50 }}
-                            >
-                              <MDBIcon
-                                fab
-                                icon="google-plus-g"
-                                className=" white-text font-weight-bold"
-                              />
-                              &nbsp; &nbsp; Google+
-                            </MDBBtn>
+                          <div>
+                            <h3 id="social-h3" className="white-text">
+                              Sign up with :
+                            </h3>
+                            <div className="row Fmy-3 auth-buttons ">
+                              <MDBBtn
+                                type="button"
+                                color="blue"
+                                className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                                style={{
+                                  marginTop: 20,
+                                  width: 250,
+                                  height: 50,
+                                }}
+                              >
+                                <MDBIcon
+                                  fab
+                                  icon="facebook-f"
+                                  className=" white-text text-center font-weight-bold"
+                                />
+                                &nbsp; &nbsp; Facebook
+                              </MDBBtn>
+                              <MDBBtn
+                                type="button"
+                                color="danger"
+                                className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                                style={{
+                                  marginTop: 20,
+                                  width: 250,
+                                  height: 50,
+                                }}
+                              >
+                                <MDBIcon
+                                  fab
+                                  icon="google-plus-g"
+                                  className=" white-text font-weight-bold"
+                                />
+                                &nbsp; &nbsp; Google+
+                              </MDBBtn>
 
-                            <MDBBtn
-                              type="button"
-                              color="black"
-                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
-                              style={{ marginTop:20 ,width: 250, height: 50 }}
-                            >
-                              <MDBIcon
-                                fab
-                                icon="github"
-                                className=" white-text font-weight-bold"
-                              />
-                              &nbsp; &nbsp; Github
-                            </MDBBtn>
-                          </div>
-                          <div className="field-button">
-                            <MDBBtn
-                             color="warning"
+                              <MDBBtn
+                                type="button"
+                                color="black"
+                                className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                                style={{
+                                  marginTop: 20,
+                                  width: 250,
+                                  height: 50,
+                                }}
+                              >
+                                <MDBIcon
+                                  fab
+                                  icon="github"
+                                  className=" white-text font-weight-bold"
+                                />
+                                &nbsp; &nbsp; Github
+                              </MDBBtn>
+                            </div>
+                            <div className="field-button">
+                              <MDBBtn
+                                color="warning"
                                 style={{ fontSize: 14 }}
-                              className="font-weight-bold black-text btn-md"
-                              onClick={this.handleClickFields}
-                              size="lg"
-                            >
-                              Sign Up &nbsp;
-                              <MDBIcon icon="share" />
-                            </MDBBtn>
-                          </div>
+                                className="font-weight-bold black-text btn-md"
+                                onClick={this.handleClickFields}
+                                size="lg"
+                              >
+                                Sign Up &nbsp;
+                                <MDBIcon icon="share" />
+                              </MDBBtn>
+                            </div>
                           </div>
                         </MDBCardBody>
                       </MDBCard>
@@ -419,7 +434,7 @@ class AddPost extends Component {
                               </MDBCol>
                             </MDBRow>
                             <MDBCol md="4" className="mb-3">
-                           <div className="custom-control custom-checkbox pl-3 d-flex">
+                              <div className="custom-control custom-checkbox pl-3 d-flex">
                                 <input
                                   className="custom-control-input"
                                   type="checkbox"
@@ -428,32 +443,32 @@ class AddPost extends Component {
                                   required
                                   checked={this.state.agree}
                                 />
-                                  <div
-                                    className="invalid-feedback"
-                                    style={{ fontSize: 15 }}
-                                  >
-                                    You must agree before submitting.
-                                  </div>
-                                  <label
-                                    className="custom-control-label"
-                                    htmlFor="invalidCheck"
-                                    style={{ fontSize: 15 ,width:200}}
-                                  >
-                                    Agree to &nbsp;
-                                  </label>
-                                  <a
-                                    className="terms"
-                                    onClick={this.toggle}
-                                    style={{
-                                      color: "green",
-                                      fontWeight: "bold",
-                                      fontSize: 17,
-                                      textDecoration: "underline",
-                                    }}
-                                  >
-                                    terms and conditions
-                                  </a>
+                                <div
+                                  className="invalid-feedback"
+                                  style={{ fontSize: 15 }}
+                                >
+                                  You must agree before submitting.
                                 </div>
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor="invalidCheck"
+                                  style={{ fontSize: 15, width: 200 }}
+                                >
+                                  Agree to &nbsp;
+                                </label>
+                                <a
+                                  className="terms"
+                                  onClick={this.toggle}
+                                  style={{
+                                    color: "green",
+                                    fontWeight: "bold",
+                                    fontSize: 17,
+                                    textDecoration: "underline",
+                                  }}
+                                >
+                                  terms and conditions
+                                </a>
+                              </div>
                             </MDBCol>
                             <div className=" choose-account text-center mt-4 black-text">
                               <MDBBtn
@@ -595,32 +610,32 @@ class AddPost extends Component {
                                   required
                                   checked={this.state.agree}
                                 />
-                                  <div
-                                    className="invalid-feedback"
-                                    style={{ fontSize: 15 }}
-                                  >
-                                    You must agree before submitting.
-                                  </div>
-                                  <label
-                                    className="custom-control-label"
-                                    htmlFor="invalidCheck"
-                                    style={{ fontSize: 15 ,width:200}}
-                                  >
-                                    Agree to
-                                  </label>
-                                  <a
-                                    className="terms"
-                                    onClick={this.toggle}
-                                    style={{
-                                      color: "green",
-                                      fontWeight: "bold",
-                                      fontSize: 17,
-                                      textDecoration: "underline",
-                                    }}
-                                  >
-                                    terms and conditions
-                                  </a>
+                                <div
+                                  className="invalid-feedback"
+                                  style={{ fontSize: 15 }}
+                                >
+                                  You must agree before submitting.
                                 </div>
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor="invalidCheck"
+                                  style={{ fontSize: 15, width: 200 }}
+                                >
+                                  Agree to
+                                </label>
+                                <a
+                                  className="terms"
+                                  onClick={this.toggle}
+                                  style={{
+                                    color: "green",
+                                    fontWeight: "bold",
+                                    fontSize: 17,
+                                    textDecoration: "underline",
+                                  }}
+                                >
+                                  terms and conditions
+                                </a>
+                              </div>
                             </MDBCol>
                             <div className=" choose-account text-center mt-4 black-text">
                               <MDBBtn
