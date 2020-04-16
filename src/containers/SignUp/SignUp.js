@@ -13,6 +13,10 @@ import {
   MDBCardBody,
   MDBInput,
   MDBAnimation,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBModalFooter,
 } from "mdbreact";
 
 class AddPost extends Component {
@@ -49,6 +53,7 @@ class AddPost extends Component {
       password: "",
       confirmPassword: "",
       agree: false,
+      modal: false,
     });
   };
   handleClickAgency = () => {
@@ -65,6 +70,7 @@ class AddPost extends Component {
       password: "",
       confirmPassword: "",
       agree: false,
+      errors: {},
     });
   };
 
@@ -77,6 +83,10 @@ class AddPost extends Component {
   onAgree = (e) => {
     this.setState({ agree: !this.state.agree });
   };
+  onAgreeModal = (e) => {
+    this.toggle()
+    this.setState({ agree: true });
+  };
 
   submitHandler = (e) => {
     e.preventDefault();
@@ -88,8 +98,7 @@ class AddPost extends Component {
   };
 
   onAlert = () => {
-    return(
-    this.state.fname === "" && this.state.role === "Client"
+    return this.state.fname === "" && this.state.role === "Client"
       ? alert("First name required")
       : this.state.lname === "" && this.state.role === "Client"
       ? alert("Last name required")
@@ -103,7 +112,13 @@ class AddPost extends Component {
       ? alert("Emails not match")
       : this.state.password != this.state.confirmPassword
       ? alert("Passwords not match")
-      : null)
+      : null;
+  };
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+    });
   };
 
   onSubmit = (e) => {
@@ -120,52 +135,62 @@ class AddPost extends Component {
         this.state.fname != "" &&
         this.state.lname != ""
       ) {
-        const user = {
-          name: this.state.lname.toUpperCase(),
+        const newUser = {
+          name:
+            this.state.lname.toUpperCase() +
+            " " +
+            this.state.fname.charAt(0).toUpperCase() +
+            this.state.fname.slice(1).toLowerCase(),
           email: this.state.email.toLowerCase(),
-          confirmEmail: this.state.confirmEmail,
+          confirmEmail: this.state.confirmEmail.toLowerCase(),
           password: this.state.password,
           confirmPassword: this.state.confirmPassword,
           role: this.state.role,
         };
-        console.log(user);
+        console.log(newUser);
       }
       if (this.state.role === "Agency" && this.state.name != "") {
-        const user = {
-          name: this.state.name.toUpperCase(),
+        const newUser = {
+          name:
+            this.state.name.charAt(0).toUpperCase() +
+            this.state.name.slice(1).toLowerCase(),
           email: this.state.email.toLowerCase(),
-          confirmEmail: this.state.confirmEmail,
+          confirmEmail: this.state.confirmEmail.toLowerCase(),
           password: this.state.password,
           confirmPassword: this.state.confirmPassword,
           role: this.state.role,
         };
-        console.log(user);
       }
     }
+    // if (newUser != {}) {
+    //   axios
+    //     .post("/users/signup", newUser)
+    //     .then((res) => console.log(res.data))
+    //     .catch((err) => console.log(err.response.data));
+    // }
   };
-  // onSubmit = (e) => {
-  //   axios
-  //     .post("/users/signup", newUser)
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err.response.data));
-  // };
 
   render() {
-    console.log(
-      this.state.name,
-      this.state.fname,
-      this.state.lname,
-      this.state.confirmEmail,
-      this.state.email,
-      this.state.password,
-      this.state.confirmPassword
-    );
     return (
       <div id="classicformpage">
         <MDBView src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
             <MDBContainer>
               <MDBRow>
+                <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                  <MDBModalHeader toggle={this.toggle}>
+                    Privacy and GDPR Policy
+                  </MDBModalHeader>
+                  <MDBModalBody>Bla Bla Bla .....</MDBModalBody>
+                  <MDBModalFooter>
+                    <MDBBtn color="secondary" onClick={this.toggle}>
+                      Close
+                    </MDBBtn>
+                    <MDBBtn color="primary" onClick={this.onAgreeModal}>
+                      Agree
+                    </MDBBtn>
+                  </MDBModalFooter>
+                </MDBModal>
                 <MDBCol className="right-animation-add">
                   <MDBAnimation
                     type="fadeInLeft"
@@ -387,29 +412,41 @@ class AddPost extends Component {
                               </MDBCol>
                             </MDBRow>
                             <MDBCol md="4" className="mb-3">
-                              <div className="custom-control custom-checkbox pl-3">
+                           <div className="custom-control custom-checkbox pl-3 d-flex">
                                 <input
                                   className="custom-control-input"
                                   type="checkbox"
-                                  value=""
                                   id="invalidCheck"
                                   onChange={this.onAgree}
                                   required
+                                  checked={this.state.agree}
                                 />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="invalidCheck"
-                                  style={{ fontSize: 15 }}
-                                >
-                                  Agree to terms and conditions
-                                </label>
-                                <div
-                                  className="invalid-feedback"
-                                  style={{ fontSize: 15 }}
-                                >
-                                  You must agree before submitting.
+                                  <div
+                                    className="invalid-feedback"
+                                    style={{ fontSize: 15 }}
+                                  >
+                                    You must agree before submitting.
+                                  </div>
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="invalidCheck"
+                                    style={{ fontSize: 15 ,width:200}}
+                                  >
+                                    Agree to &nbsp;
+                                  </label>
+                                  <a
+                                    className="terms"
+                                    onClick={this.toggle}
+                                    style={{
+                                      color: "green",
+                                      fontWeight: "bold",
+                                      fontSize: 17,
+                                      textDecoration: "underline",
+                                    }}
+                                  >
+                                    terms and conditions
+                                  </a>
                                 </div>
-                              </div>
                             </MDBCol>
                             <div className=" choose-account text-center mt-4 black-text">
                               <MDBBtn
@@ -542,29 +579,41 @@ class AddPost extends Component {
                               </MDBCol>
                             </MDBRow>
                             <MDBCol md="4" className="mb-3">
-                              <div className="custom-control custom-checkbox pl-3">
+                              <div className="custom-control custom-checkbox pl-3 d-flex">
                                 <input
                                   className="custom-control-input"
                                   type="checkbox"
-                                  value=""
                                   id="invalidCheck"
                                   onChange={this.onAgree}
                                   required
+                                  checked={this.state.agree}
                                 />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="invalidCheck"
-                                  style={{ fontSize: 15 }}
-                                >
-                                  Agree to terms and conditions
-                                </label>
-                                <div
-                                  className="invalid-feedback"
-                                  style={{ fontSize: 15 }}
-                                >
-                                  You must agree before submitting.
+                                  <div
+                                    className="invalid-feedback"
+                                    style={{ fontSize: 15 }}
+                                  >
+                                    You must agree before submitting.
+                                  </div>
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="invalidCheck"
+                                    style={{ fontSize: 15 ,width:200}}
+                                  >
+                                    Agree to
+                                  </label>
+                                  <a
+                                    className="terms"
+                                    onClick={this.toggle}
+                                    style={{
+                                      color: "green",
+                                      fontWeight: "bold",
+                                      fontSize: 17,
+                                      textDecoration: "underline",
+                                    }}
+                                  >
+                                    terms and conditions
+                                  </a>
                                 </div>
-                              </div>
                             </MDBCol>
                             <div className=" choose-account text-center mt-4 black-text">
                               <MDBBtn
