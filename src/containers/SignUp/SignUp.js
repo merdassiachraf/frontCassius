@@ -183,11 +183,13 @@ class AddPost extends Component {
                   </MDBModalHeader>
                   <MDBModalBody>Bla Bla Bla .....</MDBModalBody>
                   <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={this.toggle}>
-                      Close
+                    <MDBBtn color="danger" onClick={this.toggle}>
+                      Close&nbsp;
+                      <MDBIcon icon="times" />
                     </MDBBtn>
-                    <MDBBtn color="primary" onClick={this.onAgreeModal}>
-                      Agree
+                    <MDBBtn color="success" onClick={this.onAgreeModal}>
+                      Agree&nbsp;
+                      <MDBIcon icon="check" />
                     </MDBBtn>
                   </MDBModalFooter>
                 </MDBModal>
@@ -242,31 +244,32 @@ class AddPost extends Component {
                         }}
                       >
                         <MDBCardBody className="white-text social-body">
-                          <h4 className="white-text">Sign up with :</h4>
+                        <div>
+                          <h3 id="social-h3" className="white-text">Sign up with :</h3>
                           <div className="row Fmy-3 auth-buttons ">
                             <MDBBtn
                               type="button"
                               color="blue"
-                              className="mr-md-3 z-depth-1a white-text"
-                              style={{ width: 250, height: 50 }}
+                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                              style={{ marginTop:20 ,width: 250, height: 50 }}
                             >
                               <MDBIcon
                                 fab
                                 icon="facebook-f"
-                                className=" white-text text-center"
+                                className=" white-text text-center font-weight-bold"
                               />
                               &nbsp; &nbsp; Facebook
                             </MDBBtn>
                             <MDBBtn
                               type="button"
                               color="danger"
-                              className="z-depth-1a white-text"
-                              style={{ width: 250, height: 50 }}
+                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                              style={{ marginTop:20 ,width: 250, height: 50 }}
                             >
                               <MDBIcon
                                 fab
                                 icon="google-plus-g"
-                                className=" white-text "
+                                className=" white-text font-weight-bold"
                               />
                               &nbsp; &nbsp; Google+
                             </MDBBtn>
@@ -274,25 +277,29 @@ class AddPost extends Component {
                             <MDBBtn
                               type="button"
                               color="black"
-                              className="z-depth-1a white-text"
-                              style={{ width: 250, height: 50 }}
+                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                              style={{ marginTop:20 ,width: 250, height: 50 }}
                             >
                               <MDBIcon
                                 fab
                                 icon="github"
-                                className=" white-text"
+                                className=" white-text font-weight-bold"
                               />
                               &nbsp; &nbsp; Github
                             </MDBBtn>
                           </div>
                           <div className="field-button">
                             <MDBBtn
-                              className="font-weight-bold black-text"
+                             color="warning"
+                                style={{ fontSize: 14 }}
+                              className="font-weight-bold black-text btn-md"
                               onClick={this.handleClickFields}
+                              size="lg"
                             >
                               Sign Up &nbsp;
                               <MDBIcon icon="share" />
                             </MDBBtn>
+                          </div>
                           </div>
                         </MDBCardBody>
                       </MDBCard>

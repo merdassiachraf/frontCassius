@@ -78,7 +78,7 @@
   display: flex;
   flex-direction: column;
   width : 90%;
-  margin-top:100px;
+  margin:40px 0px 0px 120px;
 }
 .account-types {
   display: flex;
@@ -103,4 +103,15 @@ align-items: center;
   display: flex;
   flex-direction: column;
  align-items: flex-start;
+}
+.field-button{
+  margin-top: 100px;
+  margin-left: 300px;
+}
+#social-h3{
+  margin-bottom:50px;
+  font-weight: bold;
+}
+.button-socialAth{
+  margin-top: 40px;
 }
