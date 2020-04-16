@@ -29,7 +29,10 @@ class AddPost extends Component {
       confirmEmail: "",
       password: "",
       confirmPassword: "",
+      agree: false,
+      errors: {},
     };
+    this.changeHandler = this.changeHandler.bind(this);
   }
 
   handleClickClient = () => {
@@ -38,6 +41,14 @@ class AddPost extends Component {
       accountStep: "Social",
       agencyButton: false,
       clientButton: true,
+      name: "",
+      fname: "",
+      lname: "",
+      email: "",
+      confirmEmail: "",
+      password: "",
+      confirmPassword: "",
+      agree: false,
     });
   };
   handleClickAgency = () => {
@@ -46,12 +57,25 @@ class AddPost extends Component {
       accountStep: "Social",
       agencyButton: true,
       clientButton: false,
+      fname: "",
+      lname: "",
+      name: "",
+      email: "",
+      confirmEmail: "",
+      password: "",
+      confirmPassword: "",
+      agree: false,
     });
   };
+
   handleClickFields = () => {
     this.setState({
       accountStep: "Fill the fields",
     });
+  };
+
+  onAgree = (e) => {
+    this.setState({ agree: !this.state.agree });
   };
 
   submitHandler = (e) => {
@@ -63,41 +87,62 @@ class AddPost extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleChangeName = (e) => {
-    this.changeHandler(e);
-    this.setState({ name: e.target.value });
+  onAlert = () => {
+    return(
+    this.state.fname === "" && this.state.role === "Client"
+      ? alert("First name required")
+      : this.state.lname === "" && this.state.role === "Client"
+      ? alert("Last name required")
+      : this.state.name === "" && this.state.role === "Agency"
+      ? alert("Agency name required")
+      : !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email)
+      ? alert("Invalid Email")
+      : this.state.password.length < 8
+      ? alert("Password min length is 8 caracters")
+      : this.state.email != this.state.confirmEmail
+      ? alert("Emails not match")
+      : this.state.password != this.state.confirmPassword
+      ? alert("Passwords not match")
+      : null)
   };
 
-  handleChangeFname = (e) => {
-    this.changeHandler(e);
-    this.setState({ fname: e.target.value });
+  onSubmit = (e) => {
+    this.onAlert();
+    if (
+      this.state.agree === true &&
+      this.state.password === this.state.confirmPassword &&
+      this.state.email === this.state.confirmEmail &&
+      /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email) &&
+      this.state.password.length >= 8
+    ) {
+      if (
+        this.state.role === "Client" &&
+        this.state.fname != "" &&
+        this.state.lname != ""
+      ) {
+        const user = {
+          name: this.state.lname.toUpperCase(),
+          email: this.state.email.toLowerCase(),
+          confirmEmail: this.state.confirmEmail,
+          password: this.state.password,
+          confirmPassword: this.state.confirmPassword,
+          role: this.state.role,
+        };
+        console.log(user);
+      }
+      if (this.state.role === "Agency" && this.state.name != "") {
+        const user = {
+          name: this.state.name.toUpperCase(),
+          email: this.state.email.toLowerCase(),
+          confirmEmail: this.state.confirmEmail,
+          password: this.state.password,
+          confirmPassword: this.state.confirmPassword,
+          role: this.state.role,
+        };
+        console.log(user);
+      }
+    }
   };
-
-  handleChangeLname = (e) => {
-    this.changeHandler(e);
-    this.setState({ lname: e.target.value });
-  };
-
-  handleChangePassword = (e) => {
-    this.changeHandler(e);
-    this.setState({ password: e.target.value });
-  };
-
-  handleChangePassword2 = (e) => {
-    this.changeHandler(e);
-    this.setState({ confirmPassword: e.target.value });
-  };
-
-  handleChangeEmail = (e) => {
-    this.changeHandler(e);
-    this.setState({ email: e.target.value });
-  };
-
-  handleChangeEmail2 = (e) => {
-    this.changeHandler(e);
-    this.setState({ confirmEmail: e.target.value });
-  };
-
   // onSubmit = (e) => {
   //   axios
   //     .post("/users/signup", newUser)
@@ -107,10 +152,13 @@ class AddPost extends Component {
 
   render() {
     console.log(
-      "normal:",
-      this.state.normalAccountAgency,
-      "social:",
-      this.state.socialAccountAgency
+      this.state.name,
+      this.state.fname,
+      this.state.lname,
+      this.state.confirmEmail,
+      this.state.email,
+      this.state.password,
+      this.state.confirmPassword
     );
     return (
       <div id="classicformpage">
@@ -256,7 +304,7 @@ class AddPost extends Component {
                                   label="First name"
                                   value={this.state.fname}
                                   name="fname"
-                                  onChange={this.handleChangeFname}
+                                  onChange={this.changeHandler}
                                   type="text"
                                   id="defaultFormRegisterNameEx"
                                   className="form-control white-text"
@@ -269,7 +317,7 @@ class AddPost extends Component {
                                   label="Last name"
                                   value={this.state.lname}
                                   name="lname"
-                                  onChange={this.handleChangeLname}
+                                  onChange={this.changeHandler}
                                   type="text"
                                   id="defaultFormRegisterEmailEx2"
                                   className="form-control white-text"
@@ -281,7 +329,7 @@ class AddPost extends Component {
                                   icon="envelope"
                                   label="Email"
                                   value={this.state.email}
-                                  onChange={this.handleChangeEmail}
+                                  onChange={this.changeHandler}
                                   type="email"
                                   id="defaultFormRegisterConfirmEx3"
                                   className="form-control white-text"
@@ -303,7 +351,7 @@ class AddPost extends Component {
                                   icon="envelope"
                                   label="Confirm email"
                                   value={this.state.confirmEmail}
-                                  onChange={this.handleChangeEmail2}
+                                  onChange={this.changeHandler}
                                   type="email"
                                   id="defaultFormRegisterPasswordEx4"
                                   className="form-control white-text"
@@ -316,11 +364,11 @@ class AddPost extends Component {
                                   value={this.state.password}
                                   label="password"
                                   icon="unlock-alt"
-                                  onChange={this.handleChangePassword}
+                                  onChange={this.changeHandler}
                                   type="password"
                                   id="defaultFormRegisterPasswordEx5"
                                   className="form-control white-text"
-                                  name="state"
+                                  name="password"
                                   required
                                 />
                               </MDBCol>
@@ -329,7 +377,7 @@ class AddPost extends Component {
                                   value={this.state.confirmPassword}
                                   icon="unlock-alt"
                                   label="Confirm password"
-                                  onChange={this.handleChangePassword2}
+                                  onChange={this.changeHandler}
                                   type="password"
                                   id="defaultFormRegisterPasswordEx6"
                                   className="form-control white-text"
@@ -345,6 +393,7 @@ class AddPost extends Component {
                                   type="checkbox"
                                   value=""
                                   id="invalidCheck"
+                                  onChange={this.onAgree}
                                   required
                                 />
                                 <label
@@ -373,7 +422,6 @@ class AddPost extends Component {
                                     : this.handleClickAgency
                                 }
                               >
-                                {" "}
                                 <MDBIcon icon="reply" size="lg" />
                                 &nbsp; &nbsp; Social Account
                               </MDBBtn>
@@ -382,6 +430,7 @@ class AddPost extends Component {
                                 className=" font-weight-bold  btn-md"
                                 color="deep-orange"
                                 style={{ fontSize: 14 }}
+                                onClick={this.onSubmit}
                               >
                                 Register &nbsp; &nbsp;
                                 <MDBIcon icon="save" size="lg" />
@@ -426,7 +475,7 @@ class AddPost extends Component {
                                   onChange={this.changeHandler}
                                   type="text"
                                   id="defaultFormRegisterEmailEx"
-                                  className="form-control"
+                                  className="form-control white-text"
                                   required
                                 />
                               </MDBCol>
@@ -438,7 +487,7 @@ class AddPost extends Component {
                                   onChange={this.changeHandler}
                                   type="email"
                                   id="defaultFormRegisterConfirmEx2"
-                                  className="form-control"
+                                  className="form-control white-text"
                                   name="email"
                                   required
                                 />
@@ -458,7 +507,7 @@ class AddPost extends Component {
                                   onChange={this.changeHandler}
                                   type="email"
                                   id="defaultFormRegisterPasswordEx3"
-                                  className="form-control"
+                                  className="form-control white-text"
                                   name="confirmEmail"
                                   required
                                 />
@@ -472,8 +521,8 @@ class AddPost extends Component {
                                   value={this.state.password}
                                   onChange={this.changeHandler}
                                   type="password"
-                                  id="defaultFormRegisterPasswordEx4"
-                                  className="form-control"
+                                  id="defaultFormRegisterPasswordEx5"
+                                  className="form-control white-text"
                                   name="password"
                                   required
                                 />
@@ -485,8 +534,8 @@ class AddPost extends Component {
                                   value={this.state.confirmPassword}
                                   onChange={this.changeHandler}
                                   type="password"
-                                  id="defaultFormRegisterPasswordEx4"
-                                  className="form-control"
+                                  id="defaultFormRegisterPasswordEx6"
+                                  className="form-control white-text"
                                   name="confirmPassword"
                                   required
                                 />
@@ -499,6 +548,7 @@ class AddPost extends Component {
                                   type="checkbox"
                                   value=""
                                   id="invalidCheck"
+                                  onChange={this.onAgree}
                                   required
                                 />
                                 <label
@@ -535,6 +585,7 @@ class AddPost extends Component {
                                 className=" font-weight-bold  btn-md"
                                 color="deep-orange"
                                 style={{ fontSize: 14 }}
+                                onClick={this.onSubmit}
                               >
                                 Register &nbsp; &nbsp;
                                 <MDBIcon icon="save" size="lg" />
