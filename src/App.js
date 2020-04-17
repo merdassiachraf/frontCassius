@@ -1,6 +1,10 @@
 import React from "react";
-
+import jwt_decode from "jwt-decode";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import store from "./Store"
+import setAuthToken from "./utils/setAuthToken";
+import { SetCurrentUser } from "./actions/authActions";
 
 import NavBar from "./containers/NavBar/NavBar";
 import Home from "./containers/Home/Home";
@@ -13,6 +17,18 @@ import AgenciesList from "./containers/AgenciesList/AgenciesList";
 import PostsList from "./containers/PostsList/PostsList";
 import PostUser from "./containers/PostUser/PostUser";
 import ClientProfil from "./containers/ClientProfil/ClientProfil";
+
+// Check for token
+if (localStorage.jwtToken) {
+  //Set auth token header auth
+  setAuthToken(localStorage.jwtToken);
+
+  //Decode token and get user info et exp
+  const decoded = jwt_decode(localStorage.jwtToken);
+
+  // set user and isAutheticated
+  store.dispatch(SetCurrentUser(decoded));
+}
 
 function App() {
   return (

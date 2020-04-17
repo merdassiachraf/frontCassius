@@ -2,7 +2,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import { GET_ERRORS ,SET_CURRENT_USER } from "./types";
-import setAuthToken from "../utils/setAuthToken";
+import SetAuthToken from "../utils/setAuthToken";
 
 // Singup
 
@@ -20,7 +20,7 @@ export const SignUpUser = (userData, history) => (dispatch) => {
 
 // Sign In
 
-export const SignInUser = (userData) => (dispatch) => {
+export const SignInUser = userData => dispatch => {
   axios
     .post("/users/signin", userData)
     .then((res) => {
@@ -32,7 +32,7 @@ export const SignInUser = (userData) => (dispatch) => {
       localStorage.setItem("jwtToken", token);
 
       // Set token to auth header
-      setAuthToken(token);
+      SetAuthToken(token);
 
       //decode token to get user data
 
@@ -40,7 +40,7 @@ export const SignInUser = (userData) => (dispatch) => {
 
       // Set current user
 
-      dispatch(setCurrentUser(decoded));
+      dispatch(SetCurrentUser(decoded));
     })
     .catch(err =>
       dispatch({
@@ -52,9 +52,9 @@ export const SignInUser = (userData) => (dispatch) => {
 
 //Set logged in user
 
-export const setCurrentUser = (decoded) => {
+export const SetCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded,
+    payload: decoded
   };
 };
