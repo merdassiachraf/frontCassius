@@ -2,9 +2,9 @@ import React from "react";
 import jwt_decode from "jwt-decode";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import store from "./Store"
+import store from "./Store";
 import setAuthToken from "./utils/setAuthToken";
-import { SetCurrentUser } from "./actions/authActions";
+import { setCurrentUser } from "./actions/authActions";
 
 import NavBar from "./containers/NavBar/NavBar";
 import Home from "./containers/Home/Home";
@@ -27,7 +27,7 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
 
   // set user and isAutheticated
-  store.dispatch(SetCurrentUser(decoded));
+  store.dispatch(setCurrentUser(decoded));
 }
 
 function App() {
