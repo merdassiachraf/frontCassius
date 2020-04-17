@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
+import {withRouter} from "react-router-dom"
+import { connect } from "react-redux";
+import { SignUpUser } from "../../actions/authActions";
 
 import {
   MDBMask,
@@ -19,7 +22,7 @@ import {
   MDBModalFooter,
 } from "mdbreact";
 
-class AddPost extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +39,6 @@ class AddPost extends Component {
       agree: false,
       errors: {},
     };
-    this.changeHandler = this.changeHandler.bind(this);
   }
 
   handleClickClient = () => {
@@ -70,8 +72,13 @@ class AddPost extends Component {
       password: "",
       confirmPassword: "",
       agree: false,
-      errors: {},
     });
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps });
+    }
   };
 
   handleClickFields = () => {
@@ -80,38 +87,21 @@ class AddPost extends Component {
     });
   };
 
-  onAgree = (e) => {
+  onAgree = () => {
     this.setState({ agree: !this.state.agree });
   };
-  onAgreeModal = (e) => {
+  onAgreeModal = () => {
     this.toggle();
     this.setState({ agree: true });
   };
 
   submitHandler = (e) => {
+    e.preventDefault();
     e.target.className += " was-validated";
   };
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onAlert = () => {
-    return this.state.fname === "" && this.state.role === "Client"
-      ? alert("First name required")
-      : this.state.lname === "" && this.state.role === "Client"
-      ? alert("Last name required")
-      : this.state.name === "" && this.state.role === "Agency"
-      ? alert("Agency name required")
-      : !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email)
-      ? alert("Invalid Email")
-      : this.state.password.length < 8
-      ? alert("Password min length is 8 caracters")
-      : this.state.email != this.state.confirmEmail
-      ? alert("Emails not match")
-      : this.state.password != this.state.confirmPassword
-      ? alert("Passwords not match")
-      : null;
   };
 
   toggle = () => {
@@ -120,16 +110,8 @@ class AddPost extends Component {
     });
   };
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.onAlert();
-    if (
-      this.state.agree === true &&
-      this.state.password === this.state.confirmPassword &&
-      this.state.email === this.state.confirmEmail &&
-      /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email) &&
-      this.state.password.length >= 8
-    ) {
+  onSubmit = () => {
+    if (this.state.agree === true) {
       if (
         this.state.role === "Client" &&
         this.state.fname != "" &&
@@ -147,12 +129,9 @@ class AddPost extends Component {
           confirmPassword: this.state.confirmPassword,
           role: this.state.role,
         };
-        axios
-          .post("/users/signup", newUser)
-          .then((res) => console.log(res.data))
-          .catch((err) => console.log(err.response.data));
+        this.props.SignUpUser(newUser,this.props.history);
       }
-      if (this.state.role === "Agency" && this.state.name != "") {
+      if (this.state.role === "Agency") {
         const newUser = {
           name:
             this.state.name.charAt(0).toUpperCase() +
@@ -163,15 +142,13 @@ class AddPost extends Component {
           confirmPassword: this.state.confirmPassword,
           role: this.state.role,
         };
-        axios
-          .post("/users/signup", newUser)
-          .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
+        this.props.SignUpUser(newUser,this.props.history);
       }
     }
   };
 
   render() {
+    console.log(this.state.errors)
     return (
       <div id="classicformpage">
         <MDBView src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg">
@@ -347,7 +324,7 @@ class AddPost extends Component {
                             <MDBRow>
                               <MDBCol md="4" className="mb-3">
                                 <MDBInput
-                                  icon="user"
+                                  icon="id-card"
                                   label="First name"
                                   value={this.state.fname}
                                   name="fname"
@@ -360,7 +337,7 @@ class AddPost extends Component {
                               </MDBCol>
                               <MDBCol md="4" className="mb-3">
                                 <MDBInput
-                                  icon="user"
+                                  icon="id-card"
                                   label="Last name"
                                   value={this.state.lname}
                                   name="lname"
@@ -423,7 +400,7 @@ class AddPost extends Component {
                                 <MDBInput
                                   value={this.state.confirmPassword}
                                   icon="unlock-alt"
-                                  label="Confirm password"
+                                  label="Re-password"
                                   onChange={this.changeHandler}
                                   type="password"
                                   id="defaultFormRegisterPasswordEx6"
@@ -443,12 +420,6 @@ class AddPost extends Component {
                                   required
                                   checked={this.state.agree}
                                 />
-                                <div
-                                  className="invalid-feedback"
-                                  style={{ fontSize: 15 }}
-                                >
-                                  You must agree before submitting.
-                                </div>
                                 <label
                                   className="custom-control-label"
                                   htmlFor="invalidCheck"
@@ -468,6 +439,12 @@ class AddPost extends Component {
                                 >
                                   terms and conditions
                                 </a>
+                                <div
+                                  className="invalid-feedback"
+                                  style={{ fontSize: 15, fontWeight: "bold" }}
+                                >
+                                  You must agree before submitting.
+                                </div>
                               </div>
                             </MDBCol>
                             <div className=" choose-account text-center mt-4 black-text">
@@ -589,7 +566,7 @@ class AddPost extends Component {
                               <MDBCol md="4" className="mb-3">
                                 <MDBInput
                                   icon="unlock-alt"
-                                  label="Confirm password"
+                                  label="Re-password"
                                   value={this.state.confirmPassword}
                                   onChange={this.changeHandler}
                                   type="password"
@@ -610,12 +587,6 @@ class AddPost extends Component {
                                   required
                                   checked={this.state.agree}
                                 />
-                                <div
-                                  className="invalid-feedback"
-                                  style={{ fontSize: 15 }}
-                                >
-                                  You must agree before submitting.
-                                </div>
                                 <label
                                   className="custom-control-label"
                                   htmlFor="invalidCheck"
@@ -635,6 +606,12 @@ class AddPost extends Component {
                                 >
                                   terms and conditions
                                 </a>
+                                <div
+                                  className="invalid-feedback"
+                                  style={{ fontSize: 15, fontWeight: "bold" }}
+                                >
+                                  You must agree before submitting.
+                                </div>
                               </div>
                             </MDBCol>
                             <div className=" choose-account text-center mt-4 black-text">
@@ -697,4 +674,16 @@ class AddPost extends Component {
     );
   }
 }
-export default AddPost;
+
+SignUpUser.PropTypes = {
+  SignUpUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.required,
+  errors: PropTypes.object.required,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { SignUpUser })(withRouter(SignUp));

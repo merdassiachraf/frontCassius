@@ -1,5 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import {withRouter} from "react-router-dom"
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { SignInUser } from "../../actions/authActions";
 
 import {
   MDBMask,
@@ -21,6 +26,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
+      errors: {},
     };
   }
 
@@ -33,22 +39,25 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmit = (e) => {
-    if (
-      /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email) &&
-      this.state.password.length >= 8
-    ) {
-      const user = {
-        email: this.state.email.toLowerCase(),
-        password: this.state.password,
-      };
-    } else if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(this.state.email))
-      alert("Invalid Email");
-    else if (this.state.password.length < 8) alert("Min 8 caracters");
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/agency");
+    }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  };
+
+  onSubmit = () => {
+    const userData = {
+      email: this.state.email.toLowerCase(),
+      password: this.state.password,
+    };
+    this.props.SignInUser(userData);
   };
 
   render() {
-    console.log(this.state.password, "password", this.state.email, "Email");
+    console.log(this.state.errors);
     return (
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/38537/woodland-road-falling-leaf-natural-38537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -176,4 +185,16 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+
+Login.prototypes = {
+  SignInUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { SignInUser })(Login);

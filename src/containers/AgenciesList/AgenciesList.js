@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { filtreAgency } from "../../redux/agency/AgencyAction";
 import {
   MDBMask,
   MDBView,
@@ -145,10 +144,6 @@ class PostsList extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    agencies: state.agencies.agencies
-  };
-};
 
-export default connect(mapStateToProps)(PostsList);
+
+export default connect()(PostsList);
