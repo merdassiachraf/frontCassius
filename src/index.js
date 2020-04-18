@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import {Provider} from 'react-redux'
 
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./App";
-import store from "./Store"
 
 //liens Css Local
 import "./containers/NavBar/NavBar.css";
@@ -14,7 +12,7 @@ import "./containers/AddPost/AddPost.css"
 import "./containers/Home/Home.css"
 import "./containers/SignUp/SignUp.css"
 import "./containers/Login/Login.css"
-import "./containers/AgencyProfil/AgencyProfil.css"
+import "./containers/DashBoard/DashBoard.css"
 import "./containers/PostPage/PostPage.css"
 import "./containers/AgenciesList/AgenciesList.css"
 import "./containers/PostsList/PostsList.css"
@@ -35,7 +33,7 @@ import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
