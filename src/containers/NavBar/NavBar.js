@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { LogoutUser } from "../../actions/authActions";
+import { logoutUser } from "../../actions/authActions";
+
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 import {
   MDBNavbar,
@@ -17,6 +20,7 @@ import {
   MDBCollapse,
   MDBIcon,
   MDBContainer,
+  MDBBtn,
 } from "mdbreact";
 
 import Icon from "../../atests/logo/Icon";
@@ -32,7 +36,7 @@ class NavBar extends React.Component {
     }));
 
   onLogouClick = () => {
-    this.propos.LogoutUser();
+    this.props.logoutUser();
   };
 
   render() {
@@ -40,10 +44,48 @@ class NavBar extends React.Component {
 
     const authLinks = (
       <MDBNavItem>
-        <a href="#" onClick={this.onLogouClick}>
-          <MDBIcon far icon="user-circle" />
-          &nbsp;&nbsp; Log out
-        </a>
+        <MDBDropdown>
+          <MDBDropdownToggle nav caret >
+            <div
+              className="d-none d-md-inline dropdown-essencial"
+              style={{ fontWeight: 600 }}
+            >
+              <Avatar icon={<UserOutlined />} />
+              &nbsp;&nbsp;{user.name}
+            </div>
+          </MDBDropdownToggle>
+          <MDBDropdownMenu className="dropdown-account">
+          <div className="all-dropdown">
+            <div className="dropdown-avatar">
+              <Avatar size={100} icon={<UserOutlined />} />
+            </div>
+            <h6 >{user.name}</h6>
+            <div className="dropdown-button">
+            <hr />
+
+              <MDBBtn
+                type="button"
+                color="warning"
+                size="sm"
+                className="z-depth-1a dropdown-button font-weight-bolder account-button-drop"
+              >
+                Modify profile
+              </MDBBtn>
+              <MDBBtn
+                type="button"
+                color="black"
+                outline
+                size="sm"
+                className="z-depth-1a dropdown-button font-weight-bolder account-button-drop"
+                onClick={this.onLogouClick}
+              >
+                <div>Log Out</div> <MDBIcon size="lg" icon="sign-out-alt" />
+              </MDBBtn>
+            </div>
+            </div>
+          </MDBDropdownMenu>
+
+        </MDBDropdown>
       </MDBNavItem>
     );
 
@@ -73,7 +115,7 @@ class NavBar extends React.Component {
             >
               <MDBDropdownItem>
                 <MDBIcon far icon="user-circle" />
-                &nbsp;&nbsp; Sign In
+                &nbsp;&nbsp; Login
               </MDBDropdownItem>
             </MDBNavLink>
           </MDBDropdownMenu>
@@ -147,7 +189,7 @@ class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  LogoutUser: PropTypes.func.isRequired,
+  logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -155,4 +197,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { LogoutUser })(NavBar);
+export default connect(mapStateToProps, { logoutUser })(NavBar);

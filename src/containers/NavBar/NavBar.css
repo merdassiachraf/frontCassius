@@ -1,7 +1,30 @@
-  .left-navbar{
-      margin:0px 13px;
-      font-size: 17px;
-  }
-  .right-navbar{
-    font-size: 17px;
+.left-navbar {
+  margin: 0px 13px;
+  font-size: 17px;
+}
+.right-navbar {
+  font-size: 17px;
+}
+.dropdown-account {
+  width: 300px;
+  font-weight: 600;
+  font-family: unset;
+  display: flex;
+}
+ .dropdown-avatar {
+  margin: 10px 0px 15px 0px;
+}
+
+.dropdown-essencial {
+  font-size: 15px;
+}
+.account-button-drop {
+  display: flex;
+  width: 130px;
+  height: 46px;
+}
+.all-dropdown{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

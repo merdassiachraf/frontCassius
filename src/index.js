@@ -22,6 +22,7 @@ import "./containers/PostUser/PostUser.css"
 import "./containers/ClientProfil/ClientProfil.css"
 import "./containers/AgenciesList/AgencyCard.css"
 import "./containers/PostsList/PostsCard.css"
+import "./containers/Common/TextFieldGroup.css"
 
 
 //lien css Mdboostrap

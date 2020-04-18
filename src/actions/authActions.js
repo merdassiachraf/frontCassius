@@ -6,9 +6,9 @@ import setAuthToken from "../utils/setAuthToken";
 
 // Singup
 
-export const SignUpUser = (userData, history) => (dispatch) => {
+export const registerUser = (userData, history) => (dispatch) => {
   axios
-    .post("/users/signup", userData)
+    .post("/users/register", userData)
     .then(() => history.push("/signin"))
     .catch((err) =>
       dispatch({
@@ -20,7 +20,7 @@ export const SignUpUser = (userData, history) => (dispatch) => {
 
 // Sign In
 
-export const SignInUser = (userData) => (dispatch) => {
+export const loginUser = (userData) => (dispatch) => {
   axios
     .post("/users/signin", userData)
     .then((res) => {
@@ -60,7 +60,7 @@ export const setCurrentUser = decoded => {
 
 ///Log user out
 
-export const LogoutUser = () => dispatch => {
+export const logoutUser = () => dispatch => {
 
   //Remove token from localStorage
   localStorage.removeItem("jwtToken");

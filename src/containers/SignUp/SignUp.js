@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {withRouter} from "react-router-dom"
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { SignUpUser } from "../../actions/authActions";
+import { registerUser } from "../../actions/authActions";
+
+import TextFieldGroup from "../Common/TextFieldGroup";
 
 import {
   MDBMask,
@@ -71,13 +73,14 @@ class SignUp extends Component {
       confirmEmail: "",
       password: "",
       confirmPassword: "",
-      agree: false,
+      check: false,
+      agree: "",
     });
   };
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.errors) {
-      this.setState({ errors: nextProps });
+      this.setState({ errors: nextProps.errors });
     }
   };
 
@@ -88,11 +91,16 @@ class SignUp extends Component {
   };
 
   onAgree = () => {
-    this.setState({ agree: !this.state.agree });
+    this.setState({ check: !this.state.check });
+    if (this.state.check === true) {
+      this.setState({ agree: "true" });
+    } else {
+      this.setState({ agree: "" });
+    }
   };
   onAgreeModal = () => {
     this.toggle();
-    this.setState({ agree: true });
+    this.setState({ agree: "true", check: true });
   };
 
   submitHandler = (e) => {
@@ -101,6 +109,7 @@ class SignUp extends Component {
   };
 
   changeHandler = (e) => {
+    e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -110,45 +119,42 @@ class SignUp extends Component {
     });
   };
 
-  onSubmit = () => {
-    if (this.state.agree === true) {
-      if (
-        this.state.role === "Client" &&
-        this.state.fname != "" &&
-        this.state.lname != ""
-      ) {
-        const newUser = {
-          name:
-            this.state.lname.toUpperCase() +
-            " " +
-            this.state.fname.charAt(0).toUpperCase() +
-            this.state.fname.slice(1).toLowerCase(),
-          email: this.state.email.toLowerCase(),
-          confirmEmail: this.state.confirmEmail.toLowerCase(),
-          password: this.state.password,
-          confirmPassword: this.state.confirmPassword,
-          role: this.state.role,
-        };
-        this.props.SignUpUser(newUser,this.props.history);
-      }
-      if (this.state.role === "Agency") {
-        const newUser = {
-          name:
-            this.state.name.charAt(0).toUpperCase() +
-            this.state.name.slice(1).toLowerCase(),
-          email: this.state.email.toLowerCase(),
-          confirmEmail: this.state.confirmEmail.toLowerCase(),
-          password: this.state.password,
-          confirmPassword: this.state.confirmPassword,
-          role: this.state.role,
-        };
-        this.props.SignUpUser(newUser,this.props.history);
-      }
+  onSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.role === "Client") {
+      const newUser = {
+        lname: this.state.lname.toUpperCase(),
+        fname:
+          this.state.fname.charAt(0).toUpperCase() +
+          this.state.fname.slice(1).toLowerCase(),
+        email: this.state.email.toLowerCase(),
+        confirmEmail: this.state.confirmEmail.toLowerCase(),
+        password: this.state.password,
+        confirmPassword: this.state.confirmPassword,
+        role: this.state.role,
+        agree: this.state.agree,
+      };
+      this.props.registerUser(newUser, this.props.history);
     }
+
+    const newUser = {
+      name:
+        this.state.name.charAt(0).toUpperCase() +
+        this.state.name.slice(1).toLowerCase(),
+      email: this.state.email.toLowerCase(),
+      confirmEmail: this.state.confirmEmail.toLowerCase(),
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword,
+      role: this.state.role,
+      agree: this.state.agree,
+    };
+    this.props.registerUser(newUser, this.props.history);
   };
 
   render() {
-    console.log(this.state.errors)
+    console.log(this.state.agree);
+
+    const { errors } = this.state;
     return (
       <div id="classicformpage">
         <MDBView src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg">
@@ -316,147 +322,134 @@ class SignUp extends Component {
                             &nbsp; Your Information
                           </h3>
                           <hr className="hr-light" />
-                          <form
-                            className="needs-validation"
-                            onSubmit={this.submitHandler}
-                            noValidate
-                          >
-                            <MDBRow>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="id-card"
-                                  label="First name"
-                                  value={this.state.fname}
-                                  name="fname"
-                                  onChange={this.changeHandler}
-                                  type="text"
-                                  id="defaultFormRegisterNameEx"
-                                  className="form-control white-text"
-                                  required
-                                />
-                              </MDBCol>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="id-card"
-                                  label="Last name"
-                                  value={this.state.lname}
-                                  name="lname"
-                                  onChange={this.changeHandler}
-                                  type="text"
-                                  id="defaultFormRegisterEmailEx2"
-                                  className="form-control white-text"
-                                  required
-                                />
-                              </MDBCol>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="envelope"
-                                  label="Email"
-                                  value={this.state.email}
-                                  onChange={this.changeHandler}
-                                  type="email"
-                                  id="defaultFormRegisterConfirmEx3"
-                                  className="form-control white-text"
-                                  name="email"
-                                  required
-                                />
-                                <small
-                                  id="emailHelp"
-                                  className="form-text white-text"
-                                  style={{ fontSize: 11 }}
-                                >
-                                  We'll never share your email with anyone else.
-                                </small>
-                              </MDBCol>
-                            </MDBRow>
-                            <MDBRow>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="envelope"
-                                  label="Confirm email"
-                                  value={this.state.confirmEmail}
-                                  onChange={this.changeHandler}
-                                  type="email"
-                                  id="defaultFormRegisterPasswordEx4"
-                                  className="form-control white-text"
-                                  name="confirmEmail"
-                                  required
-                                />
-                              </MDBCol>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  value={this.state.password}
-                                  label="password"
-                                  icon="unlock-alt"
-                                  onChange={this.changeHandler}
-                                  type="password"
-                                  id="defaultFormRegisterPasswordEx5"
-                                  className="form-control white-text"
-                                  name="password"
-                                  required
-                                />
-                              </MDBCol>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  value={this.state.confirmPassword}
-                                  icon="unlock-alt"
-                                  label="Re-password"
-                                  onChange={this.changeHandler}
-                                  type="password"
-                                  id="defaultFormRegisterPasswordEx6"
-                                  className="form-control white-text"
-                                  name="confirmPassword"
-                                  required
-                                />
-                              </MDBCol>
-                            </MDBRow>
-                            <MDBCol md="4" className="mb-3">
-                              <div className="custom-control custom-checkbox pl-3 d-flex">
-                                <input
-                                  className="custom-control-input"
-                                  type="checkbox"
-                                  id="invalidCheck"
-                                  onChange={this.onAgree}
-                                  required
-                                  checked={this.state.agree}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="invalidCheck"
-                                  style={{ fontSize: 15, width: 200 }}
-                                >
-                                  Agree to &nbsp;
-                                </label>
-                                <a
-                                  className="terms"
-                                  onClick={this.toggle}
-                                  style={{
-                                    color: "green",
-                                    fontWeight: "bold",
-                                    fontSize: 17,
-                                    textDecoration: "underline",
-                                  }}
-                                >
-                                  terms and conditions
-                                </a>
-                                <div
-                                  className="invalid-feedback"
-                                  style={{ fontSize: 15, fontWeight: "bold" }}
-                                >
-                                  You must agree before submitting.
-                                </div>
+                          <form class="needs-validation" novalidate>
+                            <div class="form-row">
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-9"
+                                icon="id-card"
+                                name="fname"
+                                placeholder="First name"
+                                value={this.state.fname}
+                                label="First name"
+                                error={errors.fname}
+                                type="text"
+                                onChange={this.changeHandler}
+                                id="validationTooltip01"
+                                labelFor="validationTooltip01"
+                                className=" text-field "
+                              />
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4"
+                                icon="id-card"
+                                name="lname"
+                                placeholder="Last name"
+                                value={this.state.lname}
+                                label="Last name"
+                                error={errors.lname}
+                                type="text"
+                                onChange={this.changeHandler}
+                                id="validationTooltip02"
+                                labelFor="validationTooltip02"
+                              />
+                            </div>
+                            <div class="form-row">
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="envelope"
+                                name="email"
+                                placeholder="Email adress"
+                                value={this.state.email}
+                                label="Email"
+                                error={errors.email}
+                                type="email"
+                                onChange={this.changeHandler}
+                                id="validationTooltip03"
+                                labelFor="validationTooltip03"
+                              />
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="envelope"
+                                name="confirmEmail"
+                                placeholder="confirm your email"
+                                value={this.state.confirmEmail}
+                                label="Confirm email"
+                                error={this.state.errors.confirmEmail}
+                                type="email"
+                                onChange={this.changeHandler}
+                                id="validationTooltip04"
+                                labelFor="validationTooltip04"
+                              />
+                            </div>
+                            <div class="form-row">
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="user-lock"
+                                name="password"
+                                placeholder="Password"
+                                value={this.state.password}
+                                label="Password"
+                                error={errors.password}
+                                type="password"
+                                onChange={this.changeHandler}
+                                id="validationTooltip05"
+                                labelFor="validationTooltip05"
+                              />
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="user-lock"
+                                name="confirmPassword"
+                                placeholder="Confirrm password"
+                                value={this.state.confirmPassword}
+                                label="Confirm password"
+                                error={errors.confirmPassword}
+                                type="password"
+                                onChange={this.changeHandler}
+                                id="validationTooltip06"
+                                labelFor="validationTooltip06"
+                              />
+                            </div>
+                            <div className="custom-control custom-checkbox pl-3 d-flex">
+                              <input
+                                className="custom-control-input"
+                                type="checkbox"
+                                id="invalidCheck"
+                                onChange={this.onAgree}
+                                required
+                                checked={this.state.agree}
+                              />
+                              <label
+                                className="custom-control-label"
+                                htmlFor="invalidCheck"
+                                style={{ fontSize: 15, width: 200 }}
+                              >
+                                Agree to
+                              </label>
+                              <a
+                                className="terms"
+                                onClick={this.toggle}
+                                style={{
+                                  color: "green",
+                                  fontWeight: "bold",
+                                  fontSize: 17,
+                                  textDecoration: "underline",
+                                }}
+                              >
+                                terms and conditions
+                              </a>
+                              <div
+                                className="invalid-feedback"
+                                style={{ fontSize: 15, fontWeight: "bold" }}
+                              >
+                                You must agree before submitting.
                               </div>
-                            </MDBCol>
+                            </div>
+
                             <div className=" choose-account text-center mt-4 black-text">
                               <MDBBtn
                                 className=" font-weight-bold  btn-md"
                                 color="warning"
                                 style={{ fontSize: 14 }}
-                                onClick={
-                                  this.state.role === "Client"
-                                    ? this.handleClickClient
-                                    : this.handleClickAgency
-                                }
+                                onClick={this.handleClickClient}
                               >
                                 <MDBIcon icon="reply" size="lg" />
                                 &nbsp; &nbsp; Social Account
@@ -496,134 +489,121 @@ class SignUp extends Component {
                             &nbsp; Agency Information
                           </h3>
                           <hr className="hr-light" />
-                          <form
-                            className="needs-validation"
-                            onSubmit={this.submitHandler}
-                            noValidate
-                          >
-                            <MDBRow>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="chess-rook"
-                                  label="Agency name"
-                                  value={this.state.name}
-                                  name="name"
-                                  onChange={this.changeHandler}
-                                  type="text"
-                                  id="defaultFormRegisterEmailEx"
-                                  className="form-control white-text"
-                                  required
-                                />
-                              </MDBCol>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="envelope"
-                                  label="Email"
-                                  value={this.state.email}
-                                  onChange={this.changeHandler}
-                                  type="email"
-                                  id="defaultFormRegisterConfirmEx2"
-                                  className="form-control white-text"
-                                  name="email"
-                                  required
-                                />
-                                <small
-                                  id="emailHelp"
-                                  className="form-text white-text"
-                                  style={{ fontSize: 11 }}
-                                >
-                                  We'll never share your email with anyone else.
-                                </small>
-                              </MDBCol>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="envelope"
-                                  label="Confirm email"
-                                  value={this.state.confirmEmail}
-                                  onChange={this.changeHandler}
-                                  type="email"
-                                  id="defaultFormRegisterPasswordEx3"
-                                  className="form-control white-text"
-                                  name="confirmEmail"
-                                  required
-                                />
-                              </MDBCol>
-                            </MDBRow>
-                            <MDBRow>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  label="password"
-                                  icon="unlock-alt"
-                                  value={this.state.password}
-                                  onChange={this.changeHandler}
-                                  type="password"
-                                  id="defaultFormRegisterPasswordEx5"
-                                  className="form-control white-text"
-                                  name="password"
-                                  required
-                                />
-                              </MDBCol>
-                              <MDBCol md="4" className="mb-3">
-                                <MDBInput
-                                  icon="unlock-alt"
-                                  label="Re-password"
-                                  value={this.state.confirmPassword}
-                                  onChange={this.changeHandler}
-                                  type="password"
-                                  id="defaultFormRegisterPasswordEx6"
-                                  className="form-control white-text"
-                                  name="confirmPassword"
-                                  required
-                                />
-                              </MDBCol>
-                            </MDBRow>
-                            <MDBCol md="4" className="mb-3">
-                              <div className="custom-control custom-checkbox pl-3 d-flex">
-                                <input
-                                  className="custom-control-input"
-                                  type="checkbox"
-                                  id="invalidCheck"
-                                  onChange={this.onAgree}
-                                  required
-                                  checked={this.state.agree}
-                                />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="invalidCheck"
-                                  style={{ fontSize: 15, width: 200 }}
-                                >
-                                  Agree to
-                                </label>
-                                <a
-                                  className="terms"
-                                  onClick={this.toggle}
-                                  style={{
-                                    color: "green",
-                                    fontWeight: "bold",
-                                    fontSize: 17,
-                                    textDecoration: "underline",
-                                  }}
-                                >
-                                  terms and conditions
-                                </a>
-                                <div
-                                  className="invalid-feedback"
-                                  style={{ fontSize: 15, fontWeight: "bold" }}
-                                >
-                                  You must agree before submitting.
-                                </div>
+                          <form class="needs-validation" novalidate>
+                            <div class="form-row">
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-9"
+                                icon="id-card"
+                                name="name"
+                                placeholder="Agency name"
+                                value={this.state.name}
+                                label="Agency name"
+                                error={errors.name}
+                                type="text"
+                                onChange={this.changeHandler}
+                                id="validationTooltip01"
+                                labelFor="validationTooltip01"
+                                className=" text-field "
+                              />                          
+                            </div>
+                            <div class="form-row">
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="envelope"
+                                name="email"
+                                placeholder="Email adress"
+                                value={this.state.email}
+                                label="Agency email"
+                                error={errors.email}
+                                type="email"
+                                onChange={this.changeHandler}
+                                id="validationTooltip03"
+                                labelFor="validationTooltip03"
+                              />
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="envelope"
+                                name="confirmEmail"
+                                placeholder="confirm your email"
+                                value={this.state.confirmEmail}
+                                label="Confirm email"
+                                error={this.state.errors.confirmEmail}
+                                type="email"
+                                onChange={this.changeHandler}
+                                id="validationTooltip04"
+                                labelFor="validationTooltip04"
+                              />
+                            </div>
+                            <div class="form-row">
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="user-lock"
+                                name="password"
+                                placeholder="Password"
+                                value={this.state.password}
+                                label="Password"
+                                error={errors.password}
+                                type="password"
+                                onChange={this.changeHandler}
+                                id="validationTooltip05"
+                                labelFor="validationTooltip05"
+                              />
+                              <TextFieldGroup
+                                divClassName="col-md-4 mb-4 text-field"
+                                icon="user-lock"
+                                name="confirmPassword"
+                                placeholder="Confirrm password"
+                                value={this.state.confirmPassword}
+                                label="Confirm password"
+                                error={errors.confirmPassword}
+                                type="password"
+                                onChange={this.changeHandler}
+                                id="validationTooltip06"
+                                labelFor="validationTooltip06"
+                              />
+                            </div>
+                            <div className="custom-control custom-checkbox pl-3 d-flex">
+                              <input
+                                className="custom-control-input"
+                                type="checkbox"
+                                id="invalidCheck"
+                                onChange={this.onAgree}
+                                required
+                                checked={this.state.agree}
+                              />
+                              <label
+                                className="custom-control-label"
+                                htmlFor="invalidCheck"
+                                style={{ fontSize: 15, width: 200 }}
+                              >
+                                Agree to
+                              </label>
+                              <a
+                                className="terms"
+                                onClick={this.toggle}
+                                style={{
+                                  color: "green",
+                                  fontWeight: "bold",
+                                  fontSize: 17,
+                                  textDecoration: "underline",
+                                }}
+                              >
+                                terms and conditions
+                              </a>
+                              <div
+                                className="invalid-feedback"
+                                style={{ fontSize: 15, fontWeight: "bold" }}
+                              >
+                                You must agree before submitting.
                               </div>
-                            </MDBCol>
+                            </div>
+
                             <div className=" choose-account text-center mt-4 black-text">
                               <MDBBtn
                                 className=" font-weight-bold  btn-md"
                                 color="warning"
                                 style={{ fontSize: 14 }}
-                                onClick={
-                                  this.state.role === "Client"
-                                    ? this.handleClickClient
-                                    : this.handleClickAgency
-                                }
+                                onClick={this.handleClickAgency}
                               >
                                 <MDBIcon icon="reply" size="lg" />
                                 &nbsp; &nbsp; Social Account
@@ -675,10 +655,10 @@ class SignUp extends Component {
   }
 }
 
-SignUpUser.PropTypes = {
-  SignUpUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.required,
-  errors: PropTypes.object.required,
+SignUp.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -686,4 +666,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { SignUpUser })(withRouter(SignUp));
+export default connect(mapStateToProps, { registerUser })(withRouter(SignUp));

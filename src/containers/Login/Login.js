@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import TextFieldGroup from "../Common/TextFieldGroup";
 
-import { SignInUser } from "../../actions/authActions";
+import { loginUser } from "../../actions/authActions";
 
 import {
   MDBMask,
@@ -11,7 +12,6 @@ import {
   MDBCol,
   MDBView,
   MDBContainer,
-  MDBInput,
   MDBBtn,
   MDBIcon,
   MDBCard,
@@ -47,16 +47,17 @@ class Login extends Component {
     }
   };
 
-  onSubmit = () => {
+  onSubmit = (e) => {
+    e.preventDefault();
     const userData = {
       email: this.state.email.toLowerCase(),
       password: this.state.password,
     };
-    this.props.SignInUser(userData);
+    this.props.loginUser(userData);
   };
 
   render() {
-    console.log(this.state.errors);
+    const { errors } = this.state;
     return (
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/38537/woodland-road-falling-leaf-natural-38537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -66,7 +67,7 @@ class Login extends Component {
                 <MDBCol md="6">
                   <MDBCard
                     className="login-card"
-                    style={{ width: 400, height: 550, background: "white" }}
+                    style={{ width: 400, height: 560, background: "white" }}
                   >
                     <MDBCardBody className="mx-4">
                       <div className="text-center">
@@ -74,34 +75,37 @@ class Login extends Component {
                           <strong>Sign in</strong>
                         </h3>
                       </div>
-                      <form
-                        className="needs-validation black-text"
-                        onSubmit={this.submitHandler}
-                        noValidate
-                      >
-                        <MDBInput
-                          labelClass="black-text"
-                          icon="envelope"
-                          label="Email"
-                          value={this.state.email}
-                          onChange={this.changeHandler}
-                          type="email"
-                          id="defaultFormRegisterConfirmEx2"
-                          className="form-control black-text"
-                          name="email"
-                          required
-                        />
-                        <MDBInput
-                          label="key"
-                          icon="unlock-alt"
-                          value={this.state.password}
-                          onChange={this.changeHandler}
-                          type="password"
-                          id="defaultFormRegisterPasswordEx5"
-                          className="form-control "
-                          name="password"
-                          required
-                        />
+                      <form class="needs-validation" novalidate>
+                        <div class="form-row">
+                          <TextFieldGroup
+                            divClassName="col-md-10 mb-1 text-field"
+                            icon="envelope"
+                            name="email"
+                            placeholder="Email Adress"
+                            value={this.state.email}
+                            label="Email"
+                            error={errors.email}
+                            type="email"
+                            onChange={this.changeHandler}
+                            id="validationTooltip01"
+                            labelFor="validationTooltip01"
+                          />
+                        </div>
+                        <div class="form-row">
+                          <TextFieldGroup
+                            divClassName="col-md-10 mb-4 text-field"
+                            icon="key"
+                            name="password"
+                            placeholder="Password"
+                            value={this.state.password}
+                            label="Password"
+                            error={errors.password}
+                            type="password"
+                            onChange={this.changeHandler}
+                            id="validationTooltip02"
+                            labelFor="validationTooltip02"
+                          />
+                        </div>
 
                         <p className="font-small blue-text d-flex justify-content-end pb-3">
                           Forgot
@@ -186,7 +190,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  SignInUser: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
@@ -196,4 +200,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { SignInUser })(Login);
+export default connect(mapStateToProps, { loginUser })(Login);
