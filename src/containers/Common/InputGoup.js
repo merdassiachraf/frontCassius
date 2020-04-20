@@ -7,36 +7,27 @@ import { MDBIcon } from "mdbreact";
 const InputGroup = ({
   name,
   value,
-  error,
+  errors,
   onChange,
-  options,
   icon,
-  type,
+  color,
   placeholder,
 }) => {
-  const selectOptions = options.map((option) => (
-    <option key={option.label} value={option.value}>
-      {option.label}
-    </option>
-  ));
+
   return (
     <div className="input-group mb-3">
       <div className="input-group-prepend">
         <span className="input-group-text">
-          <MDBIcon icon={icon} />
-        </span>
+        <MDBIcon className={color} fab icon={icon} />        </span>
       </div>
       <input
         placeholder={placeholder}
-        className={classnames("form-control ", { "is-invalid": error })}
+        className={classnames("form-control ", { "is-invalid": errors })}
         value={value}
         name={name}
         onChange={onChange}
       />
-      {error && <div class="invalid-tooltip">{error}</div>}
-      <div class="valid-tooltip">Looks good!</div>
-
-      {error && <div class="invalid-tooltip">{error}</div>}
+      {errors && <div class="invalid-tooltip">{errors}</div>}
       <div class="valid-tooltip">Looks good!</div>
     </div>
   );
@@ -47,7 +38,7 @@ InputGroup.propTypes = {
   icon: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  error: PropTypes.string,
+  errors: PropTypes.string,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.string.isRequired,
   options: PropTypes.object.isRequired,

@@ -1,0 +1,29 @@
+.creat-pro-head {
+  font-family: cursive;
+  position: fixed;
+  bottom:155px
+}
+.form-profile {
+  position: fixed;
+  left: 0px;
+  top: 210px;
+  width: 350px;
+}
+
+.infos-profile {
+    position: fixed;
+    left: 500px;
+    top: 260px;
+    width: 350px;
+  }
+  .social-profile {
+    position: fixed;
+    right: 30px;
+    top: 260px;
+    width: 350px;
+  }
+  .profile-submit{
+    position: fixed;
+    bottom: 30px;
+    left:42%
+  }

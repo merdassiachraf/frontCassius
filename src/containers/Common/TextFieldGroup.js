@@ -15,7 +15,9 @@ const TextFieldGroup = ({
   id,
   labelFor,
   icon,
-  divClassName
+  divClassName,
+  info,
+  max,
 }) => {
   return (
     <div className={divClassName}>
@@ -35,8 +37,10 @@ const TextFieldGroup = ({
         value={value}
         name={name}
         onChange={onChange}
+        max={max}
         required
       />
+      {info && <small className="form-text info text-muted">{info}</small>}
       {error && <div class="invalid-tooltip">{error}</div>}
       <div class="valid-tooltip">Looks good!</div>
     </div>
@@ -56,7 +60,8 @@ TextFieldGroup.propTypes = {
   id: PropTypes.string.isRequired,
   labelFor: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
-  divClassName: PropTypes.string.isRequired
+  divClassName: PropTypes.string.isRequired,
+  max: PropTypes.string,
 };
 TextFieldGroup.defaultProps = {
   type: "text",

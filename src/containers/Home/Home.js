@@ -33,9 +33,9 @@ class Home extends Component {
                         <Icon />
                       </MDBAnimation>
                       <hr className="hr-light succes-text" />
-                      <h1 class="logo">
-                        <span class="word1">The</span>
-                        <span class="word2">CASSIUS</span>
+                      <h1 className="logo">
+                        <span className="word1">The</span>
+                        <span className="word2">CASSIUS</span>
                       </h1>
                     </MDBAnimation>
                   </div>
