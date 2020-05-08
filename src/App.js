@@ -12,17 +12,19 @@ import PrivateRoute from "./containers/Common/PrivateRoute";
 
 import NavBar from "./containers/NavBar/NavBar";
 import Home from "./containers/Home/Home";
-import AddPost from "./containers/AddPost/AddPost";
 import SignUp from "./containers/SignUp/SignUp";
 import Login from "./containers/Login/Login";
+import PostPage from "./containers/PostPage/PostPage"
 import DashBoard from "./containers/DashBoard/DashBoard";
-import PostPage from "./containers/PostPage/PostPage";
-import AgenciesList from "./containers/AgenciesList/AgenciesList";
-import PostsList from "./containers/PostsList/PostsList";
-import PostUser from "./containers/PostUser/PostUser";
-import ClientProfil from "./containers/ClientProfil/ClientProfil";
-import CreateProfile from "./containers/CreateProfile/CreateProfile"
-
+import Posts from "./containers/Posts/Posts";
+import PostForm from "./containers/Posts/PostForm";
+import EditProfile from "./containers/EditProfile/EditProfile";
+import CreateProfile from "./containers/CreateProfile/CreateProfile";
+import AddContactInformation from "./containers/AddContactInformation/AddContactInformation";
+import Profiles from "./containers/Profiles/Profiles";
+import Profile from "./containers/Profile/Profile";
+import EditPost from "./containers/Posts/EditPost"
+ 
 // Check for token
 if (localStorage.jwtToken) {
   //Set auth token header auth
@@ -55,10 +57,21 @@ function App() {
         <div className="App">
           <NavBar />
           <Route path="/" exact name="Cassius" component={Home} />
-          <Route path="/add_post" exact name="Add Post" component={AddPost} />
           <Route path="/signup" exact name="Register" component={SignUp} />
-          <Route path="/signin" exact name="Sign In" component={Login} />
-          <Route path="/post" exact name="" component={PostPage} />
+          <Route path="/login" exact name="Sign In" component={Login} />
+          <Route path="/posts" exact name="Posts" component={Posts} />
+          <Route
+            path="/profile/:handle"
+            exact
+            name="Profile"
+            component={Profile}
+          />
+          <Route
+            path="/posts/:id"
+            exact
+            name="Post"
+            component={PostPage}
+          />
           <Switch>
             <PrivateRoute
               path="/dashboard"
@@ -66,29 +79,38 @@ function App() {
               name=""
               component={DashBoard}
             />
-          </Switch>
-          <Switch>
+            <PrivateRoute
+              path="/edit_profile"
+              exact
+              name=""
+              component={EditProfile}
+            />
             <PrivateRoute
               path="/create_profile"
               exact
               name=""
               component={CreateProfile}
             />
+             <PrivateRoute
+              path="/posts/edit_post/:id"
+              exact
+              name="Edit Post"
+              component={EditPost}
+            />
+            <PrivateRoute
+              path="/add_contact"
+              exact
+              name=""
+              component={AddContactInformation}
+            />
+            <PrivateRoute
+              path="/add_post"
+              exact
+              name="Add Post"
+              component={PostForm}
+            />
           </Switch>
-          <Route
-            path="/agencies_list"
-            exact
-            name="Agencies List"
-            component={AgenciesList}
-          />
-          <Route
-            path="/posts_list"
-            exact
-            name="Posts List"
-            component={PostsList}
-          />
-          <Route path="/post_user" exact name="" component={PostUser} />
-          <Route path="/client_user" exact name="" component={ClientProfil} />
+          <Route path="/profiles" exact name="Profiles" component={Profiles} />
         </div>
       </Router>
     </Provider>

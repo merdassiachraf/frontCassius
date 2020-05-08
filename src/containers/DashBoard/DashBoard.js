@@ -3,14 +3,22 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getCurrentProfile } from "../../actions/profileActions";
+import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 
+import ContactInformation from "./ContactInformation";
 import Spinner from "../Common/Spinner";
+
+import ProfileActions from "./ProfileActions";
+
 import { MDBMask, MDBView, MDBContainer } from "mdbreact";
 
 class DashBoard extends Component {
   componentDidMount = () => {
     this.props.getCurrentProfile();
+  };
+
+  onDeleteClick = () => {
+    this.props.deleteAccount();
   };
 
   render() {
@@ -24,7 +32,32 @@ class DashBoard extends Component {
     } else {
       //Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h4>Display Profile</h4>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              Welcome
+              <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
+            </p>
+            <ProfileActions />
+            <ContactInformation
+              contactInformation={profile.contactInformation}
+            />
+            <div style={{ marginBottom: "60px" }} />
+            <button onClick={this.onDeleteClick} className="btn btn-danger">
+              Delete My Account
+            </button>
+            {user.role === "Agency" ? (
+              <div>
+              <Link to="/add_post" className="btn btn-lg btn-info">
+                Add Post
+              </Link>
+              <Link to="/add_post" className="btn btn-lg btn-info">
+                Your Posts
+              </Link>
+              </div>
+            ) : null}
+          </div>
+        );
       } else {
         //User logged but has no profile
         dashboardContent = (
@@ -66,6 +99,7 @@ class DashBoard extends Component {
 
 DashBoard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -75,4 +109,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(DashBoard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  DashBoard
+);

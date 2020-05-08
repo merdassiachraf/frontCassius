@@ -22,9 +22,11 @@ import {
   MDBIcon,
   MDBContainer,
   MDBBtn,
+  MDBNavbarBrand,
 } from "mdbreact";
 
 import Icon from "../../atests/logo/Icon";
+import { Link } from "react-router-dom";
 
 class NavBar extends React.Component {
   state = {
@@ -43,7 +45,6 @@ class NavBar extends React.Component {
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
-
     const authLinks = (
       <MDBNavItem>
         <MDBDropdown>
@@ -58,21 +59,25 @@ class NavBar extends React.Component {
           </MDBDropdownToggle>
           <MDBDropdownMenu className="dropdown-account">
             <div className="all-dropdown">
-              <div className="dropdown-avatar">
-                <Avatar size={100} icon={<UserOutlined />} />
-              </div>
+              <Link to="/dashboard">
+                <div className="dropdown-avatar">
+                  <Avatar size={100} icon={<UserOutlined />} />
+                </div>
+              </Link>
               <h6>{user.name}</h6>
               <div className="dropdown-button">
                 <hr />
-
-                <MDBBtn
-                  type="button"
-                  color="warning"
-                  size="sm"
-                  className="z-depth-1a dropdown-button font-weight-bolder account-button-drop"
-                >
-                  Modify profile
-                </MDBBtn>
+                <Link to="/edit_profile">
+                  <MDBBtn
+                    type="button"
+                    color="warning"
+                    size="sm"
+                    to="/"
+                    className="z-depth-1a dropdown-button font-weight-bolder account-button-drop"
+                  >
+                    Modify profile
+                  </MDBBtn>
+                </Link>
                 <MDBBtn
                   type="button"
                   color="black"
@@ -112,7 +117,7 @@ class NavBar extends React.Component {
             <hr className=" black-text" />
             <MDBNavLink
               className="font-weight-normal black-text Account-connection font-weight-bold"
-              to="/signin"
+              to="/login"
             >
               <MDBDropdownItem>
                 <MDBIcon far icon="user-circle" />
@@ -136,9 +141,10 @@ class NavBar extends React.Component {
         <div>
           <MDBNavbar dark expand="md" fixed="top">
             <MDBContainer>
-              {/* <MDBNavbarBrand className="logo-home-name" style={{height:10}}><strong>
-                  <Icon/>CASSIUS</strong>
-                </MDBNavbarBrand> */}
+              <MDBNavbarBrand>
+              <strong className="white-text">CASSIUS</strong>
+
+              </MDBNavbarBrand>
               <MDBNavbarToggler
                 onClick={this.toggleCollapse("navbarCollapse")}
               />
@@ -160,7 +166,7 @@ class NavBar extends React.Component {
                   <MDBNavItem>
                     <MDBNavLink
                       className=" font-weight-normal left-navbar"
-                      to="posts_list"
+                      to="/posts"
                     >
                       <MDBIcon icon="car-alt" />
                       &nbsp;&nbsp;Posts
@@ -169,7 +175,7 @@ class NavBar extends React.Component {
                   <MDBNavItem>
                     <MDBNavLink
                       className=" font-weight-normal left-navbar"
-                      to="/agencies_list"
+                      to="/profiles"
                     >
                       <MDBIcon icon="id-card-alt" />
                       &nbsp; Agencies

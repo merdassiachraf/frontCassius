@@ -416,6 +416,7 @@ class SignUp extends Component {
                                 onChange={this.onAgree}
                                 required
                                 checked={this.state.agree}
+                                error={errors.agree}
                               />
                               <label
                                 className="custom-control-label"
@@ -570,6 +571,7 @@ class SignUp extends Component {
                                 onChange={this.onAgree}
                                 required
                                 checked={this.state.agree}
+                                error={errors.agree}
                               />
                               <label
                                 className="custom-control-label"

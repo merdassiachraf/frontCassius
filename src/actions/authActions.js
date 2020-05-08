@@ -9,7 +9,7 @@ import setAuthToken from "../utils/setAuthToken";
 export const registerUser = (userData, history) => (dispatch) => {
   axios
     .post("/users/register", userData)
-    .then(() => history.push("/signin"))
+    .then(() => history.push("/login"))
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => (dispatch) => {
 
 export const loginUser = (userData) => (dispatch) => {
   axios
-    .post("/users/signin", userData)
+    .post("/users/login", userData)
     .then((res) => {
       // Save to local storage
       const { token } = res.data;

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import ImageUploader from "react-images-upload";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { addPost } from "../../actions/postActions";
 
 import {
   MDBMask,
@@ -12,27 +14,91 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBAnimation
+  MDBAnimation,
 } from "mdbreact";
+import errorsReducer from "../../reducers/errorsReducer";
 
-class AddPost extends Component {
- 
-
+class PostForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      addPicture: "",
+      previous: "previous",
+      brand: "",
+      model: "",
+      state: "",
+      country: "",
+      fuel: "",
+      transmission: "",
+      pricePerDay: "",
+      carPictures: {
+        carPicture1: "",
+        carPicture2: "",
+        carPicture3: "",
+        carPicture4: "",
+        carPicture5: "",
+        carPicture6: "",
+        carPicture7: "",
+        carPicture8: "",
+        carPicture9: "",
+        carPicture10: "",
+      },
+      errors: {},
+    };
+  }
+  componentWillReceiveProps = (newProps) => {
+    if (newProps.errors) {
+      this.setState({ errors: newProps.errors });
+    }
+  };
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  onSubmit = (e) => {
+    const { user } = this.props.auth;
+    const newPost = {
+      brand: this.state.brand,
+      model: this.state.model,
+      fuel: this.state.fuel,
+      country:this.state.country,
+      state:this.state.state,
+      transmission: this.state.transmission,
+      pricePerDay: this.state.pricePerDay,
+      carPictures: {
+        carPicture1: this.state.carPicture1,
+        carPicture2: this.state.carPicture2,
+        carPicture3: this.state.carPicture3,
+        carPicture4: this.state.carPicture4,
+        carPicture5: this.state.carPicture5,
+        carPicture6: this.state.carPicture6,
+        carPicture7: this.state.carPicture7,
+        carPicture8: this.state.carPicture8,
+        carPicture9: this.state.carPicture9,
+        carPicture10: this.state.carPicture10,
+      },
+    };
+    this.props.addPost(newPost);
+  };
   onDrop = (picture) => {
-    {this.state.pictures.length <0 ?
-    this.setState({
-      pictures: this.state.pictures.concat(picture)
-    }) :alert("max")}
+    {
+      this.state.pictures.length < 0
+        ? this.setState({
+            pictures: this.state.pictures.concat(picture),
+          })
+        : alert("max");
+    }
   };
 
   handleClickAddPictures = () => {
     this.setState({ addPicture: "pictures", previous: "" });
   };
+
   handelClickPevious = () => {
     this.setState({ previous: "previous", addPicture: "" });
   };
-  render() {
 
+  render() {
+    const { errors } = this.state;
     return (
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/256514/pexels-photo-256514.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -49,9 +115,6 @@ class AddPost extends Component {
                       Create your car Post easily and for free ... !
                     </h1>
                     <hr className="hr-light white-text" />
-                    <h5 bold className="mb-4 white-text ">
-                      real
-                    </h5>
                   </MDBAnimation>
                 </MDBCol>
 
@@ -95,7 +158,7 @@ class AddPost extends Component {
                                 color="success"
                                 style={{ fontSize: 16 }}
                                 onClick={this.handelClickPevious}
-                                labelStyles={{width:500}}
+                                labelStyles={{ width: 500 }}
                               >
                                 Post &nbsp; &nbsp;
                                 <MDBIcon icon="share-square" size="lg" />
@@ -124,11 +187,11 @@ class AddPost extends Component {
                                   &nbsp;&nbsp; Brand :
                                 </label>
                                 <select
-                                  onChange={(e) =>
-                                    this.setState({ brand: e.target.value })
-                                  }
+                                  className="select-post-add"
+                                  name="brand"
+                                  onChange={this.onChange}
                                   value={this.state.brand}
-                                  class="select-post-add"
+                                  error={errors.brand}
                                 >
                                   <option
                                     className="option-add-post"
@@ -170,11 +233,11 @@ class AddPost extends Component {
                                     &nbsp;&nbsp;Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
                                     value={this.state.model}
+                                    error={errors.model}
                                   >
                                     <option
                                       className="option-add-post"
@@ -237,10 +300,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -304,10 +367,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -359,10 +422,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -414,10 +477,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -466,10 +529,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -521,10 +584,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -570,10 +633,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -619,10 +682,10 @@ class AddPost extends Component {
                                     &nbsp;&nbsp; Model:
                                   </label>
                                   <select
-                                    class="select-post-add"
-                                    onChange={(e) =>
-                                      this.setState({ model: e.target.value })
-                                    }
+                                    className="select-post-add"
+                                    name="model"
+                                    onChange={this.onChange}
+                                    error={errors.model}
                                     value={this.state.model}
                                   >
                                     <option
@@ -641,14 +704,11 @@ class AddPost extends Component {
                                   &nbsp;&nbsp; Fuel :
                                 </label>
                                 <select
-                                  onChange={(e) =>
-                                    this.setState({ fuel: e.target.value })
-                                  }
+                                  name="fuel"
+                                  onChange={this.onChange}
                                   value={this.state.fuel}
-                                  onChange={(e) =>
-                                    this.setState({ fuel: e.target.value })
-                                  }
-                                  class="select-post-add"
+                                  error={errors.fuel}
+                                  className="select-post-add"
                                 >
                                   <option
                                     className="option-add-post"
@@ -674,18 +734,11 @@ class AddPost extends Component {
                                   &nbsp;&nbsp; Transmission :
                                 </label>
                                 <select
-                                  onChange={(e) =>
-                                    this.setState({
-                                      transmission: e.target.value
-                                    })
-                                  }
+                                  name="transmission"
+                                  onChange={this.onChange}
                                   value={this.state.transmission}
-                                  onChange={(e) =>
-                                    this.setState({
-                                      transmission: e.target.value
-                                    })
-                                  }
-                                  class="select-post-add"
+                                  error={errors.transmission}
+                                  className="select-post-add"
                                 >
                                   <option
                                     className="option-add-post"
@@ -717,22 +770,20 @@ class AddPost extends Component {
                                   &nbsp;&nbsp; Country :
                                 </label>
                                 <select
-                                  onChange={(e) =>
-                                    this.setState({ country: e.target.value })
-                                  }
+                                  name="country"
+                                  onChange={this.onChange}
+                                  error={errors.country}
                                   value={this.state.country}
-                                  onChange={(e) =>
-                                    this.setState({ country: "Tunisia" })
-                                  }
-                                  class="select-post-add"
+                                  className="select-post-add"
                                 >
                                   <option
                                     className="option-add-post"
-                                    value="Tunisia"
+                                    value=""
                                     selected
                                   >
-                                    Tunisia
+                                    Choose country
                                   </option>
+                                  <option>Tunisia</option>
                                 </select>
                               </div>
                               <div className="full-selector">
@@ -740,96 +791,111 @@ class AddPost extends Component {
                                   <MDBIcon icon="map-marker-alt" />
                                   &nbsp;&nbsp; State :
                                 </label>
-                                <select
-                                  onChange={(e) =>
-                                    this.setState({ state: e.target.value })
-                                  }
-                                  value={this.state.state}
-                                  onChange={(e) =>
-                                    this.setState({ state: e.target.value })
-                                  }
-                                  class="select-post-add"
-                                >
-                                  <option
-                                    className="option-add-post"
-                                    value=""
-                                    selected
+                                {this.state.country === "Tunisia" ? (
+                                  <select
+                                    name="state"
+                                    onChange={this.onChange}
+                                    value={this.state.state}
+                                    error={errors.state}
+                                    className="select-post-add"
                                   >
-                                    Choose the state
-                                  </option>
-                                  <option className="option-add-post">
-                                    Ariana
-                                  </option>
-                                  <option className="option-add-post">
-                                    Béja
-                                  </option>
-                                  <option className="option-add-post">
-                                    Ben Arous
-                                  </option>
-                                  <option className="option-add-post">
-                                    Bizerte
-                                  </option>
-                                  <option className="option-add-post">
-                                    Gabés
-                                  </option>
-                                  <option className="option-add-post">
-                                    Gafsa
-                                  </option>
-                                  <option className="option-add-post">
-                                    Jendouba
-                                  </option>
-                                  <option className="option-add-post">
-                                    Kairouan
-                                  </option>
-                                  <option className="option-add-post">
-                                    Kasserine
-                                  </option>
-                                  <option className="option-add-post">
-                                    Kebili
-                                  </option>
-                                  <option className="option-add-post">
-                                    kef
-                                  </option>
-                                  <option className="option-add-post">
-                                    Mahdia
-                                  </option>
-                                  <option className="option-add-post">
-                                    Mannouba
-                                  </option>
-                                  <option className="option-add-post">
-                                    Mednine
-                                  </option>
-                                  <option className="option-add-post">
-                                    Monastir
-                                  </option>
-                                  <option className="option-add-post">
-                                    Nabeul
-                                  </option>
-                                  <option className="option-add-post">
-                                    Sfax
-                                  </option>
-                                  <option className="option-add-post">
-                                    Sidi Bouzid
-                                  </option>
-                                  <option className="option-add-post">
-                                    Sliana
-                                  </option>
-                                  <option className="option-add-post">
-                                    Sousse
-                                  </option>
-                                  <option className="option-add-post">
-                                    Tataouine
-                                  </option>
-                                  <option className="option-add-post">
-                                    Tozeur
-                                  </option>
-                                  <option className="option-add-post">
-                                    Tunis
-                                  </option>
-                                  <option className="option-add-post">
-                                    Zaghouan
-                                  </option>
-                                </select>
+                                    <option
+                                      className="option-add-post"
+                                      value=""
+                                      selected
+                                    >
+                                      Choose the state
+                                    </option>
+                                    <option className="option-add-post">
+                                      Ariana
+                                    </option>
+                                    <option className="option-add-post">
+                                      Béja
+                                    </option>
+                                    <option className="option-add-post">
+                                      Ben Arous
+                                    </option>
+                                    <option className="option-add-post">
+                                      Bizerte
+                                    </option>
+                                    <option className="option-add-post">
+                                      Gabés
+                                    </option>
+                                    <option className="option-add-post">
+                                      Gafsa
+                                    </option>
+                                    <option className="option-add-post">
+                                      Jendouba
+                                    </option>
+                                    <option className="option-add-post">
+                                      Kairouan
+                                    </option>
+                                    <option className="option-add-post">
+                                      Kasserine
+                                    </option>
+                                    <option className="option-add-post">
+                                      Kebili
+                                    </option>
+                                    <option className="option-add-post">
+                                      kef
+                                    </option>
+                                    <option className="option-add-post">
+                                      Mahdia
+                                    </option>
+                                    <option className="option-add-post">
+                                      Mannouba
+                                    </option>
+                                    <option className="option-add-post">
+                                      Mednine
+                                    </option>
+                                    <option className="option-add-post">
+                                      Monastir
+                                    </option>
+                                    <option className="option-add-post">
+                                      Nabeul
+                                    </option>
+                                    <option className="option-add-post">
+                                      Sfax
+                                    </option>
+                                    <option className="option-add-post">
+                                      Sidi Bouzid
+                                    </option>
+                                    <option className="option-add-post">
+                                      Sliana
+                                    </option>
+                                    <option className="option-add-post">
+                                      Sousse
+                                    </option>
+                                    <option className="option-add-post">
+                                      Tataouine
+                                    </option>
+                                    <option className="option-add-post">
+                                      Tozeur
+                                    </option>
+                                    <option className="option-add-post">
+                                      Tunis
+                                    </option>
+                                    <option className="option-add-post">
+                                      Zaghouan
+                                    </option>
+                                  </select>
+                                ) : (
+                                  <select
+                                    name="state"
+                                    onChange={this.onChange}
+                                    value={this.state.state}
+                                    error={errors.state}
+                                    className="select-post-add"
+                                  >
+                                    <option
+                                      className="option-add-post"
+                                      value=""
+                                      selected
+                                    >
+                                      Choose country first
+                                    </option>
+                                  </select>
+                                )}
                               </div>
                               <MDBInput
                                 value={this.state.pricePerDay}
@@ -838,17 +904,17 @@ class AddPost extends Component {
                                 label="Price per day (dt/day)"
                                 icon="dollar-sign"
                                 type="number"
+                                name="pricePerDay"
                                 style={{ fontSize: 18 }}
-                                onChange={(e) =>
-                                  this.setState({ pricePerDay: e.target.value })
-                                }
+                                error={errors.pricePerDay}
+                                onChange={this.onChange}
                               />
                             </div>
                           </div>
                           <div className="text-center mt-4 black-text">
                             <div className=" add-picture-button">
                               <MDBBtn
-                                onClick={this.handleClickAddPictures}
+                                onClick={this.onSubmit}
                                 className=" font-weight-bold  btn-md"
                                 color="warning"
                                 style={{ fontSize: 16 }}
@@ -871,4 +937,16 @@ class AddPost extends Component {
     );
   }
 }
-export default AddPost;
+
+PostForm.propTypes = {
+  addPost: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+
+const mapStatetoProps = (state) => ({
+  errors: state.errors,
+  auth: state.auth,
+});
+
+export default connect(mapStatetoProps, { addPost })(PostForm);

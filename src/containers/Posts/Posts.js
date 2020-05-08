@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { PostCard } from "./PostsCard";
+import Spinner from "../Common/Spinner";
+import PostFeed from "./PostFeed"
+
+import { getPosts } from "../../actions/postActions";
 
 import {
   MDBMask,
@@ -10,10 +13,10 @@ import {
   MDBContainer,
   MDBInput,
   MDBBtn,
-  MDBIcon
+  MDBIcon,
 } from "mdbreact";
 
-class PostsList extends Component {
+class Posts extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,9 +35,13 @@ class PostsList extends Component {
       transmission1: "",
       state1: "",
       minPricePerDay1: 0,
-      maxPricePerDay1: 999999999999999999
+      maxPricePerDay1: 999999999999999999,
     };
   }
+  componentDidMount = () => {
+    this.props.getPosts();
+  };
+
   handleClickSearch = () => {
     this.setState({
       search: this.state.search1,
@@ -44,7 +51,7 @@ class PostsList extends Component {
       transmission: this.state.transmission1,
       state: this.state.state1,
       minPricePerDay: this.state.minPricePerDay1,
-      maxPricePerDay: this.state.maxPricePerDay1
+      maxPricePerDay: this.state.maxPricePerDay1,
     });
   };
   handleClickReset = () => {
@@ -64,10 +71,19 @@ class PostsList extends Component {
       transmission1: "",
       state1: "",
       minPricePerDay1: 0,
-      maxPricePerDay1: 999999999999999999
+      maxPricePerDay1: 999999999999999999,
     });
   };
   render() {
+    const { posts, loading } = this.props.post;
+    let postContent;
+
+    if (posts === null || loading) {
+      postContent = <Spinner />;
+    } else {
+      postContent = <PostFeed posts={posts} />;
+    }
+
     return (
       <div id="">
         <MDBView src="https://images.pexels.com/photos/21014/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -423,7 +439,7 @@ class PostsList extends Component {
                   <select
                     onChange={(e) =>
                       this.setState({
-                        transmission1: e.target.value
+                        transmission1: e.target.value,
                       })
                     }
                     className="select-posts-filtre"
@@ -510,7 +526,10 @@ class PostsList extends Component {
               </div>
 
               <div className="posts-list-view">
-                {this.props.posts
+
+              {postContent}
+
+                {/* {this.props.posts
                   .filter(
                     (post) =>
                       post.agencyName.includes(this.state.search) &&
@@ -524,7 +543,7 @@ class PostsList extends Component {
                   )
                   .map((post) => (
                     <PostCard post={post} />
-                  ))}
+                  ))} */}
               </div>
             </MDBContainer>
           </MDBMask>
@@ -534,10 +553,15 @@ class PostsList extends Component {
   }
 }
 
+Posts.propTypes = {
+  getPosts: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts.posts
+    post: state.post,
   };
 };
 
-export default connect(mapStateToProps)(PostsList);
+export default connect(mapStateToProps, { getPosts })(Posts);

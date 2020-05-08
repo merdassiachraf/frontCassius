@@ -1,5 +1,4 @@
 .left-navbar {
-  margin: 0px 13px;
   font-size: 17px;
 }
 .right-navbar {
@@ -12,7 +11,7 @@
   display: flex;
 }
  .dropdown-avatar {
-  margin: 10px 0px 15px 0px;
+  margin: 7px 0px 5px 0px;
 }
 
 .dropdown-essencial {
@@ -27,4 +26,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.logo-home-name{
+display: flex;
+}
+.svgIcon{
+  height: 37px;
 }

@@ -8,10 +8,10 @@ import { MDBMask, MDBView, MDBContainer } from "mdbreact";
 import TextFieldGroup from "../Common/TextFieldGroup";
 import InputGoup from "../Common/InputGoup";
 import SelectListGoup from "../Common/SelectListGoup";
+import isEmpty from "../../validation/isEmpty";
+import { createProfile, getCurrentProfile } from "../../actions/profileActions";
 
-import { createProfile } from "../../actions/profileActions";
-
-class CreateProfile extends Component {
+class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,14 +27,45 @@ class CreateProfile extends Component {
       state: "",
       country: "",
       countryCode: "",
-      phoneNumber: 0,
+      phoneNumber: "",
       errors: {},
     };
   }
 
+  componentDidMount = () => {
+    this.props.getCurrentProfile();
+  };
+
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
+    }
+    if (nextProps.profile.profile) {
+      const profile = nextProps.profile.profile;
+
+      //if profile field doesnt exist
+      profile.social = !isEmpty(profile.social) ? profile.social : {};
+      profile.youtube = !isEmpty(profile.youtube) ? profile.youtube : "";
+      profile.facebook = !isEmpty(profile.facebook) ? profile.facebook : "";
+      profile.linkedin = !isEmpty(profile.linkedin) ? profile.linkedin : "";
+      profile.instgram = !isEmpty(profile.instgram) ? profile.instgram : "";
+      profile.twiter = !isEmpty(profile.twitter) ? profile.twitter : "";
+
+      //set componet field state
+      this.setState({
+        handle: profile.handle,
+        dateOfBirth: profile.dateOfBirth,
+        youtube: profile.youtube,
+        twitter: profile.twiter,
+        facebook: profile.facebook,
+        linkedin: profile.linkedin,
+        instagram: profile.instagram,
+        adress: profile.contactInformation[0].adress,
+        state: profile.contactInformation[0].state,
+        country: profile.contactInformation[0].country,
+        countryCode: profile.contactInformation[0].countryCode,
+        phoneNumber: profile.contactInformation[0].phoneNumber,
+      });
     }
   };
 
@@ -245,12 +276,8 @@ class CreateProfile extends Component {
                   <div className="row">
                     <div className="col-md-8 m-auto creat-pro-head">
                       <h1 className="display-4  text-center white-text">
-                        Create your profile {name}
+                        Edit your profile {name}
                       </h1>
-                      <p className="lead white-text text-center">
-                        Let's get some information to make your profile stand
-                        out
-                      </p>
                       <form onSubmit={this.onSubmit} className=" ">
                         <div className="form-profile">
                           <TextFieldGroup
@@ -387,8 +414,8 @@ class CreateProfile extends Component {
                                 ? "Agency phone number"
                                 : "Your phone number"
                             }
-                            name="phoneNumber"
                             type="text"
+                            type="number"
                             value={this.state.phoneNumber}
                             onChange={this.onChange}
                             errors={errors.phoneNumber}
@@ -417,7 +444,7 @@ class CreateProfile extends Component {
                             className="btn btn-primary btn-block profile-submit"
                             style={{ width: 150 }}
                             onClick={this.onSubmit}
-                          />
+                          >Submit</button>
                         </div>
                       </form>
                     </div>
@@ -431,7 +458,9 @@ class CreateProfile extends Component {
     );
   }
 }
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
@@ -442,6 +471,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { createProfile })(
-  withRouter(CreateProfile)
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
 );

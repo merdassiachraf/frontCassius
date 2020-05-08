@@ -8,31 +8,26 @@ import App from "./App";
 
 //liens Css Local
 import "./containers/NavBar/NavBar.css";
-import "./containers/AddPost/AddPost.css"
-import "./containers/Home/Home.css"
-import "./containers/SignUp/SignUp.css"
-import "./containers/Login/Login.css"
-import "./containers/DashBoard/DashBoard.css"
+import "./containers/Posts/PostForm.css";
+import "./containers/Home/Home.css";
+import "./containers/SignUp/SignUp.css";
+import "./containers/Login/Login.css";
+import "./containers/DashBoard/DashBoard.css";
+import "./containers/Posts/Posts.css";
+import "./containers/Posts/PostsCard.css";
+import "./containers/Common/TextFieldGroup.css";
+import "./containers/CreateProfile/CreateProfile.css";
+import "./containers/Profile/Profile.css";
 import "./containers/PostPage/PostPage.css"
-import "./containers/AgenciesList/AgenciesList.css"
-import "./containers/PostsList/PostsList.css"
-import "./containers/PostUser/PostUser.css"
-import "./containers/ClientProfil/ClientProfil.css"
-import "./containers/AgenciesList/AgencyCard.css"
-import "./containers/PostsList/PostsCard.css"
-import "./containers/Common/TextFieldGroup.css"
-import "./containers/CreateProfile/CreateProfile.css"
-
 
 //lien css Mdboostrap
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
-import 'antd/dist/antd.css'; 
+import "antd/dist/antd.css";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

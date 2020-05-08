@@ -1,0 +1,49 @@
+.profile-about {
+  background-color: white;
+  width: 400px;
+  height: 350px;
+  border-radius: 15px;
+  border: 3px solid gray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 50px;
+}
+.avatar-profile {
+  border: 3px solid gray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: fixed;
+  bottom: 100px;
+  right: 55px;
+}
+.full-profile-page {
+  display: flex;
+}
+.profile-infos {
+  position: fixed;
+  bottom: 90px;
+  display: flex;
+  flex-direction: column;
+}
+.social-icons-profile {
+  display: flex;
+  justify-content: space-between;
+}
+.backup-button {
+  position: fixed;
+  top: 80px;
+  left: 0px;
+}
+.scroll-posts {
+  position: fixed;
+  bottom: 05px;
+  right: 10px;
+  background-color: white;
+  width: 42%;
+  height: 88%;
+  border-radius: 7px;
+  opacity: 0.3;
+
+}
