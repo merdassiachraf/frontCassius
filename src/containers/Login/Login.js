@@ -69,9 +69,9 @@ class Login extends Component {
                     className="login-card"
                     style={{ width: 400, height: 560, background: "white" }}
                   >
-                    <MDBCardBody className="mx-4">
+                    <MDBCardBody className="loginBody">
                       <div className="text-center">
-                        <h3 className="dark-grey-text mb-5">
+                        <h3 className="dark-grey-text">
                           <strong>Sign in</strong>
                         </h3>
                       </div>
@@ -134,7 +134,7 @@ class Login extends Component {
                             color="blue"
                             outline
                             className="mr-md-3 z-depth-1a"
-                            style={{ width: 55 }}
+                            style={{ width: 45, height: 45 }}
                           >
                             <MDBIcon
                               fab
@@ -147,7 +147,7 @@ class Login extends Component {
                             color="danger"
                             outline
                             className="z-depth-1a"
-                            style={{ width: 55 }}
+                            style={{ width: 45, height: 45 }}
                           >
                             <MDBIcon
                               fab
@@ -161,7 +161,7 @@ class Login extends Component {
                             color="black"
                             outline
                             className="z-depth-1a"
-                            style={{ width: 55, marginLeft: 15 }}
+                            style={{ width: 45, height: 45, marginLeft: 15 }}
                           >
                             <MDBIcon fab icon="github" className="black-text" />
                           </MDBBtn>

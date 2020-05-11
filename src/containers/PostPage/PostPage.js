@@ -44,7 +44,7 @@ class PostPage extends Component {
     var start = new Date(this.state.startDate);
     var end = new Date(this.state.endDate);
     var total = 0;
-    this.state.endDate != "" && this.state.startDate != ""
+    this.state.endDate !== "" && this.state.startDate !== ""
       ? this.state.endDate > this.state.startDate
         ? (total = (end - start) / 86400000)
         : alert("superieur")
@@ -78,10 +78,10 @@ class PostPage extends Component {
           <div className="post-carousel">
             <Carousel>
               <div className="carousel-picture">
-                <img src="https://www.bigstockphoto.com/images/homepage/module-6.jpg" />
+                <img alt="#" src="https://www.bigstockphoto.com/images/homepage/module-6.jpg" />
               </div>
               <div className="carousel-picture">
-                <img src="https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg" />
+                <img alt="#" src="https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg" />
               </div>
             </Carousel>
           </div>

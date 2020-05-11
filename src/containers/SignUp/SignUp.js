@@ -16,7 +16,6 @@ import {
   MDBContainer,
   MDBCard,
   MDBCardBody,
-  MDBInput,
   MDBAnimation,
   MDBModal,
   MDBModalBody,
@@ -58,6 +57,7 @@ class SignUp extends Component {
       confirmPassword: "",
       agree: false,
       modal: false,
+      errors:{}
     });
   };
   handleClickAgency = () => {
@@ -75,6 +75,7 @@ class SignUp extends Component {
       confirmPassword: "",
       check: false,
       agree: "",
+      errors:{}
     });
   };
 
@@ -408,41 +409,40 @@ class SignUp extends Component {
                                 labelFor="validationTooltip06"
                               />
                             </div>
-                            <div className="custom-control custom-checkbox pl-3 d-flex">
-                              <input
-                                className="custom-control-input"
-                                type="checkbox"
-                                id="invalidCheck"
-                                onChange={this.onAgree}
-                                required
-                                checked={this.state.agree}
-                                error={errors.agree}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="invalidCheck"
-                                style={{ fontSize: 15, width: 200 }}
-                              >
-                                Agree to
-                              </label>
-                              <a
-                                className="terms"
-                                onClick={this.toggle}
-                                style={{
-                                  color: "green",
-                                  fontWeight: "bold",
-                                  fontSize: 17,
-                                  textDecoration: "underline",
-                                }}
-                              >
-                                terms and conditions
-                              </a>
-                              <div
-                                className="invalid-feedback"
-                                style={{ fontSize: 15, fontWeight: "bold" }}
-                              >
-                                You must agree before submitting.
+                            <div>
+                              <div className="custom-control custom-checkbox pl-3 d-flex">
+                                <input
+                                  className="custom-control-input"
+                                  type="checkbox"
+                                  id="invalidCheck"
+                                  onChange={this.onAgree}
+                                  required
+                                  checked={this.state.agree}
+                                  error={errors.agree}
+                                />
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor="invalidCheck"
+                                  style={{ fontSize: 15, width: 200 }}
+                                >
+                                  Agree to
+                                </label>
+                                <a
+                                  className="terms"
+                                  onClick={this.toggle}
+                                  style={{
+                                    color: "green",
+                                    fontWeight: "bold",
+                                    fontSize: 17,
+                                    textDecoration: "underline",
+                                  }}
+                                >
+                                  terms and conditions
+                                </a>
                               </div>
+                              {errors.agree ? (
+                                <p className="agree-errors">{errors.agree}</p>
+                              ) : null}
                             </div>
 
                             <div className=" choose-account text-center mt-4 black-text">
@@ -505,7 +505,7 @@ class SignUp extends Component {
                                 id="validationTooltip01"
                                 labelFor="validationTooltip01"
                                 className=" text-field "
-                              />                          
+                              />
                             </div>
                             <div class="form-row">
                               <TextFieldGroup
@@ -563,35 +563,41 @@ class SignUp extends Component {
                                 labelFor="validationTooltip06"
                               />
                             </div>
-                            <div className="custom-control custom-checkbox pl-3 d-flex">
-                              <input
-                                className="custom-control-input"
-                                type="checkbox"
-                                id="invalidCheck"
-                                onChange={this.onAgree}
-                                required
-                                checked={this.state.agree}
-                                error={errors.agree}
-                              />
-                              <label
-                                className="custom-control-label"
-                                htmlFor="invalidCheck"
-                                style={{ fontSize: 15, width: 200 }}
-                              >
-                                Agree to
-                              </label>
-                              <a
-                                className="terms"
-                                onClick={this.toggle}
-                                style={{
-                                  color: "green",
-                                  fontWeight: "bold",
-                                  fontSize: 17,
-                                  textDecoration: "underline",
-                                }}
-                              >
-                                terms and conditions
-                              </a>
+                            <div>
+                              <div className="custom-control custom-checkbox pl-3 d-flex">
+                                <input
+                                  className="custom-control-input"
+                                  type="checkbox"
+                                  id="invalidCheck"
+                                  onChange={this.onAgree}
+                                  required
+                                  checked={this.state.agree}
+                                  error={errors.agree}
+                                />
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor="invalidCheck"
+                                  style={{ fontSize: 15, width: 200 }}
+                                >
+                                  Agree to
+                                </label>
+                                <a
+                                  className="terms"
+                                  onClick={this.toggle}
+                                  style={{
+                                    color: "green",
+                                    fontWeight: "bold",
+                                    fontSize: 17,
+                                    textDecoration: "underline",
+                                  }}
+                                >
+                                  terms and conditions
+                                </a>
+                              </div>
+                              {errors.agree ? (
+                                <p className="agree-errors">{errors.agree}</p>
+                              ) : null}
+
                               <div
                                 className="invalid-feedback"
                                 style={{ fontSize: 15, fontWeight: "bold" }}

@@ -17,9 +17,13 @@ const SelectListGroup = ({
     </option>
   ));
   return (
-    <div className="form-group">
+    <div className="form-group col-md-5 "
+    style={{marginLeft:14, marginBottom:30 }}>
       <select
-        className={classnames("form-control", { "is-invalid": error })}
+        className={classnames(
+          "form-control" ,
+          { "is-invalid": error }
+        )}
         value={value}
         name={name}
         onChange={onChange}
@@ -28,7 +32,7 @@ const SelectListGroup = ({
       >
         {selectOptions}
       </select>
-  
+
       {info && <small className="form-text info text-muted">{info}</small>}
       {error && <div class="invalid-feedback">{error}</div>}
       <div class="valid-feedback">Looks good!</div>

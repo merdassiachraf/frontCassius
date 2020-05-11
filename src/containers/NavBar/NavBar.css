@@ -10,7 +10,7 @@
   font-family: unset;
   display: flex;
 }
- .dropdown-avatar {
+.dropdown-avatar {
   margin: 7px 0px 5px 0px;
 }
 
@@ -22,14 +22,17 @@
   width: 130px;
   height: 46px;
 }
-.all-dropdown{
+.all-dropdown {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.logo-home-name{
-display: flex;
+.logo-home-name {
+  display: flex;
 }
-.svgIcon{
+.svgIcon {
   height: 37px;
+}
+.logo-text {
+  color: #95d5a7;
 }

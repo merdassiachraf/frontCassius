@@ -10,7 +10,7 @@ import Spinner from "../Common/Spinner";
 
 import ProfileActions from "./ProfileActions";
 
-import { MDBMask, MDBView, MDBContainer } from "mdbreact";
+import { MDBMask, MDBView, MDBContainer, MDBBtn, MDBIcon } from "mdbreact";
 
 class DashBoard extends Component {
   componentDidMount = () => {
@@ -48,12 +48,12 @@ class DashBoard extends Component {
             </button>
             {user.role === "Agency" ? (
               <div>
-              <Link to="/add_post" className="btn btn-lg btn-info">
-                Add Post
-              </Link>
-              <Link to="/add_post" className="btn btn-lg btn-info">
-                Your Posts
-              </Link>
+                <Link to="/add_post" className="btn btn-lg btn-info">
+                  Add Post
+                </Link>
+                <Link to="/add_post" className="btn btn-lg btn-info">
+                  Your Posts
+                </Link>
               </div>
             ) : null}
           </div>
@@ -61,13 +61,21 @@ class DashBoard extends Component {
       } else {
         //User logged but has no profile
         dashboardContent = (
-          <div>
-            <p className="lead text-muted">Welcome {user.name}</p>
+          <div className="white-text dashbord-first">
+            <h1 className="white-text">You are welcome {user.name}</h1>
             <p>
-              You have not yet setup a profile , please add some information
+              You have not setup a profile yet , please add some information
             </p>
-            <Link to="/create_profile" className="btn btn-lg btn-info">
-              Create Profile
+            <Link to="/create_profile">
+              <MDBBtn
+                size="lg"
+                className="gray-text font-weight-bold"
+                color="warning"
+              >
+                <MDBIcon size="lg" far icon="grin-stars" />
+                &nbsp;&nbsp;Setup you profile&nbsp;&nbsp;
+                <MDBIcon size="lg" far icon="grin-stars" />
+              </MDBBtn>
             </Link>
           </div>
         );

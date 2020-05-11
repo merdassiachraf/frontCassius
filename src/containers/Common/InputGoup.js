@@ -22,10 +22,11 @@ const InputGroup = ({
       </div>
       <input
         placeholder={placeholder}
-        className={classnames("form-control ", { "is-invalid": errors })}
+        className={classnames("form-control social-input-text", { "is-invalid": errors })}
         value={value}
         name={name}
         onChange={onChange}
+        style={{borderRadius:10}}
       />
       {errors && <div class="invalid-tooltip">{errors}</div>}
       <div class="valid-tooltip">Looks good!</div>

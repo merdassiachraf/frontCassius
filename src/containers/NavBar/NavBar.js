@@ -141,10 +141,6 @@ class NavBar extends React.Component {
         <div>
           <MDBNavbar dark expand="md" fixed="top">
             <MDBContainer>
-              <MDBNavbarBrand>
-              <strong className="white-text">CASSIUS</strong>
-
-              </MDBNavbarBrand>
               <MDBNavbarToggler
                 onClick={this.toggleCollapse("navbarCollapse")}
               />
