@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { withRouter,Link } from "react-router-dom";
 
-import { MDBMask, MDBView, MDBContainer } from "mdbreact";
+import {
+  MDBMask,
+  MDBView,
+  MDBContainer,
+  MDBIcon,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBModalFooter,
+  MDBBtn,
+} from "mdbreact";
 
 import TextFieldGroup from "../Common/TextFieldGroup";
 import InputGoup from "../Common/InputGoup";
 import SelectListGoup from "../Common/SelectListGoup";
+import ProfilePicture from "../CreateProfile/ProfilePicture";
+
 import isEmpty from "../../validation/isEmpty";
 import { createProfile, getCurrentProfile } from "../../actions/profileActions";
 
@@ -15,7 +27,6 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displaySocialInputs: false,
       handle: "",
       dateOfBirth: "",
       youtube: "",
@@ -29,8 +40,25 @@ class EditProfile extends Component {
       countryCode: "",
       phoneNumber: "",
       errors: {},
+      modal: false,
     };
   }
+
+  clearEditSocialFields = () => {
+    this.setState({
+      youtube: "",
+      twitter: "",
+      facebook: "",
+      linkedin: "",
+      instagram: "",
+    });
+  };
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+    });
+  };
 
   componentDidMount = () => {
     this.props.getCurrentProfile();
@@ -111,61 +139,65 @@ class EditProfile extends Component {
   };
 
   render() {
-    const { errors, displaySocialInputs } = this.state;
+    const { errors } = this.state;
     const { role, name } = this.props.auth.user;
     let socialnputs;
 
-    if (displaySocialInputs) {
-      socialnputs = (
-        <div>
-          <InputGoup
-            placeholder="Facebook profile URL"
-            name="facebook"
-            icon="facebook-f"
-            value={this.state.facebook}
-            onChange={this.onChange}
-            errors={errors.facebook}
-            color="blue-text"
-          />
-          <InputGoup
-            placeholder="Instagram profile URL"
-            name="instagram"
-            icon="instagram"
-            value={this.state.instagram}
-            onChange={this.onChange}
-            errors={errors.instagram}
-            color="pink-text"
-          />
-          <InputGoup
-            placeholder="Twitter profile URL"
-            name="twitter"
-            icon="twitter"
-            value={this.state.twitter}
-            onChange={this.onChange}
-            errors={errors.twiter}
-            color="blue-text"
-          />
-          <InputGoup
-            placeholder="Youtube profile URL"
-            name="youtube"
-            icon="youtube"
-            value={this.state.youtube}
-            onChange={this.onChange}
-            errors={errors.youtube}
-            color="red-text"
-          />
-          <InputGoup
-            placeholder="Linkedin profile URL"
-            name="linkedin"
-            icon="linkedin-in"
-            value={this.state.linkedin}
-            onChange={this.onChange}
-            errors={errors.linkedin}
-            color="blue-text"
-          />
-        </div>
-      );
-    }
+    socialnputs = (
+      <div className="d-flex flex-column align-items-start">
+        <button id="clear-social-btn" onClick={this.clearEditSocialFields}>
+          <MDBIcon icon="trash-alt" />
+          &nbsp; Clear fields
+        </button>
+
+        <InputGoup
+          placeholder="Facebook profile URL"
+          name="facebook"
+          icon="facebook-f"
+          value={this.state.facebook}
+          onChange={this.onChange}
+          error={errors.facebook}
+          color="blue-text"
+        />
+        <InputGoup
+          placeholder="Instagram profile URL"
+          name="instagram"
+          icon="instagram"
+          value={this.state.instagram}
+          onChange={this.onChange}
+          error={errors.instagram}
+          color="pink-text"
+        />
+        <InputGoup
+          placeholder="Twitter profile URL"
+          name="twitter"
+          icon="twitter"
+          value={this.state.twitter}
+          onChange={this.onChange}
+          error={errors.twitter}
+          color="blue-text"
+        />
+        <InputGoup
+          placeholder="Youtube profile URL"
+          name="youtube"
+          icon="youtube"
+          value={this.state.youtube}
+          onChange={this.onChange}
+          error={errors.youtube}
+          color="red-text"
+        />
+        <InputGoup
+          placeholder="Linkedin profile URL"
+          name="linkedin"
+          icon="linkedin-in"
+          value={this.state.linkedin}
+          onChange={this.onChange}
+          error={errors.linkedin}
+          color="blue-text"
+        />
+      </div>
+    );
+
     // Select options for status
     const optionsCountry = [
       { label: "Select Country", value: "" },
@@ -191,7 +223,6 @@ class EditProfile extends Component {
       { label: "Kef", value: "Kef" },
       { label: "Mahdia", value: "Mahdia" },
       { label: "Mannouba", value: "Mannouba" },
-      { label: "Mahdia", value: "Mahdia" },
       { label: "Medenine", value: "Medenine" },
       { label: "Monastir", value: "Monastir" },
       { label: "Nabeul", value: "Nabeul" },
@@ -269,187 +300,244 @@ class EditProfile extends Component {
               : "https://images.pexels.com/photos/518244/pexels-photo-518244.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
           }
         >
-          <MDBMask className="d-flex justify-content-center align-items-center gradient">
+          <MDBMask className=" gradient">
             <MDBContainer>
-              <div className="create-profile">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-8 m-auto creat-pro-head">
-                      <h1 className="display-4  text-center white-text">
-                        Edit your profile {name}
-                      </h1>
-                      <form onSubmit={this.onSubmit} className=" ">
-                        <div className="form-profile">
-                          <TextFieldGroup
-                            divClassName="col-md-11 text-field"
-                            placeholder="* Profile Handle"
-                            name="handle"
-                            type="text"
-                            value={this.state.handle}
-                            onChange={this.onChange}
-                            errors={errors.handle}
-                            info="A unique handle for your profle URL. Your full name ,agency name,nickname"
-                          />
-                          <TextFieldGroup
-                            divClassName="col-md-11 d-flex flex-column align-items-start"
-                            placeholder={
-                              role === "Agency"
-                                ? "Agency Adress"
-                                : "Your adress"
-                            }
-                            name="adress"
-                            type="text"
-                            value={this.state.adress}
-                            onChange={this.onChange}
-                            errors={errors.adress}
-                            info={
-                              role === "Agency"
-                                ? "You can add another adress after validate you profile"
-                                : "Add your adress"
-                            }
-                          />
-                          {role === "Client" ? (
-                            <TextFieldGroup
-                              divClassName="col-md-11 text-field"
-                              name="dateOfBirth"
-                              type="date"
-                              value={this.state.dateOfBirth}
-                              onChange={this.onChange}
-                              errors={errors.dateOfBirth}
-                            />
-                          ) : null}
-                        </div>
-                        <div className="infos-profile">
-                          <SelectListGoup
-                            placeholder="Country"
-                            name="country"
-                            value={this.state.country}
-                            onChange={this.onChange}
-                            errors={errors.country}
-                            info="Select country"
-                            options={
-                              role === "Agency"
-                                ? optionsAgencyCountry
-                                : optionsCountry
-                            }
-                          />
-
-                          {this.state.country === "Algeria" ? (
-                            <SelectListGoup
-                              placeholder="State"
-                              name="state"
-                              value={this.state.state}
-                              onChange={this.onChange}
-                              errors={errors.state}
-                              info="Select State"
-                              options={optionsStateAlgeria}
-                            />
-                          ) : this.state.country === "France" ? (
-                            <SelectListGoup
-                              placeholder="State"
-                              name="state"
-                              value={this.state.state}
-                              onChange={this.onChange}
-                              errors={errors.state}
-                              info="Select State"
-                              options={optionsStateFrance}
-                            />
-                          ) : this.state.country === "Italy" ? (
-                            <SelectListGoup
-                              placeholder="State"
-                              name="state"
-                              value={this.state.state}
-                              onChange={this.onChange}
-                              errors={errors.state}
-                              info="Select State"
-                              options={optionsStateItaly}
-                            />
-                          ) : this.state.country === "Tunisia" ? (
-                            <SelectListGoup
-                              placeholder="State"
-                              name="state"
-                              value={this.state.state}
-                              onChange={this.onChange}
-                              errors={errors.state}
-                              info="Select State"
-                              options={optionsStateTunisia}
-                            />
-                          ) : this.state.country === "Germany" ? (
-                            <SelectListGoup
-                              placeholder="State"
-                              name="state"
-                              value={this.state.state}
-                              onChange={this.onChange}
-                              errors={errors.state}
-                              info="Select State"
-                              options={optionsStateGermany}
-                            />
-                          ) : (
-                            <SelectListGoup
-                              placeholder="State"
-                              name="state"
-                              value={this.state.state}
-                              onChange={this.onChange}
-                              errors={errors.state}
-                              info="You need to choose country first"
-                              options={optionsError}
-                            />
-                          )}
-                          <SelectListGoup
-                            placeholder="Country phone code"
-                            name="countryCode"
-                            value={this.state.countryCode}
-                            onChange={this.onChange}
-                            errors={errors.countryCode}
-                            options={
-                              role === "Agency"
-                                ? optionsAgencyCountryCode
-                                : optionsCountryCode
-                            }
-                          />
-                          <TextFieldGroup
-                            divClassName="col-md-15 text-field"
-                            placeholder={
-                              role === "Agency"
-                                ? "Agency phone number"
-                                : "Your phone number"
-                            }
-                            type="text"
-                            type="number"
-                            value={this.state.phoneNumber}
-                            onChange={this.onChange}
-                            errors={errors.phoneNumber}
-                          />
-                        </div>
-
-                        <div className="">
-                          <div className="mb-3 social-profile">
-                            <button
-                              onClick={() => {
-                                this.setState((prevState) => ({
-                                  displaySocialInputs: !prevState.displaySocialInputs,
-                                }));
-                              }}
-                              className="btn btn-light"
-                            >
-                              add Social Network Links
-                            </button>
-                            <span className="text-muted">Optional</span>
-                            {socialnputs}
-                          </div>
-
-                          <button
-                            type="submit"
-                            value="submit"
-                            className="btn btn-primary btn-block profile-submit"
-                            style={{ width: 150 }}
-                            onClick={this.onSubmit}
-                          >Submit</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+            <Link className="go-back" to="/dashboard"><MDBIcon icon="arrow-circle-left" />&nbsp;Go back</Link>
+              <div className="create-profile text-center">
+                <div
+                  className="creat-pro-head text-center"
+                  style={{ marginLeft: 300 }}
+                >
+                  <h2 className="text-center white-text">
+                    Edit your profile {name}
+                  </h2>
+                  <p className="lead white-text text-center">
+                    Let's get correct some information
+                  </p>
                 </div>
+
+                <form onSubmit={this.onSubmit} className="form-group">
+                  <div className="form-profile d-flex">
+                    <div className="text-field1">
+                      <TextFieldGroup
+                        divClassName="col-md-10 "
+                        placeholder="Profile Handle"
+                        name="handle"
+                        type="text"
+                        value={this.state.handle}
+                        onChange={this.onChange}
+                        error={errors.handle}
+                      />
+                    </div>
+                    <div className="text-field2">
+                      {role === "Client" ? (
+                        <TextFieldGroup
+                          divClassName="col-md-10"
+                          name="dateOfBirth"
+                          type="date"
+                          value={this.state.dateOfBirth}
+                          onChange={this.onChange}
+                          error={errors.dateOfBirth}
+                        />
+                      ) : null}
+                    </div>
+                    <div className="text-field3">
+                      <TextFieldGroup
+                        divClassName="col-md-10"
+                        placeholder={
+                          role === "Agency" ? "Agency Adress" : "Your adress"
+                        }
+                        name="adress"
+                        type="text"
+                        value={this.state.adress}
+                        onChange={this.onChange}
+                        error={errors.adress}
+                      />
+                    </div>
+                    <div className="select-field1">
+                      <SelectListGoup
+                        placeholder="Country"
+                        name="country"
+                        value={this.state.country}
+                        onChange={this.onChange}
+                        error={errors.country}
+                        options={
+                          role === "Agency"
+                            ? optionsAgencyCountry
+                            : optionsCountry
+                        }
+                      />
+                    </div>
+                    <div className="select-field2">
+                      {this.state.country === "Algeria" ? (
+                        <SelectListGoup
+                          placeholder="State"
+                          name="state"
+                          value={this.state.state}
+                          onChange={this.onChange}
+                          error={errors.state}
+                          options={optionsStateAlgeria}
+                        />
+                      ) : this.state.country === "France" ? (
+                        <SelectListGoup
+                          placeholder="State"
+                          name="state"
+                          value={this.state.state}
+                          onChange={this.onChange}
+                          error={errors.state}
+                          options={optionsStateFrance}
+                        />
+                      ) : this.state.country === "Italy" ? (
+                        <SelectListGoup
+                          placeholder="State"
+                          name="state"
+                          value={this.state.state}
+                          onChange={this.onChange}
+                          error={errors.state}
+                          options={optionsStateItaly}
+                        />
+                      ) : this.state.country === "Tunisia" ? (
+                        <SelectListGoup
+                          placeholder="State"
+                          name="state"
+                          value={this.state.state}
+                          onChange={this.onChange}
+                          error={errors.state}
+                          options={optionsStateTunisia}
+                        />
+                      ) : this.state.country === "Germany" ? (
+                        <SelectListGoup
+                          placeholder="State"
+                          name="state"
+                          value={this.state.state}
+                          onChange={this.onChange}
+                          error={errors.state}
+                          options={optionsStateGermany}
+                        />
+                      ) : (
+                        <SelectListGoup
+                          placeholder="State"
+                          name="state"
+                          value={this.state.state}
+                          onChange={this.onChange}
+                          error={errors.state}
+                          options={optionsError}
+                        />
+                      )}
+                    </div>
+                    <div className="select-field3">
+                      <SelectListGoup
+                        placeholder="Country phone code"
+                        name="countryCode"
+                        value={this.state.countryCode}
+                        onChange={this.onChange}
+                        error={errors.countryCode}
+                        options={
+                          role === "Agency"
+                            ? optionsAgencyCountryCode
+                            : optionsCountryCode
+                        }
+                      />
+                    </div>
+                    <div className="text-field4">
+                      <TextFieldGroup
+                        divClassName="col-md-10 phone-Field "
+                        placeholder={
+                          role === "Agency"
+                            ? "Agency phone number"
+                            : "Your phone number"
+                        }
+                        name="phoneNumber"
+                        type="number"
+                        value={this.state.phoneNumber}
+                        onChange={this.onChange}
+                        error={errors.phoneNumber}
+                      />
+                    </div>
+                    <div className="profile-picture-upload white-text">
+                      <label style={{ marginLeft: 8 }}>Profile Picture:</label>
+                      <ProfilePicture />
+                    </div>
+                    <div className="social-inputs">
+                      <div className="social-button">
+                        <MDBBtn
+                          onClick={this.toggle}
+                          className="font-weight-bold "
+                          size="lg"
+                          style={{ height: 70 }}
+                        >
+                          Social Network Links&nbsp;&nbsp;
+                          <MDBIcon
+                            size="lg"
+                            className="black-text"
+                            fab
+                            icon="internet-explorer"
+                          />
+                        </MDBBtn>
+                        {errors.facebook ||
+                        errors.youtube ||
+                        errors.linkedin ||
+                        errors.twitter ||
+                        errors.instagram ? (
+                          <div className="d-flex flex-column invalid-tooltip align-items-start">
+                            <h6 class="white-text font-weight-light">
+                              {errors.facebook}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.youtube}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.linkedin}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.instagram}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.twitter}
+                            </h6>
+                            <h6 className="d-flex white-text font-weight-light">
+                              To fix click
+                              <a
+                                className="font-weight-bold"
+                                onClick={this.toggle}
+                              >
+                                &nbsp;HERE
+                              </a>
+                            </h6>
+                          </div>
+                        ) : null}
+                        <h6 className="white-text">Optional</h6>
+                      </div>
+                      <MDBModal
+                        isOpen={this.state.modal}
+                        toggle={this.toggle}
+                        side
+                        position="top-left"
+                      >
+                        <MDBModalHeader toggle={this.toggle}>
+                          Put your social Links
+                        </MDBModalHeader>
+                        <MDBModalBody>{socialnputs} </MDBModalBody>
+                        <MDBModalFooter>
+                          <MDBBtn color="danger" onClick={this.toggle}>
+                            Done
+                          </MDBBtn>
+                        </MDBModalFooter>
+                      </MDBModal>
+                    </div>
+                    <MDBBtn
+                      value="submit"
+                      className="black-text font-weight-bold submit-profile"
+                      style={{ width: 200 }}
+                      onClick={this.onSubmit}
+                      color="amber"
+                      size="lg"
+                    >
+                      Submit&nbsp;&nbsp;
+                      <MDBIcon size="lg" icon="hdd" />
+                    </MDBBtn>
+                  </div>
+                </form>
               </div>
             </MDBContainer>
           </MDBMask>

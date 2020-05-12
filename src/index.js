@@ -19,6 +19,9 @@ import "./containers/Common/TextFieldGroup.css";
 import "./containers/CreateProfile/CreateProfile.css";
 import "./containers/Profile/Profile.css";
 import "./containers/PostPage/PostPage.css"
+import "./containers/AddContactInformation/AddContactInformation.css"
+import './containers/Profiles/Profiles.css'
+import "./containers/Common/Spinner.css"
 
 //lien css Mdboostrap
 import "@fortawesome/fontawesome-free/css/all.min.css";

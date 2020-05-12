@@ -11,6 +11,8 @@ import Spinner from "../Common/Spinner";
 import ProfileActions from "./ProfileActions";
 
 import { MDBMask, MDBView, MDBContainer, MDBBtn, MDBIcon } from "mdbreact";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 class DashBoard extends Component {
   componentDidMount = () => {
@@ -33,26 +35,34 @@ class DashBoard extends Component {
       //Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
-          <div>
-            <p className="lead text-muted">
-              Welcome
-              <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
-            </p>
-            <ProfileActions />
-            <ContactInformation
-              contactInformation={profile.contactInformation}
-            />
+          <div className="d-flex profile-all">
+            <div className="d-flex flex-column align-items-center justify-content-around left-dashbord">
+              <Avatar shape="square" size={250} icon={<UserOutlined />} />
+
+              <h2 className="profile-name">
+                <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
+              </h2>
+              <ProfileActions />
+
+              <button onClick={this.onDeleteClick} className="btn btn-danger">
+                <MDBIcon size="lg" icon="exclamation-triangle" />
+                &nbsp;&nbsp;Delete My Account
+              </button>
+            </div>
+            <div className="right-dashbord">
+              <ContactInformation
+                contactInformation={profile.contactInformation}
+              />
+            </div>
             <div style={{ marginBottom: "60px" }} />
-            <button onClick={this.onDeleteClick} className="btn btn-danger">
-              Delete My Account
-            </button>
+
             {user.role === "Agency" ? (
-              <div>
-                <Link to="/add_post" className="btn btn-lg btn-info">
-                  Add Post
+              <div className="agency-post-buttons">
+                <Link to="/add_post">
+                  <MDBBtn className="font-weight-bold post-link" color="secondary" size="lg">ADD post&nbsp;&nbsp;<MDBIcon size="lg" icon="plus" /></MDBBtn>
                 </Link>
-                <Link to="/add_post" className="btn btn-lg btn-info">
-                  Your Posts
+                <Link to="/add_post">
+                  <MDBBtn className="font-weight-bold post-link"  color="success" size="lg">your posts&nbsp;&nbsp;<MDBIcon size="lg" icon="book-open" /></MDBBtn>
                 </Link>
               </div>
             ) : null}
@@ -90,10 +100,7 @@ class DashBoard extends Component {
               <div className="dashboard">
                 <div className="container">
                   <div className="row">
-                    <div className=".col-md-12">
-                      dashboard
-                      {dashboardContent}
-                    </div>
+                    <div className=".col-md-12">{dashboardContent}</div>
                   </div>
                 </div>
               </div>

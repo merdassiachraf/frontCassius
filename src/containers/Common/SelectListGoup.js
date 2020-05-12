@@ -9,7 +9,6 @@ const SelectListGroup = ({
   placeholder,
   onChange,
   options,
-  info,
 }) => {
   const selectOptions = options.map((option) => (
     <option key={option.label} value={option.value}>
@@ -17,25 +16,18 @@ const SelectListGroup = ({
     </option>
   ));
   return (
-    <div className="form-group col-md-5 "
-    style={{marginLeft:14, marginBottom:30 }}>
+    <div className="form-group col-md-13 ">
       <select
-        className={classnames(
-          "form-control" ,
-          { "is-invalid": error }
-        )}
+        className={classnames("form-control ", { "is-invalid": error })}
         value={value}
         name={name}
         onChange={onChange}
         placeholder={placeholder}
-        required
       >
         {selectOptions}
       </select>
-
-      {info && <small className="form-text info text-muted">{info}</small>}
-      {error && <div class="invalid-feedback">{error}</div>}
-      <div class="valid-feedback">Looks good!</div>
+      {error && <div className="invalid-tooltip">{error}</div>}
+      <div className="valid-feedback">Looks good!</div>
     </div>
   );
 };
@@ -45,7 +37,6 @@ SelectListGroup.propTypes = {
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   error: PropTypes.string,
-  info: PropTypes.string,
   onChange: PropTypes.string.isRequired,
   options: PropTypes.object.isRequired,
 };

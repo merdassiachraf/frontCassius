@@ -10,7 +10,7 @@ import { MDBMask, MDBView, MDBContainer, MDBIcon, MDBBtn } from "mdbreact";
 import TextFieldGroup from "../Common/TextFieldGroup";
 import SelectListGoup from "../Common/SelectListGoup";
 
-class AddContactInformation extends Component {
+class EditContactInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,11 +27,6 @@ class AddContactInformation extends Component {
       this.setState({ errors: nextProps });
     }
   };
-
-  initialErrors=()=>{
-    this.setState({errors:null})
-  }
-
   onSubmit = (e) => {
     e.preventDefault();
 
@@ -102,7 +97,7 @@ class AddContactInformation extends Component {
         <MDBView src="https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
             <MDBContainer>
-              <Link className="go-back" to="/dashboard" onClick={()=>this.setState({errors:{}})}>
+              <Link className="go-back" to="/dashboard">
                 <MDBIcon icon="arrow-circle-left" />
                 &nbsp;Go back
               </Link>
@@ -212,7 +207,7 @@ class AddContactInformation extends Component {
     );
   }
 }
-AddContactInformation.propTypes = {
+EditContactInfo.propTypes = {
   addContactInformation: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
@@ -225,5 +220,5 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 export default connect(mapStateToProps, { addContactInformation })(
-  withRouter(AddContactInformation)
+  withRouter(EditContactInfo)
 );

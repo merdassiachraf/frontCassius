@@ -1,0 +1,36 @@
+.all-agencies-filtre {
+  border-right: solid 5px white;
+  padding: 0px 25px 25px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(110deg, #887697 30%, #8c967a 30%);
+  margin-top: 85px;
+  height: 578px;
+  box-shadow: 5px 3px 6px 1px black;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.agencies-list {
+
+  display: flex;
+  flex-wrap: wrap;
+}
+.agency-list-page{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0;
+    top: 100px;
+    width: 1050px;
+    height: 700px;
+}
+
+.agencies-sous-titre{
+    font-size: 16px;font-weight: 100;
+}
+
+.agencies-title{
+font-family: monospace;
+}

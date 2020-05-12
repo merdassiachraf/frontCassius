@@ -13,12 +13,7 @@
   flex-wrap: wrap;
 }
 .create-profile {
-  margin-top: 100px;
-  
-}
-.line-profile-1 {
-  display: flex;
-  margin-bottom: 50px;
+  margin-top: 110px;
 }
 
 .upload-social {
@@ -29,20 +24,87 @@
 .social-inputs {
   display: flex;
 }
-.line-profile-2 {
+
+.social-button {
+  position: fixed;
+  left: 630px;
+  bottom: 260px;
   display: flex;
-  margin-left: 50px;
-justify-content: start;
 }
-.profile-picture-upload{
-margin-left:50px
+
+.profile-picture-upload {
+  border: dashed gray 3px;
+  position: fixed;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 200px;
+  font-size: 15px;
+  font-family: monospace;
+  right: 50px;
 }
-.line-profile-3 {
-  display: flex;
-  margin-left: 50px;
-  margin-top:30px;
-  justify-content: space-between;
+
+.submit-profile {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
 }
-.submit-profile{
-  margin-left: 200px;
+
+.text-field1 {
+  position: fixed;
+  right:1050px;
+  width: 330px;
+}
+
+.text-field2 {
+  position: fixed;
+  left: 0;
+  bottom: 300px;
+  width: 250px;
+
+}
+
+.text-field3 {
+  position: fixed;
+  left: 0;
+  bottom: 200px;
+    width: 250px;
+
+}
+
+.select-field1 {
+  position: fixed;
+  left: 350px;
+  top:235px;
+  width: 240px;
+}
+.select-field2 {
+  position: fixed;
+  left: 350px;
+  bottom: 282px;
+  width: 240px;
+
+}
+
+.select-field3 {
+  position: fixed;
+  left: 350px;
+  bottom: 184px;
+  width: 240px;
+
+}
+
+.text-field4 {
+  position: fixed;
+  left: 570px;
+  width: 380px;
+
+}
+
+#clear-social-btn{
+  border:none;
+  border-radius: 3px;
+  color:black;
+  font-size: 15px;
+  text-decoration: underline;
+  margin:0px 20px 15px 0px;
 }

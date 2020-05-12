@@ -12,33 +12,42 @@
 .label-post-add {
   margin-right: 15px;
   margin-bottom: 10px;
-  font-size:20px;
+  font-size: 20px;
 }
 .add-picture-button {
-    margin: 20px 0px 0px 230px;
+  margin: 0px 0px 0px 280px;
 }
-.select-post-add{
-    font-size: 18px;
-    padding: 5px;
+.select-post-add {
+  font-size: 18px;
+  padding: 5px;
 }
-.option-add-post{
-    color:black
+.option-add-post {
+  color: black;
 }
-.all-post-card{
-    margin-top: 80px;
-    margin-right: 100px;
+.all-post-card {
+  margin-top: 80px;
+  margin-right: 100px;
+}
+.right-animation-add {
+  margin-top: 100px;
+}
 
+.add-title {
+  font-size: 38px;
+  font-family: monospace;
+  margin-bottom: 15px 0px;
 }
-.right-animation-add{
-    margin-top: 100px;
-}
-
-.add-title{
-    font-size: 38px;
-    font-family: monospace;
-    margin-bottom: 15px 0px;
-    
-}
-.picture-bottons{
+.picture-bottons {
   display: flex;
+}
+
+.button-previous {
+  position: fixed;
+  bottom: 15px;
+}
+
+.button-post {
+  position: fixed;
+  bottom: 15px;
+  left: 330px;
 }

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import Spinner from "../Common/Spinner";
-import PostFeed from "./PostFeed"
+import PostFeed from "./PostFeed";
 
 import { getPosts } from "../../actions/postActions";
 
@@ -525,25 +525,14 @@ class Posts extends Component {
                 </div>
               </div>
 
-              <div className="posts-list-view">
-
-              {postContent}
-
-                {/* {this.props.posts
-                  .filter(
-                    (post) =>
-                      post.agencyName.includes(this.state.search) &&
-                      post.brand.includes(this.state.brand) &&
-                      post.model.includes(this.state.model) &&
-                      post.fuel.includes(this.state.fuel) &&
-                      post.transmission.includes(this.state.transmission) &&
-                      post.state.includes(this.state.state) &&
-                      post.pricePerDay >= this.state.minPricePerDay &&
-                      post.pricePerDay <= this.state.maxPricePerDay
-                  )
-                  .map((post) => (
-                    <PostCard post={post} />
-                  ))} */}
+              <div className="posts-list-page">
+                <h2 className="white-text text-center posts-title">
+                  Cars List
+                </h2>
+                <p className=" white-text posts-sous-titre text-center">
+                  You will find your car here
+                </p>
+                <div className="posts-list">{postContent}</div>
               </div>
             </MDBContainer>
           </MDBMask>

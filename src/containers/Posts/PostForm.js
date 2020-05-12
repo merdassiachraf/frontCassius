@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addPost } from "../../actions/postActions";
 
+import { Upload, Modal } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+
 import {
   MDBMask,
   MDBRow,
@@ -18,6 +21,14 @@ import {
 } from "mdbreact";
 import errorsReducer from "../../reducers/errorsReducer";
 
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
 class PostForm extends Component {
   constructor(props) {
     super(props);
@@ -31,21 +42,31 @@ class PostForm extends Component {
       fuel: "",
       transmission: "",
       pricePerDay: "",
-      carPictures: {
-        carPicture1: "",
-        carPicture2: "",
-        carPicture3: "",
-        carPicture4: "",
-        carPicture5: "",
-        carPicture6: "",
-        carPicture7: "",
-        carPicture8: "",
-        carPicture9: "",
-        carPicture10: "",
-      },
       errors: {},
+      previewVisible: false,
+      previewImage: "",
+      previewTitle: "",
+      fileList: [],
     };
   }
+
+  handleCancel = () => this.setState({ previewVisible: false });
+
+  handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    this.setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+      previewTitle:
+        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
+    });
+  };
+
+  handleChange = ({ fileList }) => this.setState({ fileList });
+
   componentWillReceiveProps = (newProps) => {
     if (newProps.errors) {
       this.setState({ errors: newProps.errors });
@@ -60,22 +81,10 @@ class PostForm extends Component {
       brand: this.state.brand,
       model: this.state.model,
       fuel: this.state.fuel,
-      country:this.state.country,
-      state:this.state.state,
+      country: this.state.country,
+      state: this.state.state,
       transmission: this.state.transmission,
       pricePerDay: this.state.pricePerDay,
-      carPictures: {
-        carPicture1: this.state.carPicture1,
-        carPicture2: this.state.carPicture2,
-        carPicture3: this.state.carPicture3,
-        carPicture4: this.state.carPicture4,
-        carPicture5: this.state.carPicture5,
-        carPicture6: this.state.carPicture6,
-        carPicture7: this.state.carPicture7,
-        carPicture8: this.state.carPicture8,
-        carPicture9: this.state.carPicture9,
-        carPicture10: this.state.carPicture10,
-      },
     };
     this.props.addPost(newPost);
   };
@@ -89,16 +98,24 @@ class PostForm extends Component {
     }
   };
 
-  handleClickAddPictures = () => {
+  addPictures = () => {
     this.setState({ addPicture: "pictures", previous: "" });
   };
 
-  handelClickPevious = () => {
+  previousClick = () => {
     this.setState({ previous: "previous", addPicture: "" });
   };
 
   render() {
     const { errors } = this.state;
+    const { previewVisible, previewImage, fileList, previewTitle } = this.state;
+    const uploadButton = (
+      <div>
+        <PlusOutlined />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+
     return (
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/256514/pexels-photo-256514.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
@@ -109,7 +126,7 @@ class PostForm extends Component {
                   <MDBAnimation
                     type="fadeInLeft"
                     delay=".3s"
-                    className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5 right-add-photo"
+                    className="white-text text-center text-md-left col-md-6 mt-xl-5 right-add-photo"
                   >
                     <h1 className="h1-responsive font-weight-bold white-text ">
                       Create your car Post easily and for free ... !
@@ -120,44 +137,64 @@ class PostForm extends Component {
 
                 {this.state.addPicture === "pictures" &&
                 this.state.previous === "" ? (
-                  <MDBCol md="" xl="5" className="mb-4 all-post-card">
+                  <MDBCol md="" xl="5" className="all-post-card">
                     <MDBAnimation type="fadeInRight" delay=".3s">
-                      <MDBCard id="classic-card" style={{ width: 540 }}>
+                      <MDBCard
+                        id="classic-card"
+                        style={{ width: 540, height: 550 }}
+                      >
                         <MDBCardBody className="white-text">
                           <h3 className=" text-center add-title font-weight-bold">
                             <MDBIcon icon="scroll" /> Car Pictures
                           </h3>
                           <hr className="hr-light" />
-                          <div>
-                            <input
-                              onChange={this.onDrop}
-                              imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                              maxFileSize={5242880}
-                            />
-
-                            {this.state.pictures.map((picture) =>
-                              console.log(picture)
-                            )}
-                          </div>
-
-                          <div className="text-center mt-4  picture-bottons">
-                            <div className=" previous-button">
+                          <div className="d-flexflex-column">
+                            <div
+                              className="clearfix"
+                              style={{ marginLeft: 30 }}
+                            >
+                              <Upload
+                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                listType="picture-card"
+                                fileList={fileList}
+                                onPreview={this.handlePreview}
+                                onChange={this.handleChange}
+                              >
+                                {fileList.length >= 10 ? (
+                                  <h6>max upload</h6>
+                                ) : (
+                                  uploadButton
+                                )}
+                              </Upload>
+                              <Modal
+                                visible={previewVisible}
+                                title={previewTitle}
+                                footer={null}
+                                onCancel={this.handleCancel}
+                              >
+                                <img
+                                  alt="example"
+                                  style={{ width: "100%" }}
+                                  src={previewImage}
+                                />
+                              </Modal>
+                            </div>
+                            <div className="d-flex justify-content-between ">
                               <MDBBtn
-                                className=" font-weight-bold  btn-md black-text"
+                                className=" font-weight-bold  btn-md black-text button-previous"
                                 color="danger"
-                                style={{ fontSize: 16 }}
-                                onClick={this.handelClickPevious}
+                                style={{ fontSize: 16, width: 180 }}
+                                labelStyles={{ width: 500 }}
+                                onClick={this.previousClick}
                               >
                                 <MDBIcon icon="arrow-circle-left" size="lg" />
                                 &nbsp; &nbsp; Previous
                               </MDBBtn>
-                            </div>
-                            <div className=" Post-button">
                               <MDBBtn
-                                className=" font-weight-bold  btn-md black-text"
+                                className=" font-weight-bold  btn-md black-text button-post"
                                 color="success"
-                                style={{ fontSize: 16 }}
-                                onClick={this.handelClickPevious}
+                                style={{ fontSize: 16, width: 180 }}
+                                onClick={this.previous}
                                 labelStyles={{ width: 500 }}
                               >
                                 Post &nbsp; &nbsp;
@@ -171,9 +208,12 @@ class PostForm extends Component {
                   </MDBCol>
                 ) : this.state.addPicture === "" &&
                   this.state.previous === "previous" ? (
-                  <MDBCol md="" xl="5" className="mb-4 all-post-card">
+                  <MDBCol md="" xl="5" className=" all-post-card">
                     <MDBAnimation type="fadeInRight" delay=".3s">
-                      <MDBCard id="classic-card" style={{ width: 540 }}>
+                      <MDBCard
+                        id="classic-card"
+                        style={{ width: 540, height: 550 }}
+                      >
                         <MDBCardBody className="white-text">
                           <h3 className=" text-center add-title font-weight-bold">
                             <MDBIcon icon="scroll" /> Car Information
@@ -914,7 +954,7 @@ class PostForm extends Component {
                           <div className="text-center mt-4 black-text">
                             <div className=" add-picture-button">
                               <MDBBtn
-                                onClick={this.onSubmit}
+                                onClick={this.addPictures}
                                 className=" font-weight-bold  btn-md"
                                 color="warning"
                                 style={{ fontSize: 16 }}

@@ -43,16 +43,14 @@ class CreateProfile extends Component {
     };
   }
 
-  sociaCancel = () => { 
-      this.toggle();
-      this.setState({
-        youtube: "",
-        twitter: "",
-        facebook: "",
-        linkedin: "",
-        instagram: "",
-      });
-
+  clearSocialFields = () => {
+    this.setState({
+      youtube: "",
+      twitter: "",
+      facebook: "",
+      linkedin: "",
+      instagram: "",
+    });
   };
 
   toggle = () => {
@@ -115,16 +113,20 @@ class CreateProfile extends Component {
     const { role, name } = this.props.auth.user;
     let socialnputs;
 
-    console.log(this.state.twitter);
     socialnputs = (
-      <div>
+      <div className="d-flex flex-column align-items-start">
+        <button id="clear-social-btn" onClick={this.clearSocialFields}>
+          <MDBIcon icon="trash-alt" />
+          &nbsp; Clear fields
+        </button>
+
         <InputGoup
           placeholder="Facebook profile URL"
           name="facebook"
           icon="facebook-f"
           value={this.state.facebook}
           onChange={this.onChange}
-          errors={errors.facebook}
+          error={errors.facebook}
           color="blue-text"
         />
         <InputGoup
@@ -133,7 +135,7 @@ class CreateProfile extends Component {
           icon="instagram"
           value={this.state.instagram}
           onChange={this.onChange}
-          errors={errors.instagram}
+          error={errors.instagram}
           color="pink-text"
         />
         <InputGoup
@@ -142,7 +144,7 @@ class CreateProfile extends Component {
           icon="twitter"
           value={this.state.twitter}
           onChange={this.onChange}
-          errors={errors.twitter}
+          error={errors.twitter}
           color="blue-text"
         />
         <InputGoup
@@ -151,7 +153,7 @@ class CreateProfile extends Component {
           icon="youtube"
           value={this.state.youtube}
           onChange={this.onChange}
-          errors={errors.youtube}
+          error={errors.youtube}
           color="red-text"
         />
         <InputGoup
@@ -160,7 +162,7 @@ class CreateProfile extends Component {
           icon="linkedin-in"
           value={this.state.linkedin}
           onChange={this.onChange}
-          errors={errors.linkedin}
+          error={errors.linkedin}
           color="blue-text"
         />
       </div>
@@ -285,29 +287,33 @@ class CreateProfile extends Component {
                 </div>
 
                 <form onSubmit={this.onSubmit} className="form-group">
-                  <div className="form-profile d-flex flex-column">
-                    <div className="line-profile-1 text-center">
+                  <div className="form-profile d-flex">
+                    <div className="text-field1">
                       <TextFieldGroup
-                        divClassName="col-md-5 text-field"
+                        divClassName="col-md-10 "
                         placeholder="Profile Handle"
                         name="handle"
                         type="text"
                         value={this.state.handle}
                         onChange={this.onChange}
-                        errors={errors.handle}
+                        error={errors.handle}
                       />
+                    </div>
+                    <div className="text-field2">
                       {role === "Client" ? (
                         <TextFieldGroup
-                          divClassName="col-md-5 text-field"
+                          divClassName="col-md-10"
                           name="dateOfBirth"
                           type="date"
                           value={this.state.dateOfBirth}
                           onChange={this.onChange}
-                          errors={errors.dateOfBirth}
+                          error={errors.dateOfBirth}
                         />
                       ) : null}
+                    </div>
+                    <div className="text-field3">
                       <TextFieldGroup
-                        divClassName="col-md-5 text-field"
+                        divClassName="col-md-10"
                         placeholder={
                           role === "Agency" ? "Agency Adress" : "Your adress"
                         }
@@ -315,30 +321,31 @@ class CreateProfile extends Component {
                         type="text"
                         value={this.state.adress}
                         onChange={this.onChange}
-                        errors={errors.adress}
+                        error={errors.adress}
                       />
                     </div>
-                    <div className="line-profile-2 text-center">
+                    <div className="select-field1">
                       <SelectListGoup
                         placeholder="Country"
                         name="country"
                         value={this.state.country}
                         onChange={this.onChange}
-                        errors={errors.country}
+                        error={errors.country}
                         options={
                           role === "Agency"
                             ? optionsAgencyCountry
                             : optionsCountry
                         }
                       />
-
+                    </div>
+                    <div className="select-field2">
                       {this.state.country === "Algeria" ? (
                         <SelectListGoup
                           placeholder="State"
                           name="state"
                           value={this.state.state}
                           onChange={this.onChange}
-                          errors={errors.state}
+                          error={errors.state}
                           options={optionsStateAlgeria}
                         />
                       ) : this.state.country === "France" ? (
@@ -347,7 +354,7 @@ class CreateProfile extends Component {
                           name="state"
                           value={this.state.state}
                           onChange={this.onChange}
-                          errors={errors.state}
+                          error={errors.state}
                           options={optionsStateFrance}
                         />
                       ) : this.state.country === "Italy" ? (
@@ -356,7 +363,7 @@ class CreateProfile extends Component {
                           name="state"
                           value={this.state.state}
                           onChange={this.onChange}
-                          errors={errors.state}
+                          error={errors.state}
                           options={optionsStateItaly}
                         />
                       ) : this.state.country === "Tunisia" ? (
@@ -365,7 +372,7 @@ class CreateProfile extends Component {
                           name="state"
                           value={this.state.state}
                           onChange={this.onChange}
-                          errors={errors.state}
+                          error={errors.state}
                           options={optionsStateTunisia}
                         />
                       ) : this.state.country === "Germany" ? (
@@ -374,7 +381,7 @@ class CreateProfile extends Component {
                           name="state"
                           value={this.state.state}
                           onChange={this.onChange}
-                          errors={errors.state}
+                          error={errors.state}
                           options={optionsStateGermany}
                         />
                       ) : (
@@ -383,16 +390,18 @@ class CreateProfile extends Component {
                           name="state"
                           value={this.state.state}
                           onChange={this.onChange}
-                          errors={errors.state}
+                          error={errors.state}
                           options={optionsError}
                         />
                       )}
+                    </div>
+                    <div className="select-field3">
                       <SelectListGoup
                         placeholder="Country phone code"
                         name="countryCode"
                         value={this.state.countryCode}
                         onChange={this.onChange}
-                        errors={errors.countryCode}
+                        error={errors.countryCode}
                         options={
                           role === "Agency"
                             ? optionsAgencyCountryCode
@@ -400,27 +409,30 @@ class CreateProfile extends Component {
                         }
                       />
                     </div>
-                    <div className=" d-flex line-profile-3">
+                    <div className="text-field4">
                       <TextFieldGroup
-                        divClassName="col-md-3 phone-Field "
+                        divClassName="col-md-10 phone-Field "
                         placeholder={
                           role === "Agency"
                             ? "Agency phone number"
                             : "Your phone number"
                         }
                         name="phoneNumber"
-                        type="text"
+                        type="number"
                         value={this.state.phoneNumber}
                         onChange={this.onChange}
-                        errors={errors.phoneNumber}
+                        error={errors.phoneNumber}
                       />
-                      <div className="profile-picture-upload">
-                        <ProfilePicture />
-                      </div>
-                      <div className="social-inputs">
+                    </div>
+                    <div className="profile-picture-upload white-text">
+                      <label style={{ marginLeft: 8 }}>Profile Picture:</label>
+                      <ProfilePicture />
+                    </div>
+                    <div className="social-inputs">
+                      <div className="social-button">
                         <MDBBtn
                           onClick={this.toggle}
-                          className="font-weight-bold"
+                          className="font-weight-bold "
                           size="lg"
                           style={{ height: 70 }}
                         >
@@ -432,28 +444,56 @@ class CreateProfile extends Component {
                             icon="internet-explorer"
                           />
                         </MDBBtn>
-
+                        {errors.facebook ||
+                        errors.youtube ||
+                        errors.linkedin ||
+                        errors.twitter ||
+                        errors.instagram ? (
+                          <div className="d-flex flex-column invalid-tooltip align-items-start">
+                            <h6 class="white-text font-weight-light">
+                              {errors.facebook}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.youtube}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.linkedin}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.instagram}
+                            </h6>
+                            <h6 class="white-text font-weight-light">
+                              {errors.twitter}
+                            </h6>
+                            <h6 className="d-flex white-text font-weight-light">
+                              To fix click
+                              <a
+                                className="font-weight-bold"
+                                onClick={this.toggle}
+                              >
+                                &nbsp;HERE
+                              </a>
+                            </h6>
+                          </div>
+                        ) : null}
                         <h6 className="white-text">Optional</h6>
-                        <MDBModal
-                          isOpen={this.state.modal}
-                          toggle={this.toggle}
-                          side
-                          position="top-left"
-                        >
-                          <MDBModalHeader toggle={this.toggle}>
-                            Put your social Links
-                          </MDBModalHeader>
-                          <MDBModalBody>{socialnputs} </MDBModalBody>
-                          <MDBModalFooter>
-                            <MDBBtn color="secondary" onClick={this.toggle}>
-                              Close
-                            </MDBBtn>
-                            <MDBBtn color="primary" onClick={this.toggle}>
-                              Done
-                            </MDBBtn>
-                          </MDBModalFooter>
-                        </MDBModal>
                       </div>
+                      <MDBModal
+                        isOpen={this.state.modal}
+                        toggle={this.toggle}
+                        side
+                        position="top-left"
+                      >
+                        <MDBModalHeader toggle={this.toggle}>
+                          Put your social Links
+                        </MDBModalHeader>
+                        <MDBModalBody>{socialnputs} </MDBModalBody>
+                        <MDBModalFooter>
+                          <MDBBtn color="danger" onClick={this.toggle}>
+                            Done
+                          </MDBBtn>
+                        </MDBModalFooter>
+                      </MDBModal>
                     </div>
                     <MDBBtn
                       value="submit"

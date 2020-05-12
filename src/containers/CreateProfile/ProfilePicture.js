@@ -46,13 +46,14 @@ class ProfilePicture extends React.Component {
       </div>
     );
     return (
-      <div className="clearfix">
+      <div className="clearfix" style={{marginLeft:30}}>
         <Upload
           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
           listType="picture-card"
           fileList={fileList}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
+          
         >
           {fileList.length >= 1 ? null : uploadButton}
         </Upload>

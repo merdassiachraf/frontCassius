@@ -1,0 +1,50 @@
+.go-back {
+  position: fixed;
+  top: 100px;
+  left: 20px;
+  font-size: 17px;
+  font-family: monospace;
+  display: flex;
+  align-items: center;
+}
+.add-agency-cont {
+  position: fixed;
+  top: 110px;
+  left: 100px;
+  right: 100px;
+}
+
+.cont-inf-field-1 {
+  position: fixed;
+  left: 220px;
+  width: 365px;
+  top: 230px;
+}
+
+.cont-inf-field-2 {
+  position: fixed;
+  left: 285px;
+  width: 300px;
+  top: 370px;
+}
+
+.cont-inf-field-3 {
+  position: fixed;
+  left: 285px;
+  width: 300px;
+  top: 480px;
+}
+
+.cont-inf-field-4 {
+  position: fixed;
+  left: 750px;
+  width: 300px;
+  top: 265px;
+}
+
+.cont-inf-field-5 {
+  position: fixed;
+  left: 700px;
+  width: 300px;
+  top: 320px;
+}

@@ -36,3 +36,9 @@
 .logo-text {
   color: #95d5a7;
 }
+.user-drop-name{
+  margin-top:10px;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 20px;
+}

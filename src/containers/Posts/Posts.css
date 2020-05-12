@@ -6,11 +6,11 @@
   align-items: center;
   background: linear-gradient(110deg, #cda98c 30%, #8c967a 30%);
   margin-top: 85px;
-  height: 587px;
+  height: 578px;
   box-shadow: 5px 3px 6px 1px black;
   position: fixed;
   left: 0;
-  bottom:0
+  bottom: 0;
 }
 .posts-filtre-input {
   width: 165px;
@@ -53,13 +53,22 @@
 .vertical-price label {
   font-size: 15px;
 }
-.posts-list-view{
+
+.posts-list-page {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   right: 0;
-  bottom:30px;
-  width:1050px;
+  top: 80px;
+  width: 1050px;
   height: 700px;
-  display:flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
+}
+
+.posts-sous-titre {
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.posts-title {
+  font-family: monospace;
 }

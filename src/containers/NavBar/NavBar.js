@@ -51,21 +51,21 @@ class NavBar extends React.Component {
           <MDBDropdownToggle nav caret>
             <div
               className="d-none d-md-inline dropdown-essencial"
-              style={{ fontWeight: 600 }}
+              style={{ fontFamily: "monospace", fontWeight: "bold" , fontSize:17 }}
             >
               <Avatar size="small" icon={<UserOutlined />} />
-              &nbsp;&nbsp;{user.name}
+              &nbsp;&nbsp;{user.name} &nbsp;
             </div>
           </MDBDropdownToggle>
           <MDBDropdownMenu className="dropdown-account">
             <div className="all-dropdown">
               <Link to="/dashboard">
-                <div className="dropdown-avatar">
+                <div className="dropdown-avatar d-flex flex-column align-items-center">
                   <Avatar size={100} icon={<UserOutlined />} />
+                  <h6 className="user-drop-name">{user.name}</h6>
                 </div>
               </Link>
-              <h6>{user.name}</h6>
-              <div className="dropdown-button">
+              <div className="d-flex align-items-center">
                 <hr />
                 <Link to="/edit_profile">
                   <MDBBtn
