@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import TextFieldGroup from "../Common/TextFieldGroup";
+
+import { Input } from "antd";
 
 import { loginUser } from "../../actions/authActions";
 
@@ -75,38 +76,46 @@ class Login extends Component {
                           <strong>Sign in</strong>
                         </h3>
                       </div>
-                      <form class="needs-validation" novalidate>
-                        <div class="form-row">
-                          <TextFieldGroup
-                            divClassName="col-md-10 mb-1 text-field"
-                            icon="envelope"
+                      <form class="needs-validation login-fields" novalidate>
+                        <div class="login-field">
+                          <label>
+                            <MDBIcon icon="envelope" />
+                            &nbsp;Email
+                          </label>
+                          <Input
+                            style={{ width: 300 }}
                             name="email"
-                            placeholder="Email Adress"
+                            placeholder="Email"
                             value={this.state.email}
-                            label="Email"
                             error={errors.email}
                             type="email"
                             onChange={this.changeHandler}
-                            id="validationTooltip01"
-                            labelFor="validationTooltip01"
+                            className="login-input"
                           />
+                          {errors.email ? (
+                                  <p className="agree-errors">{errors.email}</p>
+                                ) : null}
                         </div>
-                        <div class="form-row">
-                          <TextFieldGroup
-                            divClassName="col-md-10 mb-4 text-field"
-                            icon="key"
+                        <div className="login-field">
+                          <label>
+                            <MDBIcon icon="key" />
+                            &nbsp;Password
+                          </label>
+
+                          <Input.Password
+                            style={{ width: 300 }}
                             name="password"
                             placeholder="Password"
                             value={this.state.password}
-                            label="Password"
                             error={errors.password}
                             type="password"
                             onChange={this.changeHandler}
-                            id="validationTooltip02"
-                            labelFor="validationTooltip02"
+                            className="password-input"
                           />
+                          {errors.password ? (
+                                  <p className="agree-errors">{errors.password}</p>
+                                ) : null}
                         </div>
-
                         <p className="font-small blue-text d-flex justify-content-end pb-3">
                           Forgot
                           <a href="#!" className="blue-text ml-1">

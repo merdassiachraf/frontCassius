@@ -22,7 +22,6 @@ import {
   MDBIcon,
   MDBContainer,
   MDBBtn,
-  MDBNavbarBrand,
 } from "mdbreact";
 
 import Icon from "../../atests/logo/Icon";
@@ -51,7 +50,11 @@ class NavBar extends React.Component {
           <MDBDropdownToggle nav caret>
             <div
               className="d-none d-md-inline dropdown-essencial"
-              style={{ fontFamily: "monospace", fontWeight: "bold" , fontSize:17 }}
+              style={{
+                fontFamily: "monospace",
+                fontWeight: "bold",
+                fontSize: 17,
+              }}
             >
               <Avatar size="small" icon={<UserOutlined />} />
               &nbsp;&nbsp;{user.name} &nbsp;

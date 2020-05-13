@@ -96,6 +96,7 @@
 display: flex;
 justify-content: space-between;
 align-items: center;
+margin-top: 130px;
 }
 .choose-type{
   width:200px;
@@ -120,3 +121,28 @@ align-items: center;
   margin-top: 40px;
 }
 
+.sign-row{
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.sign-pass-input{
+  margin-left: 50px;
+}
+
+.sign-pass-input:active{
+
+  }
+
+.agree-check{
+margin-top: 20px;
+}
+.agree-errors {
+  transition: 0.3s;
+  font-size: 12px;
+  color: white;
+  background-color: #d03648;
+  border-radius: 4px;
+  padding: 5px;
+  width: 230px;
+}

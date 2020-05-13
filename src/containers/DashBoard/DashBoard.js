@@ -3,24 +3,47 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
+import {
+  getCurrentProfile,
+  deleteAccount,
+  clearCurrentProfile,
+} from "../../actions/profileActions";
+import { logoutUser } from "../../actions/authActions";
 
 import ContactInformation from "./ContactInformation";
 import Spinner from "../Common/Spinner";
 
 import ProfileActions from "./ProfileActions";
 
-import { MDBMask, MDBView, MDBContainer, MDBBtn, MDBIcon } from "mdbreact";
+import {
+  MDBMask,
+  MDBView,
+  MDBContainer,
+  MDBBtn,
+  MDBIcon,
+  MDBModal,
+} from "mdbreact";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 class DashBoard extends Component {
+  state = {
+    modal: false,
+  };
   componentDidMount = () => {
     this.props.getCurrentProfile();
   };
 
   onDeleteClick = () => {
     this.props.deleteAccount();
+    this.props.logoutUser();
+    this.props.clearCurrentProfile();
+  };
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+    });
   };
 
   render() {
@@ -42,12 +65,36 @@ class DashBoard extends Component {
               <h2 className="profile-name">
                 <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
               </h2>
+              <h6 className="white-text">{profile.adress}</h6>
+              <h6 className="white-text">{profile.state + " , " + profile.country}</h6>
+              <h6 className="white-text">{profile.countryCode + " " + profile.phoneNumber}</h6>
               <ProfileActions />
 
-              <button onClick={this.onDeleteClick} className="btn btn-danger">
+              <button onClick={this.toggle} className="btn btn-danger">
                 <MDBIcon size="lg" icon="exclamation-triangle" />
                 &nbsp;&nbsp;Delete My Account
               </button>
+              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                <div className="d-flex flex-column align-items-center p-5">
+                  <h6> Are You Sure? This can not be recovered !</h6>
+                  <div className="d-flex">
+                    <MDBBtn
+                      color="yellow"
+                      className="mr-5"
+                      onClick={this.toggle}
+                    >
+                      <MDBIcon icon="ban" />
+                      &nbsp;Cancel
+                    </MDBBtn>
+                    <Link to="/">
+                      <MDBBtn color="danger" onClick={this.onDeleteClick}>
+                        <MDBIcon icon="trash-alt" />
+                        &nbsp;Delete Account
+                      </MDBBtn>
+                    </Link>
+                  </div>
+                </div>
+              </MDBModal>
             </div>
             <div className="right-dashbord">
               <ContactInformation
@@ -59,10 +106,24 @@ class DashBoard extends Component {
             {user.role === "Agency" ? (
               <div className="agency-post-buttons">
                 <Link to="/add_post">
-                  <MDBBtn className="font-weight-bold post-link" color="secondary" size="lg">ADD post&nbsp;&nbsp;<MDBIcon size="lg" icon="plus" /></MDBBtn>
+                  <MDBBtn
+                    className="font-weight-bold post-link"
+                    color="secondary"
+                    size="lg"
+                  >
+                    ADD post&nbsp;&nbsp;
+                    <MDBIcon size="lg" icon="plus" />
+                  </MDBBtn>
                 </Link>
                 <Link to="/add_post">
-                  <MDBBtn className="font-weight-bold post-link"  color="success" size="lg">your posts&nbsp;&nbsp;<MDBIcon size="lg" icon="book-open" /></MDBBtn>
+                  <MDBBtn
+                    className="font-weight-bold post-link"
+                    color="success"
+                    size="lg"
+                  >
+                    your posts&nbsp;&nbsp;
+                    <MDBIcon size="lg" icon="book-open" />
+                  </MDBBtn>
                 </Link>
               </div>
             ) : null}
@@ -113,10 +174,12 @@ class DashBoard extends Component {
 }
 
 DashBoard.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -124,6 +187,9 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  DashBoard
-);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  clearCurrentProfile,
+  deleteAccount,
+  logoutUser,
+})(DashBoard);

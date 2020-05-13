@@ -28,12 +28,9 @@ class AddContactInformation extends Component {
     }
   };
 
-  initialErrors=()=>{
-    this.setState({errors:null})
-  }
-
   onSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state.errors);
 
     const contactInformationData = {
       adress: this.state.adress,
@@ -102,109 +99,108 @@ class AddContactInformation extends Component {
         <MDBView src="https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
             <MDBContainer>
-              <Link className="go-back" to="/dashboard" onClick={()=>this.setState({errors:{}})}>
+              <Link
+                className="go-back"
+                to="/dashboard"
+                onClick={() => this.setState({ errors: {} })}
+              >
                 <MDBIcon icon="arrow-circle-left" />
                 &nbsp;Go back
               </Link>
               <div className="add-agency-cont">
-                   <div
-                      className="d-flex flex-column text-center"
-                   >
-                      <h2 className="text-center white-text">
-                        Add contact information
-                      </h2>
-                      <p className="lead white-text text-center">
-                        add an other contact to your agency
-                      </p>
-                    </div>
-                    <form onSubmit={this.onSubmit} className="form-group">
-                      <div className="d-flex">
-                        <div className="left-add-con-info">
-                          <div className="cont-inf-field-1">
-                            <TextFieldGroup
-                              divClassName="col-md-11 d-flex flex-column align-items-start"
-                              placeholder={
-                                role === "Agency"
-                                  ? "Agency Adress"
-                                  : "Your adress"
-                              }
-                              name="adress"
-                              type="text"
-                              value={this.state.adress}
-                              onChange={this.onChange}
-                              error={errors.adress}
-                            />
-                          </div>
-                          <div className="cont-inf-field-2">
-                            <SelectListGoup
-                              placeholder="Country"
-                              name="country"
-                              value={this.state.country}
-                              onChange={this.onChange}
-                              error={errors.country}
-                              info="Select country"
-                              options={optionsAgencyCountry}
-                            />
-                          </div>
-                          <div className="cont-inf-field-3">
-                            {this.state.country === "Tunisia" ? (
-                              <SelectListGoup
-                                placeholder="State"
-                                name="state"
-                                value={this.state.state}
-                                onChange={this.onChange}
-                                error={errors.state}
-                                options={optionsStateTunisia}
-                              />
-                            ) : (
-                              <SelectListGoup
-                                placeholder="State"
-                                name="state"
-                                value={this.state.state}
-                                onChange={this.onChange}
-                                error={errors.state}
-                                options={optionsError}
-                              />
-                            )}
-                          </div>
-                        </div>
-                        <div className="middle-add-con-info">
-                          <div className="cont-inf-field-4">
-                            <SelectListGoup
-                              placeholder="Country phone code"
-                              name="countryCode"
-                              value={this.state.countryCode}
-                              onChange={this.onChange}
-                              error={errors.countryCode}
-                              options={optionsAgencyCountryCode}
-                            />
-                          </div>
-                          <div className="cont-inf-field-5">
-                            <TextFieldGroup
-                              divClassName="col-md-15 text-field"
-                              placeholder="Agency phone number"
-                              name="phoneNumber"
-                              type="text"
-                              value={this.state.phoneNumber}
-                              onChange={this.onChange}
-                              error={errors.phoneNumber}
-                            />
-                          </div>
-                        </div>
-                        <MDBBtn
-                          value="submit"
-                          className="black-text font-weight-bold submit-profile"
-                          style={{ width: 200 }}
-                          onClick={this.onSubmit}
-                          color="amber"
-                          size="lg"
-                        >
-                          Submit&nbsp;&nbsp;
-                          <MDBIcon size="lg" icon="hdd" />
-                        </MDBBtn>
-                      </div>
-                    </form>
+                <div className="d-flex flex-column text-center">
+                  <h2 className="text-center white-text">
+                    Add contact information
+                  </h2>
+                  <p className="lead white-text text-center">
+                    add an other contact to your agency
+                  </p>
                 </div>
+                <form onSubmit={this.onSubmit} className="form-group">
+                  <div className="form-profile d-flex">
+                    <div className="left-add-con-info">
+                      <div className="cont-inf-field-1">
+                        <TextFieldGroup
+                          divClassName="col-md-11 d-flex flex-column align-items-start"
+                          placeholder="Agency Adress"
+                          name="adress"
+                          type="text"
+                          value={this.state.adress}
+                          onChange={this.onChange}
+                          error={errors.adress}
+                        />
+                        
+                        
+                      </div>
+                      <div className="cont-inf-field-2">
+                        <SelectListGoup
+                          placeholder="Country"
+                          name="country"
+                          value={this.state.country}
+                          onChange={this.onChange}
+                          error={errors.country}
+                          options={optionsAgencyCountry}
+                        />
+                      </div>
+                      <div className="cont-inf-field-3">
+                        {this.state.country === "Tunisia" ? (
+                          <SelectListGoup
+                            placeholder="State"
+                            name="state"
+                            value={this.state.state}
+                            onChange={this.onChange}
+                            error={errors.state}
+                            options={optionsStateTunisia}
+                          />
+                        ) : (
+                          <SelectListGoup
+                            placeholder="State"
+                            name="state"
+                            value={this.state.state}
+                            onChange={this.onChange}
+                            error={errors.state}
+                            options={optionsError}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="middle-add-con-info">
+                      <div className="cont-inf-field-4">
+                        <SelectListGoup
+                          placeholder="Country phone code"
+                          name="countryCode"
+                          value={this.state.countryCode}
+                          onChange={this.onChange}
+                          error={errors.countryCode}
+                          options={optionsAgencyCountryCode}
+                        />
+                      </div>
+                      <div className="cont-inf-field-5">
+                        <TextFieldGroup
+                          divClassName="col-md-15 text-field"
+                          placeholder="Agency phone number"
+                          name="phoneNumber"
+                          type="text"
+                          value={this.state.phoneNumber}
+                          onChange={this.onChange}
+                          error={errors.phoneNumber}
+                        />
+                      </div>
+                    </div>
+                    <MDBBtn
+                      value="submit"
+                      className="black-text font-weight-bold submit-profile"
+                      style={{ width: 200 }}
+                      onClick={this.onSubmit}
+                      color="amber"
+                      size="lg"
+                    >
+                      Submit&nbsp;&nbsp;
+                      <MDBIcon size="lg" icon="hdd" />
+                    </MDBBtn>
+                  </div>
+                </form>
+              </div>
             </MDBContainer>
           </MDBMask>
         </MDBView>

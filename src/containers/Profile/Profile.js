@@ -12,7 +12,6 @@ import {
   MDBMask,
   MDBView,
   MDBContainer,
-  MDBBtn,
   MDBIcon
 } from "mdbreact";
 
@@ -34,12 +33,10 @@ class Profile extends Component {
       profileContent = (
         <div className="full-profile-page">
           <div className="column">
-            <Link to="/profiles">
-              <MDBBtn className="mb-5 backup-button" color="primary">
-                <MDBIcon icon="arrow-left" />
-                &nbsp;&nbsp;Back To Agencies List
-              </MDBBtn>
-            </Link>
+          <Link className="go-back" to="/dashboard">
+                <MDBIcon icon="arrow-circle-left" />
+                &nbsp;Go back
+              </Link>
         
           <ProfileAbout className="mt-5" profile={profile} />
           </div>

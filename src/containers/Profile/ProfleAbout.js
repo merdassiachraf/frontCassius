@@ -4,7 +4,8 @@ import {
   MDBModal,
   MDBModalBody,
   MDBModalHeader,
-  MDBModalFooter,MDBIcon
+  MDBModalFooter,
+  MDBIcon,
 } from "mdbreact";
 import ProfileContactInformation from "./ProfileContactInfortmation";
 import ProfileHeader from "./ProfileHeader";
@@ -21,21 +22,42 @@ class ProfileAbout extends Component {
   };
   render() {
     const { profile } = this.props;
+    let social;
+    let instgram;
+    let facebook;
+    let youtube;
+    let linkedin;
+    let twitter;
     return (
       <div className="profile-about">
         <ProfileHeader />
         <div className="profile-infos">
-        <div className="social-icons-profile  mb-4">
-        <MDBIcon size="lg" className="blue-text" fab icon="facebook" />
-        <MDBIcon size="lg" className="blue-text" fab icon="twitter" />
-        <MDBIcon size="lg" className="pink-text" fab icon="instagram" />
-        <MDBIcon size="lg" className="blue-text" fab icon="linkedin" />
-        <MDBIcon size="lg" className="red-text" fab icon="youtube" />
+          <div className="social-icons-profile mb-2">
+            <MDBIcon size="lg" className="blue-text" fab icon="facebook" />
+            <MDBIcon size="lg" className="blue-text" fab icon="twitter" />
+            <MDBIcon size="lg" className="blue-text" fab icon="linkedin" />
+            <MDBIcon size="lg" className="pink-text" fab icon="instagram" />
+            <MDBIcon size="lg" className="red-text" fab icon="youtube" />
+          </div>
+          <div className="d-flex flex-column align-items-center">
+          <h1 className="agency-profile-name mb-4">Hertz rent car</h1>
+          <h6 className="black-text">{profile.adress}</h6>
+          <h6 className="black-text">
+            {profile.state + " , " + profile.country}
+          </h6>
+          <h6 className="black-text">
+            {profile.countryCode + " " + profile.phoneNumber}
+          </h6>
+          <MDBBtn
+            className="contact-profile"
+            color="info"
+            onClick={this.toggle}
+            size='lg'
+          >
+            <MDBIcon icon="map-signs" size="lg" />
+            &nbsp;&nbsp;Contact Information
+          </MDBBtn>
         </div>
-        <h1 className="agency-profile-name mb-4">Hertz rent car</h1>
-        <MDBBtn className="contact-profile" color="info" onClick={this.toggle}>
-          Contact Information
-        </MDBBtn>
         </div>
         <MDBModal
           isOpen={this.state.modal}

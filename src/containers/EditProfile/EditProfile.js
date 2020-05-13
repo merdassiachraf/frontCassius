@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter,Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import {
   MDBMask,
@@ -88,11 +88,11 @@ class EditProfile extends Component {
         facebook: profile.facebook,
         linkedin: profile.linkedin,
         instagram: profile.instagram,
-        adress: profile.contactInformation[0].adress,
-        state: profile.contactInformation[0].state,
-        country: profile.contactInformation[0].country,
-        countryCode: profile.contactInformation[0].countryCode,
-        phoneNumber: profile.contactInformation[0].phoneNumber,
+        adress: profile.adress,
+        state: profile.state,
+        country: profile.country,
+        countryCode: profile.countryCode,
+        phoneNumber: profile.phoneNumber,
       });
     }
   };
@@ -302,7 +302,10 @@ class EditProfile extends Component {
         >
           <MDBMask className=" gradient">
             <MDBContainer>
-            <Link className="go-back" to="/dashboard"><MDBIcon icon="arrow-circle-left" />&nbsp;Go back</Link>
+              <Link className="go-back" to="/dashboard">
+                <MDBIcon icon="arrow-circle-left" />
+                &nbsp;Go back
+              </Link>
               <div className="create-profile text-center">
                 <div
                   className="creat-pro-head text-center"

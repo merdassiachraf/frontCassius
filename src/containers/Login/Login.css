@@ -49,8 +49,27 @@
   }
 }
 
-
 .social-button {
   margin-top: 0px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.login-input{
+  height:45px;
+}
+.password-input{
+  height:45px;
+margin-left: 50px;
+}
+
+.login-fields{
+  margin-top: 45px;
 }
 

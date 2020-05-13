@@ -129,7 +129,6 @@ export const deleteContactInformation = (id) => (dispatch) => {
 
 //Delete account
 export const deleteAccount = () => (dispatch) => {
-  if (window.confirm("Are You Sure? This can Not be undone! ")) {
     axios
       .delete("/profile/delete")
       .then((res) =>
@@ -144,5 +143,4 @@ export const deleteAccount = () => (dispatch) => {
           payload: err.response.data,
         })
       );
-  }
 };

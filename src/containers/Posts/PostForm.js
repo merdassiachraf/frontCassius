@@ -196,6 +196,7 @@ class PostForm extends Component {
                                 style={{ fontSize: 16, width: 180 }}
                                 onClick={this.previous}
                                 labelStyles={{ width: 500 }}
+                                onClick={this.onSubmit}
                               >
                                 Post &nbsp; &nbsp;
                                 <MDBIcon icon="share-square" size="lg" />

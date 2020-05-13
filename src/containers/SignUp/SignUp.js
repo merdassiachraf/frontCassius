@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
+import { Input } from "antd";
 
 import TextFieldGroup from "../Common/TextFieldGroup";
 
@@ -57,7 +58,7 @@ class SignUp extends Component {
       confirmPassword: "",
       agree: false,
       modal: false,
-      errors:{}
+      errors: {},
     });
   };
   handleClickAgency = () => {
@@ -75,7 +76,7 @@ class SignUp extends Component {
       confirmPassword: "",
       check: false,
       agree: "",
-      errors:{}
+      errors: {},
     });
   };
 
@@ -324,93 +325,147 @@ class SignUp extends Component {
                           </h3>
                           <hr className="hr-light" />
                           <form class="needs-validation" novalidate>
-                            <div class="form-row">
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-9"
-                                icon="id-card"
-                                name="fname"
-                                placeholder="First name"
-                                value={this.state.fname}
-                                label="First name"
-                                error={errors.fname}
-                                type="text"
-                                onChange={this.changeHandler}
-                                id="validationTooltip01"
-                                labelFor="validationTooltip01"
-                                className=" text-field "
-                              />
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4"
-                                icon="id-card"
-                                name="lname"
-                                placeholder="Last name"
-                                value={this.state.lname}
-                                label="Last name"
-                                error={errors.lname}
-                                type="text"
-                                onChange={this.changeHandler}
-                                id="validationTooltip02"
-                                labelFor="validationTooltip02"
-                              />
+                            <div className="d-flex sign-row">
+                              <div className="d-flex flex-column">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="key" />
+                                    &nbsp;First name
+                                  </label>
+                                </div>
+                                <Input
+                                  style={{ width: 230, height: 35 }}
+                                  name="fname"
+                                  placeholder="First name"
+                                  value={this.state.fname}
+                                  error={errors.fname}
+                                  type="text"
+                                  onChange={this.changeHandler}
+                                  className="sign-input"
+                                />
+                                {errors.fname ? (
+                                  <p className="agree-errors">{errors.fname}</p>
+                                ) : null}
+                              </div>
+
+                              <div className="d-flex flex-column">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="key" />
+                                    &nbsp;Last name
+                                  </label>
+                                </div>
+                                <Input
+                                  style={{ width: 230, height: 35 }}
+                                  name="lname"
+                                  placeholder="Last name"
+                                  value={this.state.lname}
+                                  error={errors.lname}
+                                  type="text"
+                                  onChange={this.changeHandler}
+                                  className="sign-input"
+                                />
+                                {errors.lname ? (
+                                  <p className="agree-errors">{errors.lname}</p>
+                                ) : null}
+                              </div>
                             </div>
-                            <div class="form-row">
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="envelope"
-                                name="email"
-                                placeholder="Email adress"
-                                value={this.state.email}
-                                label="Email"
-                                error={errors.email}
-                                type="email"
-                                onChange={this.changeHandler}
-                                id="validationTooltip03"
-                                labelFor="validationTooltip03"
-                              />
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="envelope"
-                                name="confirmEmail"
-                                placeholder="confirm your email"
-                                value={this.state.confirmEmail}
-                                label="Confirm email"
-                                error={this.state.errors.confirmEmail}
-                                type="email"
-                                onChange={this.changeHandler}
-                                id="validationTooltip04"
-                                labelFor="validationTooltip04"
-                              />
+                            <div className="d-flex sign-row">
+                              <div className="d-flex flex-column ">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="envelope" />
+                                    &nbsp;Email
+                                  </label>
+                                </div>
+                                <Input
+                                  style={{ width: 230, height: 35 }}
+                                  name="email"
+                                  placeholder="Email"
+                                  value={this.state.email}
+                                  error={errors.email}
+                                  type="email"
+                                  onChange={this.changeHandler}
+                                  className="sign-input"
+                                />
+                                {errors.email ? (
+                                  <p className="agree-errors">{errors.email}</p>
+                                ) : null}
+                              </div>
+                              <div className="d-flex flex-column">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="envelope" />
+                                    &nbsp;Confirm email
+                                  </label>
+                                </div>
+                                <Input
+                                  style={{ width: 230, height: 35 }}
+                                  name="confirmEmail"
+                                  placeholder="Confirm email"
+                                  value={this.state.confirmEmail}
+                                  error={errors.confirmEmail}
+                                  type="email"
+                                  onChange={this.changeHandler}
+                                  className="sign-input"
+                                />
+                                {errors.confirmEmail ? (
+                                  <p className="agree-errors">
+                                    {errors.confirmEmail}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
-                            <div class="form-row">
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="user-lock"
-                                name="password"
-                                placeholder="Password"
-                                value={this.state.password}
-                                label="Password"
-                                error={errors.password}
-                                type="password"
-                                onChange={this.changeHandler}
-                                id="validationTooltip05"
-                                labelFor="validationTooltip05"
-                              />
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="user-lock"
-                                name="confirmPassword"
-                                placeholder="Confirrm password"
-                                value={this.state.confirmPassword}
-                                label="Confirm password"
-                                error={errors.confirmPassword}
-                                type="password"
-                                onChange={this.changeHandler}
-                                id="validationTooltip06"
-                                labelFor="validationTooltip06"
-                              />
+                            <div className="d-flex sign-row">
+                              <div className="d-flex flex-column pass-row">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="key" />
+                                    &nbsp;Password
+                                  </label>
+                                </div>
+                                <Input.Password
+                                  style={{ width: 230, height: 35 }}
+                                  name="password"
+                                  placeholder="Password"
+                                  value={this.state.password}
+                                  error={errors.password}
+                                  type="password"
+                                  onChange={this.changeHandler}
+                                  className="sign-pass-input black-text"
+                                />
+                                {errors.password ? (
+                                  <p className="agree-errors">
+                                    {errors.password}
+                                  </p>
+                                ) : null}
+                              </div>
+                              <div className="d-flex flex-column pass-row">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="key" />
+                                    &nbsp;Confirm password
+                                  </label>
+                                </div>
+                                <Input.Password
+                                  style={{ width: 230, height: 35 }}
+                                  name="confirmPassword"
+                                  placeholder="confirmPassword"
+                                  value={this.state.confirmPassword}
+                                  error={errors.confirmPassword}
+                                  type="password"
+                                  onChange={this.changeHandler}
+                                  className="sign-pass-input"
+                                />
+                                {errors.confirmPassword ? (
+                                  <p className="agree-errors">
+                                    {errors.confirmPassword}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
                             <div>
-                              <div className="custom-control custom-checkbox pl-3 d-flex">
+                              <div className="custom-control custom-checkbox  agree-check  d-flex">
                                 <input
                                   className="custom-control-input"
                                   type="checkbox"
@@ -426,26 +481,28 @@ class SignUp extends Component {
                                   style={{ fontSize: 15, width: 200 }}
                                 >
                                   Agree to
+                                  <a
+                                    className="terms"
+                                    onClick={this.toggle}
+                                    style={{
+                                      color: "green",
+                                      fontWeight: "bold",
+                                      fontSize: 17,
+                                      textDecoration: "underline",
+                                    }}
+                                  >
+                                    terms and conditions
+                                  </a>
                                 </label>
-                                <a
-                                  className="terms"
-                                  onClick={this.toggle}
-                                  style={{
-                                    color: "green",
-                                    fontWeight: "bold",
-                                    fontSize: 17,
-                                    textDecoration: "underline",
-                                  }}
-                                >
-                                  terms and conditions
-                                </a>
                               </div>
                               {errors.agree ? (
                                 <p className="agree-errors">{errors.agree}</p>
                               ) : null}
                             </div>
-
-                            <div className=" choose-account text-center mt-4 black-text">
+                            <div
+                              className=" choose-account text-center black-text"
+                              style={{ marginTop: 4 }}
+                            >
                               <MDBBtn
                                 className=" font-weight-bold  btn-md"
                                 color="warning"
@@ -473,7 +530,7 @@ class SignUp extends Component {
                   </MDBCol>
                 ) : this.state.accountStep === "Fill the fields" &&
                   this.state.role === "Agency" ? (
-                  <MDBCol md="" xl="5" className="mb-4 all-post-card">
+                    <MDBCol md="" xl="5" className="mb-4 all-post-card">
                     <MDBAnimation type="fadeInRight" delay=".3s">
                       <MDBCard
                         id="classic-card"
@@ -486,85 +543,129 @@ class SignUp extends Component {
                       >
                         <MDBCardBody className="white-text">
                           <h3 className=" text-center add-title font-weight-bold">
-                            <MDBIcon icon="clipboard-list" />
+                            <MDBIcon icon="user-edit" />
                             &nbsp; Agency Information
                           </h3>
                           <hr className="hr-light" />
                           <form class="needs-validation" novalidate>
-                            <div class="form-row">
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-9"
-                                icon="id-card"
-                                name="name"
-                                placeholder="Agency name"
-                                value={this.state.name}
-                                label="Agency name"
-                                error={errors.name}
-                                type="text"
-                                onChange={this.changeHandler}
-                                id="validationTooltip01"
-                                labelFor="validationTooltip01"
-                                className=" text-field "
-                              />
+                            <div className="d-flex sign-row">
+                              <div className="d-flex flex-column">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="key" />
+                                    &nbsp;Agency name
+                                  </label>
+                                </div>
+                                <Input
+                                  style={{ width: 230, height: 35 }}
+                                  name="name"
+                                  placeholder="Agency name"
+                                  value={this.state.name}
+                                  error={errors.name}
+                                  type="text"
+                                  onChange={this.changeHandler}
+                                  className="sign-input"
+                                />
+                                {errors.name ? (
+                                  <p className="agree-errors">{errors.name}</p>
+                                ) : null}
+                              </div>                                                        </div>
+                            <div className="d-flex sign-row">
+                              <div className="d-flex flex-column ">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="envelope" />
+                                    &nbsp;Email
+                                  </label>
+                                </div>
+                                <Input
+                                  style={{ width: 230, height: 35 }}
+                                  name="email"
+                                  placeholder="Email"
+                                  value={this.state.email}
+                                  error={errors.email}
+                                  type="email"
+                                  onChange={this.changeHandler}
+                                  className="sign-input"
+                                />
+                                {errors.email ? (
+                                  <p className="agree-errors">{errors.email}</p>
+                                ) : null}
+                              </div>
+                              <div className="d-flex flex-column">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="envelope" />
+                                    &nbsp;Confirm email
+                                  </label>
+                                </div>
+                                <Input
+                                  style={{ width: 230, height: 35 }}
+                                  name="confirmEmail"
+                                  placeholder="Confirm email"
+                                  value={this.state.confirmEmail}
+                                  error={errors.confirmEmail}
+                                  type="email"
+                                  onChange={this.changeHandler}
+                                  className="sign-input"
+                                />
+                                {errors.confirmEmail ? (
+                                  <p className="agree-errors">
+                                    {errors.confirmEmail}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
-                            <div class="form-row">
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="envelope"
-                                name="email"
-                                placeholder="Email adress"
-                                value={this.state.email}
-                                label="Agency email"
-                                error={errors.email}
-                                type="email"
-                                onChange={this.changeHandler}
-                                id="validationTooltip03"
-                                labelFor="validationTooltip03"
-                              />
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="envelope"
-                                name="confirmEmail"
-                                placeholder="confirm your email"
-                                value={this.state.confirmEmail}
-                                label="Confirm email"
-                                error={this.state.errors.confirmEmail}
-                                type="email"
-                                onChange={this.changeHandler}
-                                id="validationTooltip04"
-                                labelFor="validationTooltip04"
-                              />
-                            </div>
-                            <div class="form-row">
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="user-lock"
-                                name="password"
-                                placeholder="Password"
-                                value={this.state.password}
-                                label="Password"
-                                error={errors.password}
-                                type="password"
-                                onChange={this.changeHandler}
-                                id="validationTooltip05"
-                                labelFor="validationTooltip05"
-                              />
-                              <TextFieldGroup
-                                divClassName="col-md-4 mb-4 text-field"
-                                icon="user-lock"
-                                name="confirmPassword"
-                                placeholder="Confirrm password"
-                                value={this.state.confirmPassword}
-                                label="Confirm password"
-                                error={errors.confirmPassword}
-                                type="password"
-                                onChange={this.changeHandler}
-                                id="validationTooltip06"
-                                labelFor="validationTooltip06"
-                              />
+                            <div className="d-flex sign-row">
+                              <div className="d-flex flex-column pass-row">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="key" />
+                                    &nbsp;Password
+                                  </label>
+                                </div>
+                                <Input.Password
+                                  style={{ width: 230, height: 35 }}
+                                  name="password"
+                                  placeholder="Password"
+                                  value={this.state.password}
+                                  error={errors.password}
+                                  type="password"
+                                  onChange={this.changeHandler}
+                                  className="sign-pass-input black-text"
+                                />
+                                {errors.password ? (
+                                  <p className="agree-errors">
+                                    {errors.password}
+                                  </p>
+                                ) : null}
+                              </div>
+                              <div className="d-flex flex-column pass-row">
+                                <div className="d-flex">
+                                  <label className="signin-label">
+                                    <MDBIcon icon="key" />
+                                    &nbsp;Confirm password
+                                  </label>
+                                </div>
+                                <Input.Password
+                                  style={{ width: 230, height: 35 }}
+                                  name="confirmPassword"
+                                  placeholder="confirmPassword"
+                                  value={this.state.confirmPassword}
+                                  error={errors.confirmPassword}
+                                  type="password"
+                                  onChange={this.changeHandler}
+                                  className="sign-pass-input"
+                                />
+                                {errors.confirmPassword ? (
+                                  <p className="agree-errors">
+                                    {errors.confirmPassword}
+                                  </p>
+                                ) : null}
+                              </div>
                             </div>
                             <div>
-                              <div className="custom-control custom-checkbox pl-3 d-flex">
+                              <div className="custom-control custom-checkbox  agree-check  d-flex">
                                 <input
                                   className="custom-control-input"
                                   type="checkbox"
@@ -580,38 +681,33 @@ class SignUp extends Component {
                                   style={{ fontSize: 15, width: 200 }}
                                 >
                                   Agree to
+                                  <a
+                                    className="terms"
+                                    onClick={this.toggle}
+                                    style={{
+                                      color: "green",
+                                      fontWeight: "bold",
+                                      fontSize: 17,
+                                      textDecoration: "underline",
+                                    }}
+                                  >
+                                    terms and conditions
+                                  </a>
                                 </label>
-                                <a
-                                  className="terms"
-                                  onClick={this.toggle}
-                                  style={{
-                                    color: "green",
-                                    fontWeight: "bold",
-                                    fontSize: 17,
-                                    textDecoration: "underline",
-                                  }}
-                                >
-                                  terms and conditions
-                                </a>
                               </div>
                               {errors.agree ? (
                                 <p className="agree-errors">{errors.agree}</p>
                               ) : null}
-
-                              <div
-                                className="invalid-feedback"
-                                style={{ fontSize: 15, fontWeight: "bold" }}
-                              >
-                                You must agree before submitting.
-                              </div>
                             </div>
-
-                            <div className=" choose-account text-center mt-4 black-text">
+                            <div
+                              className=" choose-account text-center black-text"
+                              style={{ marginTop: 4 }}
+                            >
                               <MDBBtn
                                 className=" font-weight-bold  btn-md"
                                 color="warning"
                                 style={{ fontSize: 14 }}
-                                onClick={this.handleClickAgency}
+                                onClick={this.handleClickClient}
                               >
                                 <MDBIcon icon="reply" size="lg" />
                                 &nbsp; &nbsp; Social Account
