@@ -8,15 +8,9 @@ import ProfilePosts from "./ProfilePosts";
 import Spinner from "../Common/Spinner";
 import { getProfileByHandle } from "../../actions/profileActions";
 
-import {
-  MDBMask,
-  MDBView,
-  MDBContainer,
-  MDBIcon
-} from "mdbreact";
+import { MDBMask, MDBView, MDBContainer, MDBIcon } from "mdbreact";
 
 class Profile extends Component {
-
   componentDidMount = () => {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
@@ -25,25 +19,36 @@ class Profile extends Component {
 
   render() {
     const { profile, loading } = this.props.profile;
+    const { auth } = this.props;
     let profileContent;
 
     if (profile === null || loading) {
       profileContent = <Spinner />;
     } else {
-      profileContent = (
-        <div className="full-profile-page">
-          <div className="column">
-          <Link className="go-back" to="/dashboard">
+      profileContent =
+        profile.role === "Agency" ? (
+          <div className="full-profile-page">
+            <div className="column">
+              <Link className="go-back" to="/dashboard">
                 <MDBIcon icon="arrow-circle-left" />
                 &nbsp;Go back
               </Link>
-        
-          <ProfileAbout className="mt-5" profile={profile} />
+
+              <ProfileAbout className="mt-5" profile={profile} auth={auth} />
+            </div>
+            <ProfilePosts profile={profile} />
           </div>
-          <ProfilePosts profile={profile} />
-        
-        </div>
-      );
+        ) : (
+          <div>
+            <Link className="go-back" to="/dashboard">
+              <MDBIcon icon="arrow-circle-left" />
+              &nbsp;Go back
+            </Link>
+            <h1 className="private">
+              Sorry, Client Account Is a Private Account...
+            </h1>
+          </div>
+        );
     }
 
     return (
@@ -52,7 +57,7 @@ class Profile extends Component {
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
             <MDBContainer>
               <div className="row">
-                <div >{profileContent}</div>
+                <div>{profileContent}</div>
               </div>
             </MDBContainer>
           </MDBMask>
@@ -65,10 +70,12 @@ class Profile extends Component {
 Profile.prototypes = {
   getProfileByHandle: Proptypes.func.isRequired,
   profile: Proptypes.object.isRequired,
+  auth: Proptypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getProfileByHandle })(Profile);

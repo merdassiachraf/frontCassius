@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Icon from "../../atests/logo/Icon";
@@ -11,11 +12,12 @@ import {
   MDBContainer,
   MDBAnimation,
   MDBBtn,
-  MDBIcon
+  MDBIcon,
 } from "mdbreact";
 
 class Home extends Component {
   render() {
+    const { isAuthenticated } = this.props.auth;
     return (
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?cs=srgb&dl=action-blur-car-child-386009.jpg&fm=jpg">
@@ -56,29 +58,31 @@ class Home extends Component {
                         </h1>
                         <hr className="hr-light white-text" />
                       </div>
-                      <div className="home-buttons">
-                        <Link to="/posts_list">
-                          <MDBBtn
-                            className="font-weight-bold black-text"
-                            color="success"
-                            style={{ fontSize: 21, height: 70, width: 300 }}
-                          >
-                            Start Navigation &nbsp; &nbsp;
-                            <MDBIcon icon="shopping-cart" />
-                          </MDBBtn>
-                        </Link>
-                        <Link to="/signup">
-                          <MDBBtn
-                            className="font-weight-bold "
-                            color="amber"
-                            style={{ fontSize: 21, height: 70, width: 300 }}
-                          >
-                            <MDBIcon icon="star" />
-                            &nbsp; &nbsp; Sign Up &nbsp; &nbsp;
-                            <MDBIcon icon="star" />
-                          </MDBBtn>
-                        </Link>
-                      </div>
+                      {!isAuthenticated ? (
+                        <div className="home-buttons">
+                          <Link to="/posts_list">
+                            <MDBBtn
+                              className="font-weight-bold black-text"
+                              color="success"
+                              style={{ fontSize: 21, height: 70, width: 300 }}
+                            >
+                              Start Navigation &nbsp; &nbsp;
+                              <MDBIcon icon="shopping-cart" />
+                            </MDBBtn>
+                          </Link>
+                          <Link to="/signup">
+                            <MDBBtn
+                              className="font-weight-bold "
+                              color="amber"
+                              style={{ fontSize: 21, height: 70, width: 300 }}
+                            >
+                              <MDBIcon icon="star" />
+                              &nbsp; &nbsp; Sign Up &nbsp; &nbsp;
+                              <MDBIcon icon="star" />
+                            </MDBBtn>
+                          </Link>
+                        </div>
+                      ) : null}
                     </div>
                   </MDBAnimation>
                 </MDBCol>
@@ -90,4 +94,8 @@ class Home extends Component {
     );
   }
 }
-export default Home;
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(Home);

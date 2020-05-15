@@ -57,53 +57,57 @@ class DashBoard extends Component {
     } else {
       //Check if logged in user has profile data
       if (Object.keys(profile).length > 0) {
-        dashboardContent = (
-          <div className="d-flex profile-all">
-            <div className="d-flex flex-column align-items-center justify-content-around left-dashbord">
-              <Avatar shape="square" size={250} icon={<UserOutlined />} />
+        dashboardContent =
+          user.role === "Agency" ? (
+            <div className="d-flex profile-all">
+              <div className="d-flex flex-column align-items-center justify-content-around left-dashbord">
+                <Avatar shape="square" size={250} icon={<UserOutlined />} />
 
-              <h2 className="profile-name">
-                <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
-              </h2>
-              <h6 className="white-text">{profile.adress}</h6>
-              <h6 className="white-text">{profile.state + " , " + profile.country}</h6>
-              <h6 className="white-text">{profile.countryCode + " " + profile.phoneNumber}</h6>
-              <ProfileActions />
+                <h2 className="profile-name">
+                  <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
+                </h2>
+                <h6 className="white-text">{profile.adress}</h6>
+                <h6 className="white-text">
+                  {profile.state + " , " + profile.country}
+                </h6>
+                <h6 className="white-text">
+                  {profile.countryCode + " " + profile.phoneNumber}
+                </h6>
+                <ProfileActions user={user} />
 
-              <button onClick={this.toggle} className="btn btn-danger">
-                <MDBIcon size="lg" icon="exclamation-triangle" />
-                &nbsp;&nbsp;Delete My Account
-              </button>
-              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                <div className="d-flex flex-column align-items-center p-5">
-                  <h6> Are You Sure? This can not be recovered !</h6>
-                  <div className="d-flex">
-                    <MDBBtn
-                      color="yellow"
-                      className="mr-5"
-                      onClick={this.toggle}
-                    >
-                      <MDBIcon icon="ban" />
-                      &nbsp;Cancel
-                    </MDBBtn>
-                    <Link to="/">
-                      <MDBBtn color="danger" onClick={this.onDeleteClick}>
-                        <MDBIcon icon="trash-alt" />
-                        &nbsp;Delete Account
+                <button onClick={this.toggle} className="btn btn-danger">
+                  <MDBIcon size="lg" icon="exclamation-triangle" />
+                  &nbsp;&nbsp;Delete My Account
+                </button>
+                <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                  <div className="d-flex flex-column align-items-center p-5">
+                    <h6> Are You Sure? This can not be recovered !</h6>
+                    <div className="d-flex">
+                      <MDBBtn
+                        color="yellow"
+                        className="mr-5"
+                        onClick={this.toggle}
+                      >
+                        <MDBIcon icon="ban" />
+                        &nbsp;Cancel
                       </MDBBtn>
-                    </Link>
+                      <Link to="/">
+                        <MDBBtn color="danger" onClick={this.onDeleteClick}>
+                          <MDBIcon icon="trash-alt" />
+                          &nbsp;Delete Account
+                        </MDBBtn>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </MDBModal>
-            </div>
-            <div className="right-dashbord">
-              <ContactInformation
-                contactInformation={profile.contactInformation}
-              />
-            </div>
-            <div style={{ marginBottom: "60px" }} />
+                </MDBModal>
+              </div>
+              <div className="right-dashbord">
+                <ContactInformation
+                  contactInformation={profile.contactInformation}
+                />
+              </div>
+              <div style={{ marginBottom: "60px" }} />
 
-            {user.role === "Agency" ? (
               <div className="agency-post-buttons">
                 <Link to="/add_post">
                   <MDBBtn
@@ -126,9 +130,68 @@ class DashBoard extends Component {
                   </MDBBtn>
                 </Link>
               </div>
-            ) : null}
-          </div>
-        );
+            </div>
+          ) : (
+            <div className="d-flex align-items-center  profile-all-client">
+              <div className="d-flex flex-column align-items-center left-dashbord-client">
+                <Avatar shape="square" size={250} icon={<UserOutlined />} />
+                <h2 className="profile-name ">{user.name}</h2>
+              </div>
+              <div className="right-dashbord-client d-flex flex-column align-items-center ">
+                <h3 className="white-text mb-5"> Your Adress :</h3>
+                <h4 className="white-text mb-3">{profile.adress}</h4>
+                <h4 className="white-text mb-3">
+                  {profile.state + " , " + profile.country}
+                </h4>
+                <h4 className="white-text mb-3">
+                  {profile.countryCode + " " + profile.phoneNumber}
+                </h4>
+              </div>
+              <div style={{ marginBottom: "60px" }} />
+
+              <div className="client-post-buttons">
+                <Link to="/add_post">
+                  <MDBBtn
+                    className="font-weight-bold post-link"
+                    color="success"
+                    size="lg"
+                  >
+                    List of Reservation&nbsp;&nbsp;
+                    <MDBIcon size="lg" icon="book-open" />
+                  </MDBBtn>
+                </Link>
+                <div className="d-flex">
+                  <ProfileActions user={user} />
+
+                  <button onClick={this.toggle} className="btn btn-danger">
+                    <MDBIcon size="lg" icon="exclamation-triangle" />
+                    &nbsp;&nbsp;Delete My Account
+                  </button>
+                  <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                    <div className="d-flex flex-column align-items-center p-5">
+                      <h6> Are You Sure? This can not be recovered !</h6>
+                      <div className="d-flex">
+                        <MDBBtn
+                          color="yellow"
+                          className="mr-5"
+                          onClick={this.toggle}
+                        >
+                          <MDBIcon icon="ban" />
+                          &nbsp;Cancel
+                        </MDBBtn>
+                        <Link to="/">
+                          <MDBBtn color="danger" onClick={this.onDeleteClick}>
+                            <MDBIcon icon="trash-alt" />
+                            &nbsp;Delete Account
+                          </MDBBtn>
+                        </Link>
+                      </div>
+                    </div>
+                  </MDBModal>
+                </div>
+              </div>
+            </div>
+          );
       } else {
         //User logged but has no profile
         dashboardContent = (

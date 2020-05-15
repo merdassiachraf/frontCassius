@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import { Input } from "antd";
 
-import TextFieldGroup from "../Common/TextFieldGroup";
-
 import {
   MDBMask,
   MDBRow,

@@ -21,7 +21,7 @@ class ProfileAbout extends Component {
     });
   };
   render() {
-    const { profile } = this.props;
+    const { profile,auth } = this.props;
     let social;
     let instgram;
     let facebook;
@@ -40,7 +40,7 @@ class ProfileAbout extends Component {
             <MDBIcon size="lg" className="red-text" fab icon="youtube" />
           </div>
           <div className="d-flex flex-column align-items-center">
-          <h1 className="agency-profile-name mb-4">Hertz rent car</h1>
+          <h1 className="agency-profile-name mb-4">{auth.user.name}</h1>
           <h6 className="black-text">{profile.adress}</h6>
           <h6 className="black-text">
             {profile.state + " , " + profile.country}
