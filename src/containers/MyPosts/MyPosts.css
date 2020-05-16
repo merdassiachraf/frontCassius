@@ -1,0 +1,8 @@
+.my-posts {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1300px;
+  position: fixed;
+  bottom: 40px;
+  left: 120px;
+}

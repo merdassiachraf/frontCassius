@@ -22,6 +22,8 @@ import "./containers/PostPage/PostPage.css"
 import "./containers/AddContactInformation/AddContactInformation.css"
 import './containers/Profiles/Profiles.css'
 import "./containers/Common/Spinner.css"
+import "./containers/MyPosts/MyPosts.css"
+import "./containers/MyPosts/MyPostCard.css"
 
 //lien css Mdboostrap
 import "@fortawesome/fontawesome-free/css/all.min.css";

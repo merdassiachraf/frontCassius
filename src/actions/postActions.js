@@ -70,7 +70,7 @@ export const setPostLoading = () => {
 export const getPostById = (id) => (dispatch) => {
   dispatch(setPostLoading());
   axios
-    .get(`/posts/${id}`)
+    .get(`/posts/post/${id}`)
     .then((res) =>
       dispatch({
         type: GET_POST,

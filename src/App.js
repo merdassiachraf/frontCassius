@@ -24,6 +24,7 @@ import AddContactInformation from "./containers/AddContactInformation/AddContact
 import Profiles from "./containers/Profiles/Profiles";
 import Profile from "./containers/Profile/Profile";
 import EditPost from "./containers/Posts/EditPost"
+import MyPosts from "./containers/MyPosts/MyPosts"
  
 // Check for token
 if (localStorage.jwtToken) {
@@ -96,6 +97,12 @@ function App() {
               exact
               name="Edit Post"
               component={EditPost}
+            />
+              <PrivateRoute
+              path="/dashboard/my_posts"
+              exact
+              name="My Posts"
+              component={MyPosts}
             />
             <PrivateRoute
               path="/add_contact"

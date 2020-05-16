@@ -15,7 +15,7 @@ class ProfileActions extends Component {
         </MDBBtn>
         {user.role === "Agency" ? (
           <MDBBtn className="white-text profile-config" >
-            <Link to="edit_profile" className="white-text profile-config">
+            <Link to="/add_contact" className="white-text profile-config">
               <MDBIcon icon="fas fa-user-circle " className="white-text" />
               Add Adress
             </Link>

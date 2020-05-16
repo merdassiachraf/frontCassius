@@ -109,24 +109,36 @@ class DashBoard extends Component {
               <div style={{ marginBottom: "60px" }} />
 
               <div className="agency-post-buttons">
-                <Link to="/add_post">
+                <div>
+                  <Link to="/add_post">
+                    <MDBBtn
+                      className="font-weight-bold post-link"
+                      color="secondary"
+                      size="lg"
+                    >
+                      ADD post&nbsp;&nbsp;
+                      <MDBIcon size="lg" icon="plus" />
+                    </MDBBtn>
+                  </Link>
+                  <Link to="/dashboard/my_posts">
+                    <MDBBtn
+                      className="font-weight-bold post-link"
+                      color="success"
+                      size="lg"
+                    >
+                      My posts&nbsp;&nbsp;
+                      <MDBIcon size="lg" icon="book-open" />
+                    </MDBBtn>
+                  </Link>
+                </div>
+                <Link to="/dashboard/my_posts">
                   <MDBBtn
                     className="font-weight-bold post-link"
-                    color="secondary"
+                    color="warning"
                     size="lg"
                   >
-                    ADD post&nbsp;&nbsp;
-                    <MDBIcon size="lg" icon="plus" />
-                  </MDBBtn>
-                </Link>
-                <Link to="/add_post">
-                  <MDBBtn
-                    className="font-weight-bold post-link"
-                    color="success"
-                    size="lg"
-                  >
-                    your posts&nbsp;&nbsp;
-                    <MDBIcon size="lg" icon="book-open" />
+                    My reservations&nbsp;&nbsp;&nbsp;&nbsp;
+                    <MDBIcon size="lg" icon="dollar-sign" />
                   </MDBBtn>
                 </Link>
               </div>

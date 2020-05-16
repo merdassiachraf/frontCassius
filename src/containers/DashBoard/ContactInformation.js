@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import EditContactInfo from "../AddContactInformation/EditContactInfo";
 
 import { deleteContactInformation } from "../../actions/profileActions";
 import {
@@ -28,8 +29,9 @@ class ContactInformation extends Component {
   };
 
   render() {
+    const {profile}=this.props.profile
     const contactInformation = this.props.contactInformation.map((contact) => (
-      <tr key={contact.id} >
+      <tr key={contact.id}>
         <td>{contact.adress}</td>
         <td>{contact.state}</td>
         <td>{contact.country}</td>
@@ -46,7 +48,9 @@ class ContactInformation extends Component {
             <MDBModalHeader toggle={this.toggle(12)}>
               Edit contact information
             </MDBModalHeader>
-            <MDBModalBody></MDBModalBody>
+            <MDBModalBody>
+            <EditContactInfo profile={profile}/>
+            </MDBModalBody>
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={this.toggle(12)}>
                 Cancel
@@ -65,8 +69,11 @@ class ContactInformation extends Component {
       </tr>
     ));
     return (
-      <div >
-        <h4 className="mb-4 white-text"><MDBIcon icon="file-contract" />&nbsp;&nbsp;Agency contact :</h4>
+      <div>
+        <h4 className="mb-4 white-text">
+          <MDBIcon icon="file-contract" />
+          &nbsp;&nbsp;Agency contact :
+        </h4>
         <table className="table bg-white">
           <thread>
             <tr>
@@ -85,6 +92,11 @@ class ContactInformation extends Component {
 
 ContactInformation.propTypes = {
   deleteContactInformation: PropTypes.func.isRequired,
+  profile:PropTypes.object.isRequired
 };
 
-export default connect(null, { deleteContactInformation })(ContactInformation);
+const mapStateToProps = state =>({
+  profile:state.profile
+})
+
+export default connect(mapStateToProps, { deleteContactInformation })(ContactInformation);
