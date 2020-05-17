@@ -1,7 +1,9 @@
 .card-reservation{
     background-color: white;
     font-family:monospace;
-    width:250px
+    width:250px;
+    border-radius: 15px;
+    border:solid black 1px
 }
 .card-reservation h5{
     font-size: 15px;
