@@ -8,6 +8,8 @@ import { Carousel } from "react-responsive-carousel";
 import Spinner from "../Common/Spinner";
 import { getPostById } from "../../actions/postActions";
 
+import { Input } from "antd";
+
 import {
   MDBMask,
   MDBView,
@@ -29,34 +31,45 @@ class PostPage extends Component {
   state = {
     modal: false,
     startDate: "",
-    endDate: "",
+    returnDate: "",
     startTime: "",
-    endTime: "",
-    totalOfDays: 0,
-    totalPrice: 0,
+    returnTime: "",
+    totalOfDays: "",
+    totalPrice: "",
+    errors: {},
+  };
+
+  onClickClose = () => {
+    this.toggle();
+    this.setState({
+      startDate: "",
+      returnDate: "",
+      startTime: "",
+      returnTime: "",
+      totalOfDays: 0,
+      totalPrice: 0,
+    });
+  };
+
+  onClickCalcul = () => {
+    this.setState({
+      totalPrice:
+        this.state.totalOfDays * parseInt(this.props.post.post.pricePerDay, 10),
+    });
   };
 
   componentDidMount = () => {
     this.props.getPostById(this.props.match.params.id);
   };
 
-  handleCalculDays = () => {
-    var start = new Date(this.state.startDate);
-    var end = new Date(this.state.endDate);
-    var total = 0;
-    this.state.endDate !== "" && this.state.startDate !== ""
-      ? this.state.endDate > this.state.startDate
-        ? (total = (end - start) / 86400000)
-        : alert("superieur")
-      : alert("put start and end");
-    this.setState({ totalOfDays: total });
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   };
 
-  handleTotalPrice = () => {
-    this.handleCalculDays();
-    this.setState({
-      totalPrice: this.state.totalOfDays * this.state.pricePerDay,
-    });
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   toggle = () => {
@@ -67,6 +80,11 @@ class PostPage extends Component {
   render() {
     const { post, loading } = this.props.post;
     const { auth } = this.props;
+    const { errors } = this.state;
+    const fdate = new Date(this.state.startDate);
+    const ldate = new Date(this.state.returnDate);
+
+    const diff = (ldate - fdate) / 86400000;
 
     let postContent;
 
@@ -78,10 +96,16 @@ class PostPage extends Component {
           <div className="post-carousel">
             <Carousel>
               <div className="carousel-picture">
-                <img alt="#" src="https://www.bigstockphoto.com/images/homepage/module-6.jpg" />
+                <img
+                  alt="#"
+                  src="https://www.bigstockphoto.com/images/homepage/module-6.jpg"
+                />
               </div>
               <div className="carousel-picture">
-                <img alt="#" src="https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg" />
+                <img
+                  alt="#"
+                  src="https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg"
+                />
               </div>
             </Carousel>
           </div>
@@ -162,85 +186,121 @@ class PostPage extends Component {
                 </MDBBtn>
               </Link>
             ) : null}
-            {auth.isAthenticated === true ? (
+            {auth.isAuthenticated === true ? (
               <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                 <MDBModalHeader toggle={this.toggle}>
-                  Reservation formulaire
+                  Reservation form
                 </MDBModalHeader>
                 <MDBModalBody>
                   <MDBAlert className="alert-notice" color="success">
-                    <h4 className="alert-heading">
+                    <h5 className="alert-heading">
                       <MDBIcon icon="exclamation-triangle" />
                       &nbsp;&nbsp; Important
-                    </h4>
+                    </h5>
                     <hr />
                     <p className="mb-0">
                       Whenever you need to, be sure to use margin utilities to
                       keep things nice and tidy.
                     </p>
                   </MDBAlert>
-                  <div className="reservation-time">
-                    <label className="reservation-label">Start Date :</label>
-                    <MDBInput
-                      icon="calendar-alt"
-                      type="date"
-                      onChange={(e) =>
-                        this.setState({ startDate: e.target.value })
-                      }
-                      size="sm"
+                  <label className="reservation-label">Start Date :</label>
+                  <Input
+                    value={this.state.startDate}
+                    type="date"
+                    size="large"
+                    name="startDate"
+                    onChange={this.onChange}
+                    placeholder="large size"
+                    prefix={<MDBIcon icon="calendar-alt" />}
+                  />
+
+                  <label className="reservation-label">Return Date :</label>
+                  <Input
+                    value={this.state.returnDate}
+                    type="date"
+                    size="large"
+                    name="returnDate"
+                    onChange={this.onChange}
+                    placeholder="large size"
+                    prefix={<MDBIcon icon="calendar-alt" />}
+                  />
+
+                  <label className="reservation-label">Start Time :</label>
+                  <Input
+                    value={this.state.startTime}
+                    type="time"
+                    size="large"
+                    name="startTime"
+                    onChange={this.onChange}
+                    placeholder="large size"
+                    prefix={<MDBIcon icon="clock" />}
+                  />
+
+                  <label className="reservation-label">Return Time :</label>
+                  <Input
+                    value={this.state.startTime}
+                    type="time"
+                    size="large"
+                    name="returnTime"
+                    onChange={this.onChange}
+                    placeholder="large size"
+                    prefix={<MDBIcon icon="clock" />}
+                  />
+
+                  <label className="reservation-label">Total of Days :</label>
+                  <div className="d-flex">
+                    <Input
+                      readOnly
+                      value={this.state.totalOfDays}
+                      type="text"
+                      size="large"
+                      name="returnTime"
+                      placeholder={"Total of Days"}
+                      prefix={<MDBIcon icon="calendar-day" />}
                     />
-                    <label className="reservation-label">Return Date :</label>
-                    <MDBInput
-                      icon="calendar-alt"
-                      type="date"
-                      onChange={(e) =>
-                        this.setState({ endDate: e.target.value })
-                      }
-                      size="sm"
-                    />
-                  </div>
-                  <div className="reservation-time">
-                    <label className="reservation-label">Start Time :</label>
-                    <MDBInput
-                      icon="clock"
-                      type="time"
-                      onChange={(e) =>
-                        this.setState({ startTime: e.target.value })
-                      }
-                      size="sm"
-                    />
-                    <label className="reservation-label">Return Time :</label>
-                    <MDBInput
-                      icon="clock"
-                      type="time"
-                      value={this.state.startTime}
-                      size="sm"
-                      onChange={(e) =>
-                        this.setState({ endTime: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="reservation-time">
-                    <h5>Price per day : </h5>
-                    <h5 className="price-view"> {post.pricePerDay} </h5>
-                    <h5>dt/day</h5>
-                  </div>
-                  <div className="calcul-total">
-                    <h5>Total : </h5>
-                    <h5 className="price-view">{this.state.totalPrice}</h5>
                     <MDBBtn
                       rounded
+                      className="white-text"
+                      onClick={() => {
+                        if (diff >= 0) this.setState({ totalOfDays: diff });
+                      }}
+                      color="light-blue"
                       size="sm"
-                      onClick={this.handleTotalPrice}
-                      outline
-                      color="primary"
                     >
-                      Calcul
+                      calcul total of days
+                    </MDBBtn>
+                  </div>
+                  <label className="reservation-label">Price Per Day :</label>
+                  <Input
+                    readOnly
+                    value={post.pricePerDay}
+                    type="text"
+                    size="large"
+                    prefix={<MDBIcon icon="dollar-sign" />}
+                  />
+                  <label className="reservation-label">Total Price :</label>
+                  <div className="d-flex">
+                    <Input
+                      readOnly
+                      value={this.state.totalPrice}
+                      type="text"
+                      size="large"
+                      placeholder="Total price"
+                      prefix={<MDBIcon icon="credit-card" />}
+                    />
+                    <MDBBtn
+                      rounded
+                      className="white-text"
+                      onClick={this.onClickCalcul}
+                      color="light-blue"
+                      size="sm"
+                    >
+                      calcul total price
                     </MDBBtn>
                   </div>
                 </MDBModalBody>
                 <MDBModalFooter>
-                  <MDBBtn color="secondary" onClick={this.toggle}>
+                  <MDBBtn color="secondary" onClick={this.onClickClose}>
                     Close
                   </MDBBtn>
                   <MDBBtn color="primary">Reserve</MDBBtn>
@@ -297,11 +357,13 @@ PostPage.propTypes = {
   getPostById: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   post: state.post,
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { getPostById })(PostPage);

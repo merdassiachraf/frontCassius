@@ -25,6 +25,8 @@ import Profiles from "./containers/Profiles/Profiles";
 import Profile from "./containers/Profile/Profile";
 import EditPost from "./containers/Posts/EditPost"
 import MyPosts from "./containers/MyPosts/MyPosts"
+import ReservationPage from "./containers/ReservationPage/ReservationPage"
+import Reservations from "./containers/Reservations/Reservations"
  
 // Check for token
 if (localStorage.jwtToken) {
@@ -72,6 +74,18 @@ function App() {
             exact
             name="Post"
             component={PostPage}
+          />
+            <Route
+            path="/reservations/res"
+            exact
+            name="Reservation Page"
+            component={ReservationPage}
+          />
+              <Route
+            path="/reservations"
+            exact
+            name="Reservations"
+            component={Reservations}
           />
           <Switch>
             <PrivateRoute

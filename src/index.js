@@ -24,6 +24,10 @@ import './containers/Profiles/Profiles.css'
 import "./containers/Common/Spinner.css"
 import "./containers/MyPosts/MyPosts.css"
 import "./containers/MyPosts/MyPostCard.css"
+import "./containers/ReservationPage/ReservationPage.css"
+import "./containers/ReservationPage/ReservationCard.css"
+import "./containers/Reservations/Reservations.css"
+import "./containers/Reservations/ReservationsCard.css"
 
 //lien css Mdboostrap
 import "@fortawesome/fontawesome-free/css/all.min.css";

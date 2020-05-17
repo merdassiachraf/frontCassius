@@ -36,18 +36,15 @@
 }
 
 .alert-notice p{
-    font-size: 15px;
+    font-size: 13px;
 }
 .alert-notice h4{
     font-size: 18px;
     margin-left: 150px;
 }
-.reservation-time{
-  display: flex;
-  align-items: center;
-}
+
 .reservation-label{
-  font-size: 15px;
+  font-size: 13px;
 }
 .calcul-total{
   display: flex;
@@ -57,4 +54,10 @@
 font-family: monospace;
 margin:0 15px;
 border-bottom: solid 2px gray;
+}
+.calcul-days{
+  font-size: 12px;
+  border:solid blue 1px;
+  padding: 3px;
+  border-radius: 3px;
 }

@@ -1,0 +1,8 @@
+.card-reservation{
+    background-color: white;
+    font-family:monospace;
+    width:250px
+}
+.card-reservation h5{
+    font-size: 15px;
+}
