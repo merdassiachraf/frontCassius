@@ -45,7 +45,7 @@ class Profiles extends Component {
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/27406/pexels-photo-27406.jpg?cs=srgb&dl=building-modern-glass-tall-27406.jpg&fm=jpg">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-            <MDBContainer className="posts-list-main">
+            <div className="posts-list-main">
               <div className="profiles d-flex flex-column align-items-center">
                 <div className="all-agencies-filtre">
                   <MDBInput
@@ -140,7 +140,7 @@ class Profiles extends Component {
                 </p>
                 <div className="agencies-list">{profileItems}</div>
               </div>
-            </MDBContainer>
+            </div>
           </MDBMask>
         </MDBView>
       </div>

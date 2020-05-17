@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { MDBContainer, MDBScrollbar } from "mdbreact";
-import "./scrollbar.css";
 
+import ProfilePostCard from "./ProfilePostCard"
 
 class ProfilePosts extends Component {
     render() {
-    const { profile } = this.props.profile;
     return (
-   <div></div>
+   <div>
+   </div>
     );
   }
 }

@@ -1,10 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { MDBBtn, MDBIcon } from "mdbreact";
+import {
+  MDBBtn,
+  MDBIcon
+} from "mdbreact";
 
 class ProfileActions extends Component {
+  state = {
+    modal8: false,
+    modal9: false,
+  };
+
+  toggle = (nr) => () => {
+    let modalNumber = "modal" + nr;
+    this.setState({
+      [modalNumber]: !this.state[modalNumber],
+    });
+  };
   render() {
-    const { user } = this.props;
+    const { profile } = this.props;
     return (
       <div className="btn-group mb-4" role="group">
         <MDBBtn className=" profile-config">
@@ -13,8 +27,8 @@ class ProfileActions extends Component {
             Edit Profile
           </Link>
         </MDBBtn>
-        {user.role === "Agency" ? (
-          <MDBBtn className="white-text profile-config" >
+        {profile.role === "Agency" ? (
+          <MDBBtn className="white-text profile-config">
             <Link to="/add_contact" className="white-text profile-config">
               <MDBIcon icon="fas fa-user-circle " className="white-text" />
               Add Adress

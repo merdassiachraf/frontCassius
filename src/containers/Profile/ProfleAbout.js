@@ -5,7 +5,7 @@ import {
   MDBModalBody,
   MDBModalHeader,
   MDBModalFooter,
-  MDBIcon,
+  MDBIcon
 } from "mdbreact";
 import ProfileContactInformation from "./ProfileContactInfortmation";
 import ProfileHeader from "./ProfileHeader";
@@ -21,13 +21,8 @@ class ProfileAbout extends Component {
     });
   };
   render() {
-    const { profile,auth } = this.props;
-    let social;
-    let instgram;
-    let facebook;
-    let youtube;
-    let linkedin;
-    let twitter;
+    const { profile } = this.props;
+
     return (
       <div className="profile-about">
         <ProfileHeader />
@@ -40,7 +35,7 @@ class ProfileAbout extends Component {
             <MDBIcon size="lg" className="red-text" fab icon="youtube" />
           </div>
           <div className="d-flex flex-column align-items-center">
-          <h1 className="agency-profile-name mb-4">{auth.user.name}</h1>
+          <h1 className="agency-profile-name mb-4">{profile.name}</h1>
           <h6 className="black-text">{profile.adress}</h6>
           <h6 className="black-text">
             {profile.state + " , " + profile.country}
@@ -59,13 +54,7 @@ class ProfileAbout extends Component {
           </MDBBtn>
         </div>
         </div>
-        <MDBModal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          backdrop={false}
-          full-height
-          position="left"
-        >
+        <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
           <MDBModalHeader toggle={this.toggle}>
             Contact Information
           </MDBModalHeader>

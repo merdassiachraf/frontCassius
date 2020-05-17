@@ -10,6 +10,7 @@ import {
 } from "../../actions/profileActions";
 import { logoutUser } from "../../actions/authActions";
 
+import SocialLinks from "./SocialLinks";
 import ContactInformation from "./ContactInformation";
 import Spinner from "../Common/Spinner";
 
@@ -61,11 +62,12 @@ class DashBoard extends Component {
           user.role === "Agency" ? (
             <div className="d-flex profile-all">
               <div className="d-flex flex-column align-items-center justify-content-around left-dashbord">
-                <Avatar shape="square" size={250} icon={<UserOutlined />} />
+                <Avatar shape="square" size={220} icon={<UserOutlined />} />
 
                 <h2 className="profile-name">
                   <Link to={`/profile/${profile.handle}`}> {user.name}</Link>
                 </h2>
+                <SocialLinks profile={profile} />
                 <h6 className="white-text">{profile.adress}</h6>
                 <h6 className="white-text">
                   {profile.state + " , " + profile.country}
@@ -73,8 +75,7 @@ class DashBoard extends Component {
                 <h6 className="white-text">
                   {profile.countryCode + " " + profile.phoneNumber}
                 </h6>
-                <ProfileActions user={user} />
-
+                <ProfileActions profile={profile} />
                 <button onClick={this.toggle} className="btn btn-danger">
                   <MDBIcon size="lg" icon="exclamation-triangle" />
                   &nbsp;&nbsp;Delete My Account
@@ -136,6 +137,7 @@ class DashBoard extends Component {
                     className="font-weight-bold post-link"
                     color="warning"
                     size="lg"
+                    style={{fontSize:12}}
                   >
                     My reservations&nbsp;&nbsp;&nbsp;&nbsp;
                     <MDBIcon size="lg" icon="dollar-sign" />
@@ -207,15 +209,15 @@ class DashBoard extends Component {
       } else {
         //User logged but has no profile
         dashboardContent = (
-          <div className="white-text dashbord-first">
-            <h1 className="white-text">You are welcome {user.name}</h1>
-            <p>
+          <div className="white-text dashbord-first d-flex flex-column align-items-center ">
+            <h1 className="white-text mb-5">You are welcome {user.name}</h1>
+            <p className="mb-5">
               You have not setup a profile yet , please add some information
             </p>
             <Link to="/create_profile">
               <MDBBtn
                 size="lg"
-                className="gray-text font-weight-bold"
+                className="gray-text font-weight-bold mt-5"
                 color="warning"
               >
                 <MDBIcon size="lg" far icon="grin-stars" />
@@ -232,15 +234,7 @@ class DashBoard extends Component {
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/38537/woodland-road-falling-leaf-natural-38537.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-            <MDBContainer>
-              <div className="dashboard">
-                <div className="container">
-                  <div className="row">
-                    <div className=".col-md-12">{dashboardContent}</div>
-                  </div>
-                </div>
-              </div>
-            </MDBContainer>
+           {dashboardContent}
           </MDBMask>
         </MDBView>
       </div>

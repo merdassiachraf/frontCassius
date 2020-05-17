@@ -28,6 +28,8 @@ import "./containers/ReservationPage/ReservationPage.css"
 import "./containers/ReservationPage/ReservationCard.css"
 import "./containers/Reservations/Reservations.css"
 import "./containers/Reservations/ReservationsCard.css"
+import "./containers/Profile/ProfilePostCard.css"
+import "./containers/Profile/ProfilePosts.css"
 
 //lien css Mdboostrap
 import "@fortawesome/fontawesome-free/css/all.min.css";
