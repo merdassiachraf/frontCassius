@@ -36,3 +36,14 @@
   top: 80px;
   left: 0px;
 }
+.scroll-posts {
+  border:solid black 10px
+
+}
+
+.profile-about {
+  position: fixed;
+  left: 100px;
+}
+
+

@@ -27,17 +27,20 @@ class Profile extends Component {
     } else {
       profileContent =
         profile.role === "Agency" ? (
-          <div >
-            <div className="column">
+          <div>
+            <div>
               <Link className="go-back" to="/dashboard">
                 <MDBIcon icon="arrow-circle-left" />
                 &nbsp;Go back
               </Link>
             </div>
-            <div className="d-flex">
-            <ProfileAbout className="mt-5" profile={profile} auth={auth} />
+            <ProfileAbout
+              className="mt-5 profile-about"
+              profile={profile}
+              auth={auth}
+            />
             <ProfilePosts />
-          </div></div>
+          </div>
         ) : (
           <div>
             <Link className="go-back" to="/dashboard">
@@ -55,9 +58,9 @@ class Profile extends Component {
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/27406/pexels-photo-27406.jpg?cs=srgb&dl=building-modern-glass-tall-27406.jpg&fm=jpg">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-              <div className="row">
-                <div>{profileContent}</div>
-              </div>
+            <div className="row">
+              <div>{profileContent}</div>
+            </div>
           </MDBMask>
         </MDBView>
       </div>
