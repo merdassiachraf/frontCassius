@@ -6,3 +6,13 @@
   top: 40px;
   left: 120px;
 }
+.empty-notice {
+  font-family: monospace;
+  font-size: 50px;
+  color: white;
+}
+
+.empty-myposts {
+  margin-left: 300px;
+  margin-top: 100px;
+}
