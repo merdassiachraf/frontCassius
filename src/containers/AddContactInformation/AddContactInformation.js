@@ -30,7 +30,6 @@ class AddContactInformation extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.errors);
 
     const contactInformationData = {
       adress: this.state.adress,
@@ -129,8 +128,6 @@ class AddContactInformation extends Component {
                           onChange={this.onChange}
                           error={errors.adress}
                         />
-                        
-                        
                       </div>
                       <div className="cont-inf-field-2">
                         <SelectListGoup

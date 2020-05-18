@@ -13,7 +13,6 @@ import {
   MDBIcon,
   MDBBtn,
   MDBView,
-  MDBContainer,
   MDBCard,
   MDBCardBody,
   MDBInput,
@@ -120,7 +119,6 @@ class PostForm extends Component {
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/256514/pexels-photo-256514.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-            <MDBContainer>
               <MDBRow>
                 <MDBCol className="right-animation-add">
                   <MDBAnimation
@@ -971,7 +969,6 @@ class PostForm extends Component {
                   </MDBCol>
                 ) : null}
               </MDBRow>
-            </MDBContainer>
           </MDBMask>
         </MDBView>
       </div>

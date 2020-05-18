@@ -10,7 +10,6 @@ import { getPosts } from "../../actions/postActions";
 import {
   MDBMask,
   MDBView,
-  MDBContainer,
   MDBInput,
   MDBBtn,
   MDBIcon,
@@ -88,7 +87,6 @@ class Posts extends Component {
       <div id="">
         <MDBView src="https://images.pexels.com/photos/21014/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-            <MDBContainer className="posts-list-main">
               <div className="all-post-filtre">
                 <div className="posts-filtre-input white-text">
                   <MDBInput
@@ -534,7 +532,6 @@ class Posts extends Component {
                 </p>
                 <div className="posts-list">{postContent}</div>
               </div>
-            </MDBContainer>
           </MDBMask>
         </MDBView>
       </div>

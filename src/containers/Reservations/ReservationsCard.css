@@ -3,7 +3,9 @@
     font-family:monospace;
     width:250px;
     border-radius: 15px;
-    border:solid black 1px
+    border:solid black 1px;
+    box-shadow: 0 8px 18px 0 rgba(0, 0, 0, 0.3), 0 10px 250px 0 rgba(0, 0, 0, 0.3);
+
 }
 .card-reservation h5{
     font-size: 15px;

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import { MDBContainer, MDBScrollbar } from "mdbreact";
-
 import ProfilePostCard from "./ProfilePostCard";
 
 import "./scrollbar.css";
@@ -9,8 +7,8 @@ import "./scrollbar.css";
 class ProfilePosts extends Component {
   state = {
     scrollContainerStyle: {
-      width: "400px",
-      maxHeight: "578px",
+      width: "550px",
+     height: "578px",
       backgroundColor: "white",
       border: "black",
     },
@@ -22,29 +20,13 @@ class ProfilePosts extends Component {
         className="scrollbar scrollbar-primary  mt-5 mx-auto"
         style={this.state.scrollContainerStyle}
       >
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
-        <h1>aaaaaa</h1>
+        <ProfilePostCard />
+        <ProfilePostCard />
+        <ProfilePostCard />
+        <ProfilePostCard />
+        <ProfilePostCard />
+        <ProfilePostCard />
+        <ProfilePostCard />
       </div>
     );
   }

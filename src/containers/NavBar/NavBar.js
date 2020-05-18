@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { logoutUser } from "../../actions/authActions";
 import { clearCurrentProfile } from "../../actions/profileActions";
+
+import Icon from "../../atests/logo/Icon";
 
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
@@ -20,12 +23,9 @@ import {
   MDBDropdownToggle,
   MDBCollapse,
   MDBIcon,
-  MDBContainer,
   MDBBtn,
+  MDBNavbarBrand,
 } from "mdbreact";
-
-import Icon from "../../atests/logo/Icon";
-import { Link } from "react-router-dom";
 
 class NavBar extends React.Component {
   state = {
@@ -143,49 +143,49 @@ class NavBar extends React.Component {
       <div id="addpicture-main">
         <div>
           <MDBNavbar dark expand="md" fixed="top">
-            <MDBContainer>
-              <MDBNavbarToggler
-                onClick={this.toggleCollapse("navbarCollapse")}
-              />
-              <MDBCollapse
-                id="navbarCollapse"
-                isOpen={this.state.collapseID}
-                navbar
-              >
-                <MDBNavbarNav left>
-                  <MDBNavItem>
-                    <MDBNavLink
-                      className=" font-weight-normal left-navbar"
-                      to="/"
-                    >
-                      <MDBIcon icon="home" />
-                      &nbsp; Home
-                    </MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem>
-                    <MDBNavLink
-                      className=" font-weight-normal left-navbar"
-                      to="/posts"
-                    >
-                      <MDBIcon icon="car-alt" />
-                      &nbsp;&nbsp;Posts
-                    </MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem>
-                    <MDBNavLink
-                      className=" font-weight-normal left-navbar"
-                      to="/profiles"
-                    >
-                      <MDBIcon icon="id-card-alt" />
-                      &nbsp; Agencies
-                    </MDBNavLink>
-                  </MDBNavItem>
-                </MDBNavbarNav>
-                <MDBNavbarNav right>
-                  {isAuthenticated ? authLinks : guestLinks}
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBContainer>
+            <MDBNavbarToggler onClick={this.toggleCollapse("navbarCollapse")} />
+            <MDBNavbarBrand>
+              <Icon />
+            </MDBNavbarBrand>
+            <MDBNavbarToggler onClick={this.toggleCollapse} />
+            <MDBCollapse
+              id="navbarCollapse"
+              isOpen={this.state.collapseID}
+              navbar
+            >
+              <MDBNavbarNav left>
+                <MDBNavItem>
+                  <MDBNavLink
+                    className=" font-weight-normal left-navbar"
+                    to="/"
+                  >
+                    <MDBIcon icon="home" />
+                    &nbsp; Home
+                  </MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink
+                    className=" font-weight-normal left-navbar"
+                    to="/posts"
+                  >
+                    <MDBIcon icon="car-alt" />
+                    &nbsp;&nbsp;Posts
+                  </MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink
+                    className=" font-weight-normal left-navbar"
+                    to="/profiles"
+                  >
+                    <MDBIcon icon="id-card-alt" />
+                    &nbsp; Agencies
+                  </MDBNavLink>
+                </MDBNavItem>
+              </MDBNavbarNav>
+              <MDBNavbarNav right>
+                {isAuthenticated ? authLinks : guestLinks}
+              </MDBNavbarNav>
+            </MDBCollapse>
           </MDBNavbar>
           {this.state.collapseID && overlay}
         </div>

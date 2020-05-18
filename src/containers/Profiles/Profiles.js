@@ -9,7 +9,6 @@ import { getProfiles } from "../../actions/profileActions";
 import {
   MDBMask,
   MDBView,
-  MDBContainer,
   MDBBtn,
   MDBIcon,
   MDBInput,

@@ -175,7 +175,7 @@ class DashBoard extends Component {
                   </MDBBtn>
                 </Link>
                 <div className="d-flex">
-                  <ProfileActions user={user} />
+                  <ProfileActions profile={profile} />
 
                   <button onClick={this.toggle} className="btn btn-danger">
                     <MDBIcon size="lg" icon="exclamation-triangle" />

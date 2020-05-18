@@ -3,6 +3,6 @@
   flex-wrap: wrap;
   width: 1300px;
   position: fixed;
-  bottom: 40px;
+  top: 40px;
   left: 120px;
 }

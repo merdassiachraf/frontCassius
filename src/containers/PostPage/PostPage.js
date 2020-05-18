@@ -6,14 +6,14 @@ import { Avatar } from "antd";
 import { Carousel } from "react-responsive-carousel";
 
 import Spinner from "../Common/Spinner";
-import { getPostById } from "../../actions/postActions";
+import { getPostById, deletePost } from "../../actions/postActions";
+import { addReservation } from "../../actions/reservationActions";
 
 import { Input } from "antd";
 
 import {
   MDBMask,
   MDBView,
-  MDBContainer,
   MDBTypography,
   MDBBox,
   MDBBtn,
@@ -23,7 +23,6 @@ import {
   MDBModalFooter,
   MDBAlert,
   MDBModalBody,
-  MDBInput,
 } from "mdbreact";
 import { Link } from "react-router-dom";
 
@@ -36,7 +35,22 @@ class PostPage extends Component {
     returnTime: "",
     totalOfDays: "",
     totalPrice: "",
+    status: "",
     errors: {},
+  };
+
+  onClickDelete = () => {
+    this.setState({ status: "Delete" });
+    this.toggle();
+  };
+
+  onClickReservation = () => {
+    this.setState({ status: "Reservation" });
+    this.toggle();
+  };
+
+  onConfirmDelete = (id) => {
+    this.props.deletePost(id);
   };
 
   onClickClose = () => {
@@ -46,15 +60,16 @@ class PostPage extends Component {
       returnDate: "",
       startTime: "",
       returnTime: "",
-      totalOfDays: 0,
-      totalPrice: 0,
+      totalOfDays: "",
+      totalPrice: "",
+      status: "Waiting for confirmation",
     });
   };
 
   onClickCalcul = () => {
     this.setState({
       totalPrice:
-        this.state.totalOfDays * parseInt(this.props.post.post.pricePerDay, 10),
+        (this.state.totalOfDays * parseInt(this.props.post.post.pricePerDay, 10)).toString(10),
     });
   };
 
@@ -77,6 +92,20 @@ class PostPage extends Component {
       modal: !this.state.modal,
     });
   };
+
+  onSubmit = (id) => {
+    const reservationData = {
+      startDate: this.state.startDate,
+      returnDate: this.state.returnDate,
+      startTime: this.state.startTime,
+      returnTime: this.state.returnTime,
+      totalOfDays: this.state.totalOfDays.toString(10),
+      totalPrice: this.state.totalPrice,
+      status: "Waiting for confirmation",
+    };
+    this.props.addReservation(id, reservationData, this.props.history);
+  };
+
   render() {
     const { post, loading } = this.props.post;
     const { auth } = this.props;
@@ -84,15 +113,23 @@ class PostPage extends Component {
     const fdate = new Date(this.state.startDate);
     const ldate = new Date(this.state.returnDate);
 
+    console.log(this.state.status);
     const diff = (ldate - fdate) / 86400000;
 
     let postContent;
 
-    if (post === null || loading) {
+    if (loading) {
       postContent = <Spinner />;
+    } else if (post === null) {
+      postContent = (
+        <div className="d-flex flex-column align-items-center">
+          <h1 className="not-found">ERROR:404 </h1>
+          <h1 className="not-found">Post not found </h1>
+        </div>
+      );
     } else {
       postContent = (
-        <MDBContainer>
+        <div>
           <div className="post-carousel">
             <Carousel>
               <div className="carousel-picture">
@@ -176,17 +213,43 @@ class PostPage extends Component {
               </div>
             </MDBTypography>
             {auth.user.id != post.user && post.role != "Agency" ? (
-              <MDBBtn size="lg" rounded onClick={this.toggle} color="danger">
-                Reserve Now
+              <MDBBtn
+                size="lg"
+                rounded
+                onClick={this.onClickReservation}
+                color="green"
+                className="font-weight-bold white-text"
+              >
+                <MDBIcon icon="car-alt" size="lg" /> &nbsp; Reserve Now
               </MDBBtn>
             ) : auth.user.id === post.user ? (
-              <Link to={`/posts/edit_post/${post._id}`}>
-                <MDBBtn size="lg" rounded color="success">
-                  Edit
+              <div className="d-flex">
+                <Link to={`/posts/edit_post/${post._id}`}>
+                  <MDBBtn
+                    size="lg"
+                    rounded
+                    color="warning"
+                    className="font-weight-bold"
+                  >
+                    <MDBIcon icon="edit" />
+                    &nbsp; Edit
+                  </MDBBtn>
+                </Link>
+                <MDBBtn
+                  size="lg"
+                  rounded
+                  color="danger"
+                  className="font-weight-bold"
+                  onClick={this.onClickDelete}
+                >
+                  <MDBIcon icon="trash-alt" />
+                  &nbsp; Delete
                 </MDBBtn>
-              </Link>
+              </div>
             ) : null}
-            {auth.isAuthenticated === true ? (
+            {auth.isAuthenticated === true &&
+            auth.isAuthenticated === true &&
+            this.state.status === "Reservation" ? (
               <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                 <MDBModalHeader toggle={this.toggle}>
                   Reservation form
@@ -300,13 +363,54 @@ class PostPage extends Component {
                   </div>
                 </MDBModalBody>
                 <MDBModalFooter>
-                  <MDBBtn color="secondary" onClick={this.onClickClose}>
-                    Close
+                  <MDBBtn
+                    color="green"
+                    className="white-text"
+                    onClick={this.onClickClose}
+                  >
+                    <MDBIcon size="lg" icon="arrow-circle-left" />
+                    &nbsp; Close
                   </MDBBtn>
-                  <MDBBtn color="primary">Reserve</MDBBtn>
+                  <MDBBtn color="primary">
+                    <MDBIcon
+                      onClick={this.onSubmit.bind(this,post._id)}
+                      icon="check-circle"
+                      size="lg"
+                    />
+                    Reserve
+                  </MDBBtn>
                 </MDBModalFooter>
               </MDBModal>
-            ) : (
+            ) : this.state.status === "Delete" &&
+              auth.isAuthenticated === true &&
+              auth.user.id === post.user ? (
+              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                <MDBModalHeader toggle={this.toggle}>
+                  Delete {post.brand} {post.model}
+                </MDBModalHeader>
+                <MDBModalBody>
+                  Post can not be recovered after deleteing , are you sur to
+                  delete this post ?
+                </MDBModalBody>
+                <MDBModalFooter>
+                  <MDBBtn
+                    color="green"
+                    className="white-text"
+                    onClick={this.onClickClose}
+                  >
+                    <MDBIcon size="lg" icon="arrow-circle-left" />
+                    &nbsp;&nbsp;Close
+                  </MDBBtn>
+                  <MDBBtn
+                    color="danger"
+                    onClick={this.onConfirmDelete.bind(this, post._id)}
+                  >
+                    <MDBIcon far icon="trash-alt" size="lg" />
+                    &nbsp;&nbsp;Confirm
+                  </MDBBtn>
+                </MDBModalFooter>
+              </MDBModal>
+            ) : auth.isAuthenticated === false ? (
               <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                 <MDBModalHeader toggle={this.toggle}>
                   You must to have a client Account
@@ -322,12 +426,17 @@ class PostPage extends Component {
                   </h5>
                 </MDBModalBody>
                 <MDBModalFooter>
-                  <MDBBtn color="secondary" onClick={this.toggle}>
-                    Close
+                  <MDBBtn
+                    color="green"
+                    className="white-text"
+                    onClick={this.onClickClose}
+                  >
+                    <MDBIcon size="lg" icon="arrow-circle-left" />
+                    &nbsp; Close
                   </MDBBtn>
                 </MDBModalFooter>
               </MDBModal>
-            )}
+            ) : null}
           </div>
           <div className="publish-agency">
             <h3>Published by</h3>
@@ -336,10 +445,10 @@ class PostPage extends Component {
                 size={64}
                 src="https://www.bigstockphoto.com/images/homepage/module-6.jpg"
               />
-              &nbsp;&nbsp;<a href="#">{post.name}</a>
+              &nbsp;&nbsp;<a href={`/profile/${post.handle}`}>{post.name}</a>
             </div>
           </div>
-        </MDBContainer>
+        </div>
       );
     }
     return (
@@ -354,6 +463,8 @@ class PostPage extends Component {
   }
 }
 PostPage.propTypes = {
+  addReservation: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   getPostById: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
@@ -366,4 +477,8 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { getPostById })(PostPage);
+export default connect(mapStateToProps, {
+  getPostById,
+  deletePost,
+  addReservation,
+})(PostPage);

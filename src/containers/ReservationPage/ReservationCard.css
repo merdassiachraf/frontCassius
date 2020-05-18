@@ -2,6 +2,8 @@
   background-color: white;
   color:black;
   font-family: monospace;
-  border: solid black 3px;
+  border: solid black 235*360px;
   margin-top: 70px;
+  box-shadow: 0 8px 18px 0 rgba(0, 0, 0, 0.3), 0 10px 250px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 }

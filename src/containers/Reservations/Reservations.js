@@ -14,7 +14,7 @@ class Reservations extends Component {
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
             <div className="d-flex flex-column reservations-page align-items-center">
               <h1 className="white-text">Reservation List</h1>
-              <div className="d-flex flex-wrap ml-5">
+              <div className="d-flex flex-wrap  reservations-list">
                 <ReservationsCard />
                 <ReservationsCard />
                 <ReservationsCard />

@@ -61,3 +61,8 @@ border-bottom: solid 2px gray;
   padding: 3px;
   border-radius: 3px;
 }
+.not-found{
+  font-size: 100px;
+  font-family: Courier , monospace;
+  color:gray
+}
