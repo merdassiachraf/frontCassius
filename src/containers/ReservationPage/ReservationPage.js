@@ -11,7 +11,6 @@ import {
 
 class ReservationPage extends Component {
   render() {
-    const { isAuthenticated } = this.props.auth;
     return (
       <div id="classicformpage">
         <MDBView src="https://wallpaperplay.com/walls/full/1/b/1/289383.jpg">
@@ -24,7 +23,5 @@ class ReservationPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps)(ReservationPage);
+
+export default ReservationPage;

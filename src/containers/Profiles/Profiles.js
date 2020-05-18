@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Proptypes from "prop-types";
+import PropTypes from "prop-types";
 import Spinner from "../Common/Spinner";
 
 import ProfileItem from "./ProfileItem";
@@ -147,9 +147,9 @@ class Profiles extends Component {
   }
 }
 
-Profiles.prototypes = {
-  getProfiles: Proptypes.func.isRequired,
-  profile: Proptypes.object.isRequired,
+Profiles.propTypes = {
+  getProfiles: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

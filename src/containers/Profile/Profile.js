@@ -6,11 +6,13 @@ import Proptypes from "prop-types";
 import ProfileAbout from "./ProfleAbout";
 import ProfilePosts from "./ProfilePosts";
 import Spinner from "../Common/Spinner";
+
 import { getProfileByHandle } from "../../actions/profileActions";
 
-import { MDBMask, MDBView, MDBContainer, MDBIcon } from "mdbreact";
+import { MDBMask, MDBView, MDBIcon } from "mdbreact";
 
 class Profile extends Component {
+  
   componentDidMount = () => {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);

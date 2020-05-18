@@ -14,7 +14,7 @@ import NavBar from "./containers/NavBar/NavBar";
 import Home from "./containers/Home/Home";
 import SignUp from "./containers/SignUp/SignUp";
 import Login from "./containers/Login/Login";
-import PostPage from "./containers/PostPage/PostPage"
+import PostPage from "./containers/PostPage/PostPage";
 import DashBoard from "./containers/DashBoard/DashBoard";
 import Posts from "./containers/Posts/Posts";
 import PostForm from "./containers/Posts/PostForm";
@@ -23,11 +23,11 @@ import CreateProfile from "./containers/CreateProfile/CreateProfile";
 import AddContactInformation from "./containers/AddContactInformation/AddContactInformation";
 import Profiles from "./containers/Profiles/Profiles";
 import Profile from "./containers/Profile/Profile";
-import EditPost from "./containers/Posts/EditPost"
-import MyPosts from "./containers/MyPosts/MyPosts"
-import ReservationPage from "./containers/ReservationPage/ReservationPage"
-import Reservations from "./containers/Reservations/Reservations"
- 
+import EditPost from "./containers/Posts/EditPost";
+import MyPosts from "./containers/MyPosts/MyPosts";
+import ReservationPage from "./containers/ReservationPage/ReservationPage";
+import Reservations from "./containers/Reservations/Reservations";
+
 // Check for token
 if (localStorage.jwtToken) {
   //Set auth token header auth
@@ -69,25 +69,20 @@ function App() {
             name="Profile"
             component={Profile}
           />
-          <Route
-            path="/posts/:id"
-            exact
-            name="Post"
-            component={PostPage}
-          />
-            <Route
-            path="/reservations/res"
-            exact
-            name="Reservation Page"
-            component={ReservationPage}
-          />
-              <Route
-            path="/reservations"
-            exact
-            name="Reservations"
-            component={Reservations}
-          />
+          <Route path="/posts/:id" exact name="Post" component={PostPage} />
           <Switch>
+            <PrivateRoute
+              path="/reservations/:id"
+              exact
+              name="Reservation Page"
+              component={ReservationPage}
+            />
+            <PrivateRoute
+              path="/reservations"
+              exact
+              name="Reservations"
+              component={Reservations}
+            />
             <PrivateRoute
               path="/dashboard"
               exact
@@ -106,13 +101,13 @@ function App() {
               name=""
               component={CreateProfile}
             />
-             <PrivateRoute
+            <PrivateRoute
               path="/posts/edit_post/:id"
               exact
               name="Edit Post"
               component={EditPost}
             />
-              <PrivateRoute
+            <PrivateRoute
               path="/dashboard/my_posts"
               exact
               name="My Posts"

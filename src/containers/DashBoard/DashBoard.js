@@ -132,7 +132,7 @@ class DashBoard extends Component {
                     </MDBBtn>
                   </Link>
                 </div>
-                <Link to="/dashboard/my_posts">
+                <Link to="/reservations">
                   <MDBBtn
                     className="font-weight-bold post-link"
                     color="warning"
@@ -164,7 +164,7 @@ class DashBoard extends Component {
               <div style={{ marginBottom: "60px" }} />
 
               <div className="client-post-buttons">
-                <Link to="/add_post">
+              <Link to="/reservations">
                   <MDBBtn
                     className="font-weight-bold post-link"
                     color="success"

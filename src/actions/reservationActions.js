@@ -4,9 +4,10 @@ import {
   ADD_RESERVATION,
   EDIT_RESERVATION,
   GET_ERRORS,
-  GET_RESERVATIONS,
   RESERVATION_LOADING,
   GET_RESERVATION,
+  GET_MY_RESERVATIONS,
+  GET_RESERVATIONS
 } from "./types";
 
 //Add Resevation
@@ -27,10 +28,48 @@ export const addReservation = (post_id, reservationData) => (dispatch) => {
     );
 };
 
-// //Get reservation
-// export const getReservations =()=> (dispatch)=>{
-//   dispatch(setReservationLoading())
-//   axios.get('reservations/user')
-//   .then(res=>
-//     dispatch({type:GET_RESERVATIONS}))
-// }
+//Get reservation by id
+
+export const getReservationById = (id) => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .get(`/reservations/${id}`)
+    .then((res) =>
+      dispatch({
+        type: GET_RESERVATION,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_RESERVATION,
+        payload: null,
+      })
+    );
+};
+
+//Get reservations
+export const getMyReservations = () => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .get("reservations/user")
+    .then((res) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: null,
+      })
+    );
+};
+
+//Set loading state
+export const setReservationLoading = () => {
+  return {
+    type: RESERVATION_LOADING,
+  };
+};

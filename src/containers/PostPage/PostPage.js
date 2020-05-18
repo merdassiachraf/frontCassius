@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Avatar } from "antd";
-import { Carousel } from "react-responsive-carousel";
+import { Link } from "react-router-dom";
 
 import Spinner from "../Common/Spinner";
 import { getPostById, deletePost } from "../../actions/postActions";
 import { addReservation } from "../../actions/reservationActions";
 
-import { Input } from "antd";
-
+import { Avatar, Input } from "antd";
+import { Carousel } from "react-responsive-carousel";
 import {
   MDBMask,
   MDBView,
@@ -24,7 +22,6 @@ import {
   MDBAlert,
   MDBModalBody,
 } from "mdbreact";
-import { Link } from "react-router-dom";
 
 class PostPage extends Component {
   state = {
@@ -33,10 +30,24 @@ class PostPage extends Component {
     returnDate: "",
     startTime: "",
     returnTime: "",
-    totalOfDays: "",
+    totalDays: "",
     totalPrice: "",
     status: "",
     errors: {},
+  };
+
+  componentDidMount = () => {
+    this.props.getPostById(this.props.match.params.id);
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  };
+
+  onConfirmDelete = (id) => {
+    this.props.deletePost(id);
   };
 
   onClickDelete = () => {
@@ -49,10 +60,6 @@ class PostPage extends Component {
     this.toggle();
   };
 
-  onConfirmDelete = (id) => {
-    this.props.deletePost(id);
-  };
-
   onClickClose = () => {
     this.toggle();
     this.setState({
@@ -60,7 +67,7 @@ class PostPage extends Component {
       returnDate: "",
       startTime: "",
       returnTime: "",
-      totalOfDays: "",
+      totalDays: "",
       totalPrice: "",
       status: "Waiting for confirmation",
     });
@@ -68,19 +75,10 @@ class PostPage extends Component {
 
   onClickCalcul = () => {
     this.setState({
-      totalPrice:
-        (this.state.totalOfDays * parseInt(this.props.post.post.pricePerDay, 10)).toString(10),
+      totalPrice: (
+        this.state.totalDays * parseInt(this.props.post.post.pricePerDay, 10)
+      ).toString(10),
     });
-  };
-
-  componentDidMount = () => {
-    this.props.getPostById(this.props.match.params.id);
-  };
-
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
   };
 
   onChange = (e) => {
@@ -99,11 +97,11 @@ class PostPage extends Component {
       returnDate: this.state.returnDate,
       startTime: this.state.startTime,
       returnTime: this.state.returnTime,
-      totalOfDays: this.state.totalOfDays.toString(10),
+      totalDays: this.state.totalDays.toString(10),
       totalPrice: this.state.totalPrice,
       status: "Waiting for confirmation",
     };
-    this.props.addReservation(id, reservationData, this.props.history);
+    this.props.addReservation(id, reservationData);
   };
 
   render() {
@@ -113,7 +111,6 @@ class PostPage extends Component {
     const fdate = new Date(this.state.startDate);
     const ldate = new Date(this.state.returnDate);
 
-    console.log(this.state.status);
     const diff = (ldate - fdate) / 86400000;
 
     let postContent;
@@ -314,7 +311,7 @@ class PostPage extends Component {
                   <div className="d-flex">
                     <Input
                       readOnly
-                      value={this.state.totalOfDays}
+                      value={this.state.totalDays}
                       type="text"
                       size="large"
                       name="returnTime"
@@ -325,7 +322,7 @@ class PostPage extends Component {
                       rounded
                       className="white-text"
                       onClick={() => {
-                        if (diff >= 0) this.setState({ totalOfDays: diff });
+                        if (diff >= 0) this.setState({ totalDays: diff });
                       }}
                       color="light-blue"
                       size="sm"
@@ -371,12 +368,8 @@ class PostPage extends Component {
                     <MDBIcon size="lg" icon="arrow-circle-left" />
                     &nbsp; Close
                   </MDBBtn>
-                  <MDBBtn color="primary">
-                    <MDBIcon
-                      onClick={this.onSubmit.bind(this,post._id)}
-                      icon="check-circle"
-                      size="lg"
-                    />
+                  <MDBBtn color="primary" onClick={()=>this.onSubmit(post._id)}>
+                    <MDBIcon icon="check-circle" size="lg" />
                     Reserve
                   </MDBBtn>
                 </MDBModalFooter>
