@@ -7,7 +7,7 @@ import PostFeed from "./PostFeed";
 
 import { getPosts } from "../../actions/postActions";
 
-import { MDBMask, MDBView, MDBInput, MDBBtn, MDBIcon } from "mdbreact";
+import { MDBMask, MDBView, MDBBtn, MDBIcon } from "mdbreact";
 import { Input, Select } from "antd";
 
 const { Option } = Select;
@@ -84,9 +84,7 @@ class Posts extends Component {
       <div id="">
         <MDBView src="https://images.pexels.com/photos/21014/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-            <div className="all-post-filtre">
-              <div className="profiles d-flex flex-column align-items-center">
-                <div className="all-agencies-filtre">
+              <div className="d-flex align-items-center">
                   <Input
                     value={this.state.search}
                     className=""
@@ -680,8 +678,6 @@ class Posts extends Component {
                     </MDBBtn>
                   </div>
                 </div>
-              </div>
-            </div>
 
             <div className="posts-list-page">
               <h2 className="white-text text-center posts-title">Cars List</h2>

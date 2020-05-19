@@ -1,33 +1,3 @@
-.all-agencies-filtre {
-  border-right: solid 5px white;
-  padding: 0px 25px 25px 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(110deg, #887697 30%, #8c967a 30%);
-  margin-top: 85px;
-  height: 598px;
-  box-shadow: 5px 3px 6px 1px black;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-}
-
-.agencies-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.agency-list-page {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  right: 0;
-  top: 100px;
-  width: 1050px;
-  height: 700px;
-}
-
 .agencies-sous-titre {
   font-size: 16px;
   font-weight: 100;
@@ -37,23 +7,35 @@
   font-family: monospace;
 }
 
-.profile-avatar-card{
+.profile-avatar-card {
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1),
     0 6px 20px 0 rgba(0, 0, 0, 0.4);
-    border: solid gray 1px;
-    transition: transform .2s;
+  border: solid gray 1px;
+  transition: transform 0.2s;
 }
 
-.profile-avatar-card:hover{
-  transform: scale(1.3)
+.profile-avatar-card:hover {
+  transform: scale(1.3);
 }
 
-.profile-avatar-card:hover + .profile-name-card{
+.profile-avatar-card:hover + .profile-name-card {
   -webkit-text-stroke-width: 0px;
-  -webkit-text-stroke-color: transparent;}
+  -webkit-text-stroke-color: transparent;
+}
 
-.profile-name-card{
+.profile-name-card {
   -webkit-text-stroke-width: 0.4px;
   -webkit-text-stroke-color: black;
-  text-shadow: 2px 2px 5px black
+  text-shadow: 2px 2px 5px black;
+}
+/* profiles page */
+
+.search-agency {
+  margin-top: 32px;
+}
+
+.profilesPage {
+  width:1300px;
+  margin-left:120px;
+  height: 425px;
 }
