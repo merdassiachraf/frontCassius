@@ -33,7 +33,7 @@ export const addReservation = (post_id, reservationData) => (dispatch) => {
 export const getReservationById = (id) => (dispatch) => {
   dispatch(setReservationLoading());
   axios
-    .get(`/reservations/${id}`)
+    .get(`/reservations/reservation/${id}`)
     .then((res) =>
       dispatch({
         type: GET_RESERVATION,

@@ -6,25 +6,44 @@ import Spinner from "../Common/Spinner";
 import ProfileItem from "./ProfileItem";
 import { getProfiles } from "../../actions/profileActions";
 
-import {
-  MDBMask,
-  MDBView,
-  MDBBtn,
-  MDBIcon,
-  MDBInput,
-} from "mdbreact";
+import { Input, TreeSelect, Select } from "antd";
+
+import { MDBMask, MDBView, MDBBtn, MDBIcon } from "mdbreact";
+
+const { Option } = Select;
 
 class Profiles extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      value: undefined,
+      country: "",
+      state: "",
+      search: "",
+    };
   }
 
   componentDidMount = () => {
     this.props.getProfiles();
   };
 
+  onReset = () => {
+    this.setState({
+      country: "",
+      state: "",
+      search: "",
+    });
+  };
+
   render() {
+    console.log(
+      "country: ",
+      this.state.country,
+      "state :",
+      this.state.state,
+      "search :",
+      this.state.search
+    );
     const { profiles, loading } = this.props.profile;
     let profileItems;
 
@@ -47,94 +66,243 @@ class Profiles extends Component {
             <div className="posts-list-main">
               <div className="profiles d-flex flex-column align-items-center">
                 <div className="all-agencies-filtre">
-                  <MDBInput
-                    label="Search"
-                    icon="search"
-                    className="white-text "
-                    size="sm"
-                    onChange={(e) => this.setState({ search1: e.target.value })}
-                    value={this.state.search1}
+                  <Input
+                    value={this.state.search}
+                    className="mt-5"
+                    style={{ width: "200px" }}
+                    size="large"
+                    onChange={(e) => this.setState({ search: e.target.value })}
+                    placeholder="    Search"
+                    prefix={<MDBIcon icon="search" />}
                   />
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="globe-africa" />
-                      &nbsp;&nbsp; Country :
+                  <div className="d-flex flex-column align-items-start mt-5">
+                    <label className="white-text">
+                      <MDBIcon icon="flag" size="lg" />
+                      &nbsp; Country :
                     </label>
-                    <select className="select-posts-filtre">
-                      <option
-                        className="option-filtre-post"
-                        value="Tunisia"
-                        selected
-                      >
-                        Tunisia
-                      </option>
-                    </select>
-                  </div>
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="map-marker-alt" />
-                      &nbsp;&nbsp; State :
-                    </label>
-                    <select
-                      onChange={(e) =>
-                        this.setState({ state1: e.target.value })
-                      }
-                      className="select-posts-filtre"
-                      value={this.state.state1}
+                    <Select
+                      value={this.state.country}
+                      style={{ width: "200px" }}
+                      size="large"
+                      onChange={(value) => this.setState({ country: value })}
                     >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the state
-                      </option>
-                      <option className="option-filtre-post">Ariana</option>
-                      <option className="option-filtre-post">Béja</option>
-                      <option className="option-filtre-post">Ben Arous</option>
-                      <option className="option-filtre-post">Bizerte</option>
-                      <option className="option-filtre-post">Gabés</option>
-                      <option className="option-filtre-post">Gafsa</option>
-                      <option className="option-filtre-post">Jendouba</option>
-                      <option className="option-filtre-post">Kairouan</option>
-                      <option className="option-filtre-post">Kasserine</option>
-                      <option className="option-filtre-post">Kebili</option>
-                      <option className="option-filtre-post">kef</option>
-                      <option className="option-filtre-post">Mahdia</option>
-                      <option className="option-filtre-post">Mannouba</option>
-                      <option className="option-filtre-post">Mednine</option>
-                      <option className="option-filtre-post">Monastir</option>
-                      <option className="option-filtre-post">Nabeul</option>
-                      <option className="option-filtre-post">Sfax</option>
-                      <option className="option-filtre-post">
-                        Sidi Bouzid
-                      </option>
-                      <option className="option-filtre-post">Sliana</option>
-                      <option className="option-filtre-post">Sousse</option>
-                      <option className="option-filtre-post">Tataouine</option>
-                      <option className="option-filtre-post">Tozeur</option>
-                      <option className="option-filtre-post">Tunis</option>
-                      <option className="option-filtre-post">Zaghouan</option>
-                    </select>
+                      <Option selected value="">
+                        <div className="demo-option-label-item">
+                          Select country
+                        </div>
+                      </Option>
+                      <Option value="Tunisia">
+                        <span role="img" aria-label="Beja">
+                          <MDBIcon className="tunisia flag" />
+                        </span>
+                        Tunisia
+                      </Option>
+                    </Select>
                   </div>
-                  <div>
+                  <div className="d-flex flex-column align-items-start mt-5">
+                    <label className="white-text">
+                      <MDBIcon icon="flag" size="lg" />
+                      &nbsp; State :
+                    </label>
+                    {this.state.country === "Tunisia" ? (
+                      <Select
+                        value={this.state.state}
+                        style={{ width: "200px" }}
+                        size="large"
+                        onChange={(value) => this.setState({ state: value })}
+                      >
+                        <Option selected value="">
+                          <div>
+                            <span role="img" aria-label="Tunisia">
+                              <MDBIcon className="tunisia flag" />
+                            </span>
+                            Select state
+                          </div>
+                        </Option>
+                        <Option value="Ariana">
+                          <span role="img" aria-label="Ariana">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Ariana
+                        </Option>
+                        <Option value="Béja">
+                          <span role="img" aria-label="Beja">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Béja
+                        </Option>
+                        <Option value="Ben Arous">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Ben Arous
+                        </Option>
+                        <Option value="Bizerte">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Bizerte
+                        </Option>
+                        <Option value="Gabés">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Gabés
+                        </Option>
+                        <Option value="Gafsa">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Gafsa
+                        </Option>
+                        <Option value="Jendouba">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Jendouba
+                        </Option>
+                        <Option value="Kairouan">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Kairouan
+                        </Option>
+                        <Option value="Kasserine">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Kasserine
+                        </Option>
+                        <Option value="Kebili">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Kebili
+                        </Option>
+                        <Option value="kef">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          kef
+                        </Option>
+                        <Option value="Mahdia">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Mahdia
+                        </Option>
+                        <Option value="Mannouba">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Mannouba
+                        </Option>
+                        <Option value="Mednine">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Mednine
+                        </Option>
+                        <Option value="Monastir">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Monastir
+                        </Option>
+                        <Option value="Nabeul">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Nabeul
+                        </Option>
+                        <Option value="Sfax">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sfax
+                        </Option>
+                        <Option value="Sidi Bouzid">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sidi Bouzid
+                        </Option>
+                        <Option value="Sliana">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sliana
+                        </Option>
+                        <Option value="Sousse">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sousse
+                        </Option>
+                        <Option value="Tataouine">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Tataouine
+                        </Option>
+                        <Option value="Tozeur">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Tozeur
+                        </Option>
+                        <Option value="Tunis">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Tunis
+                        </Option>
+                        <Option value="Zaghouan">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Zaghouan
+                        </Option>
+                      </Select>
+                    ) : (
+                      <Select
+                        value={this.state.state}
+                        style={{ width: "200px" }}
+                        size="large"
+                        onChange={(value) => this.setState({ state: value })}
+                      >
+                        <Option value="" selected>Select country first</Option>
+                      </Select>
+                    )}
+                  </div>
+                  <div className="mt-4">
                     <MDBBtn
+                      color="danger"
+                      size="sm"
+                      className="font-weight-bold"
+                      onClick={this.onReset}
+                    >
+                      Reset&nbsp;&nbsp;
+                      <MDBIcon icon="wrench" />
+                    </MDBBtn>
+                    <MDBBtn
+                      className="font-weight-bold"
                       color="amber"
                       size="sm"
                       onClick={this.handleClickSearch}
                     >
-                      Search
-                    </MDBBtn>
-                    <MDBBtn
-                      color="danger"
-                      size="sm"
-                      onClick={this.handleClickReset}
-                    >
-                      Reset
+                      Search&nbsp;&nbsp;
+                      <MDBIcon icon="search-plus" />
                     </MDBBtn>
                   </div>
                 </div>
               </div>
 
               <div className="agency-list-page">
-                <h2 className="white-text text-center agencies-title">Agencies List</h2>
-                <p  className=" white-text agencies-sous-titre text-center">
+                <h2 className="white-text text-center agencies-title">
+                  Agencies List
+                </h2>
+                <p className=" white-text agencies-sous-titre text-center">
                   Browse and connect with agencies
                 </p>
                 <div className="agencies-list">{profileItems}</div>

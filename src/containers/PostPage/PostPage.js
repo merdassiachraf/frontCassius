@@ -96,12 +96,13 @@ class PostPage extends Component {
       startDate: this.state.startDate,
       returnDate: this.state.returnDate,
       startTime: this.state.startTime,
-      returnTime: this.state.returnTime,
+      returnTime: this.state.startTime,
       totalDays: this.state.totalDays.toString(10),
       totalPrice: this.state.totalPrice,
-      status: "Waiting for confirmation",
+      status: this.state.status,
     };
     this.props.addReservation(id, reservationData);
+    this.onClickClose()
   };
 
   render() {
@@ -314,7 +315,7 @@ class PostPage extends Component {
                       value={this.state.totalDays}
                       type="text"
                       size="large"
-                      name="returnTime"
+                      name="totalDays"
                       placeholder={"Total of Days"}
                       prefix={<MDBIcon icon="calendar-day" />}
                     />

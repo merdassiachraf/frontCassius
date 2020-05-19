@@ -33,6 +33,12 @@ export default function (state = initialState, action) {
         reservations: action.payload,
         loading: false,
       };
+      case GET_RESERVATION:
+        return {
+          ...state,
+          reservation: action.payload,
+          loading: false,
+        }
     case ADD_RESERVATION:
       return {
         ...state,
@@ -43,12 +49,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         reservation: action.payload,
-      };
-    case GET_RESERVATION:
-      return {
-        ...state,
-        reservation: action.payload,
-        loading: false,
       };
     default:
       return state;

@@ -81,13 +81,14 @@ body {
     font-size: 65px;
 }
 .intro-buttons{
-    margin:70px 80px 0px 0px;
+    margin:70px 130px 0px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .left-home{
     width:500px;
+    margin-left: 130px;
 }
 .all-home{
     display: flex;

@@ -22,7 +22,7 @@ class Home extends Component {
         <MDBView src="https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?cs=srgb&dl=action-blur-car-child-386009.jpg&fm=jpg">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
             <MDBRow className="all-home">
-              <MDBCol className="right-animation-add">
+              <MDBCol className="right-animation-add ">
                 <div className="left-home">
                   <MDBAnimation
                     type="fadeInLeft"
@@ -50,24 +50,24 @@ class Home extends Component {
                         <MDBIcon
                           className="text-danger"
                           icon="fas fa-star-and-crescent"
-                        ></MDBIcon>{" "}
+                        ></MDBIcon>
                         &nbsp;
                         <MDBIcon className="text-danger" icon="heart" />
                       </h1>
                       <hr className="hr-light white-text" />
                     </div>
-                    {!isAuthenticated ? (
-                      <div className="home-buttons">
-                        <Link to="/posts_list">
-                          <MDBBtn
-                            className="font-weight-bold black-text"
-                            color="success"
-                            style={{ fontSize: 21, height: 70, width: 300 }}
-                          >
-                            Start Navigation &nbsp; &nbsp;
-                            <MDBIcon icon="shopping-cart" />
-                          </MDBBtn>
-                        </Link>
+                    <div className="home-buttons">
+                      <Link to="/posts">
+                        <MDBBtn
+                          className="font-weight-bold black-text"
+                          color="success"
+                          style={{ fontSize: 21, height: 70, width: 300 }}
+                        >
+                          Start Navigation &nbsp; &nbsp;
+                          <MDBIcon icon="shopping-cart" />
+                        </MDBBtn>
+                      </Link>
+                      {!isAuthenticated ? (
                         <Link to="/signup">
                           <MDBBtn
                             className="font-weight-bold "
@@ -79,8 +79,8 @@ class Home extends Component {
                             <MDBIcon icon="star" />
                           </MDBBtn>
                         </Link>
-                      </div>
-                    ) : null}
+                      ) : null}
+                    </div>
                   </div>
                 </MDBAnimation>
               </MDBCol>

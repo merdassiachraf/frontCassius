@@ -91,7 +91,7 @@ class ReservationCardActions extends Component {
             </MDBModalHeader>
             <MDBModalBody>
               Cancel reservation of Toyota yaris from 12/12/2020 to 1201/20121 ,
-              for 5280 dt to Merdassi Achraf?{" "}
+              for 5280 dt to Merdassi Achraf?
             </MDBModalBody>
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={this.onClickClose}>

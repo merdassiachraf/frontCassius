@@ -8,6 +8,7 @@ const ProfileItem = ({profile}) => {
     <Link to={`/profile/${profile.handle}`}>
       <div className="card card-body d-flex flex-column mr-5 align-items-center ">
         <Avatar
+        className="profile-avatar-card"
           shape="square"
           size={110}
           src="https://upload.wikimedia.org/wikipedia/en/6/68/TLS_Agency_logo.jpg"

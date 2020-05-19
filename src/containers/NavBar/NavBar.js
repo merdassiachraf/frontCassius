@@ -153,7 +153,7 @@ class NavBar extends React.Component {
               isOpen={this.state.collapseID}
               navbar
             >
-              <MDBNavbarNav left>
+              <MDBNavbarNav left className="ml-5 pl-5">
                 <MDBNavItem>
                   <MDBNavLink
                     className=" font-weight-normal left-navbar"
@@ -182,7 +182,7 @@ class NavBar extends React.Component {
                   </MDBNavLink>
                 </MDBNavItem>
               </MDBNavbarNav>
-              <MDBNavbarNav right>
+              <MDBNavbarNav right className="mr-5 pr-5">
                 {isAuthenticated ? authLinks : guestLinks}
               </MDBNavbarNav>
             </MDBCollapse>
