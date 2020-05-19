@@ -6,7 +6,7 @@ import Spinner from "../Common/Spinner";
 import ProfileItem from "./ProfileItem";
 import { getProfiles } from "../../actions/profileActions";
 
-import { Input, TreeSelect, Select } from "antd";
+import { Input, Select } from "antd";
 
 import { MDBMask, MDBView, MDBBtn, MDBIcon } from "mdbreact";
 
@@ -16,7 +16,6 @@ class Profiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: undefined,
       country: "",
       state: "",
       search: "",
@@ -36,14 +35,7 @@ class Profiles extends Component {
   };
 
   render() {
-    console.log(
-      "country: ",
-      this.state.country,
-      "state :",
-      this.state.state,
-      "search :",
-      this.state.search
-    );
+
     const { profiles, loading } = this.props.profile;
     let profileItems;
 
@@ -70,7 +62,6 @@ class Profiles extends Component {
                     value={this.state.search}
                     className="mt-5"
                     style={{ width: "200px" }}
-                    size="large"
                     onChange={(e) => this.setState({ search: e.target.value })}
                     placeholder="    Search"
                     prefix={<MDBIcon icon="search" />}
@@ -83,7 +74,6 @@ class Profiles extends Component {
                     <Select
                       value={this.state.country}
                       style={{ width: "200px" }}
-                      size="large"
                       onChange={(value) => this.setState({ country: value })}
                     >
                       <Option selected value="">
@@ -108,7 +98,6 @@ class Profiles extends Component {
                       <Select
                         value={this.state.state}
                         style={{ width: "200px" }}
-                        size="large"
                         onChange={(value) => this.setState({ state: value })}
                       >
                         <Option selected value="">
@@ -268,10 +257,11 @@ class Profiles extends Component {
                       <Select
                         value={this.state.state}
                         style={{ width: "200px" }}
-                        size="large"
                         onChange={(value) => this.setState({ state: value })}
                       >
-                        <Option value="" selected>Select country first</Option>
+                        <Option value="" selected>
+                          Select country first
+                        </Option>
                       </Select>
                     )}
                   </div>

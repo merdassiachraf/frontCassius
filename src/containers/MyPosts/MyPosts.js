@@ -38,7 +38,7 @@ class MyPosts extends Component {
         ));
       } else {
         myPostItem = (
-          <div className='d-flex flex-column align-items-center  empty-myposts'>
+          <div className="d-flex flex-column align-items-center  empty-myposts">
             <h3 className="mb-5 pb-5 empty-notice">Try to add some Post</h3>
             <Link to="/add_post">
               <MDBBtn

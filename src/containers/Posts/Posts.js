@@ -7,13 +7,10 @@ import PostFeed from "./PostFeed";
 
 import { getPosts } from "../../actions/postActions";
 
-import {
-  MDBMask,
-  MDBView,
-  MDBInput,
-  MDBBtn,
-  MDBIcon,
-} from "mdbreact";
+import { MDBMask, MDBView, MDBInput, MDBBtn, MDBIcon } from "mdbreact";
+import { Input, Select } from "antd";
+
+const { Option } = Select;
 
 class Posts extends Component {
   constructor(props) {
@@ -27,14 +24,14 @@ class Posts extends Component {
       state: "",
       minPricePerDay: 0,
       maxPricePerDay: 999999999999999999,
-      brand1: "",
+      brand: "",
       search1: "",
-      model1: "",
-      fuel1: "",
+      model: "",
+      fuel: "",
       transmission1: "",
       state1: "",
-      minPricePerDay1: 0,
-      maxPricePerDay1: 999999999999999999,
+      minPrice: 0,
+      maxPrice: 999999999999999999,
     };
   }
   componentDidMount = () => {
@@ -44,13 +41,13 @@ class Posts extends Component {
   handleClickSearch = () => {
     this.setState({
       search: this.state.search1,
-      brand: this.state.brand1,
-      model: this.state.model1,
-      fuel: this.state.fuel1,
+      brand: this.state.brand,
+      model: this.state.model,
+      fuel: this.state.fuel,
       transmission: this.state.transmission1,
       state: this.state.state1,
-      minPricePerDay: this.state.minPricePerDay1,
-      maxPricePerDay: this.state.maxPricePerDay1,
+      minPricePerDay: this.state.minPrice,
+      maxPricePerDay: this.state.maxPrice,
     });
   };
   handleClickReset = () => {
@@ -64,13 +61,13 @@ class Posts extends Component {
       minPricePerDay: 0,
       maxPricePerDay: 999999999999999999,
       search1: "",
-      brand1: "",
-      model1: "",
-      fuel1: "",
+      brand: "",
+      model: "",
+      fuel: "",
       transmission1: "",
       state1: "",
-      minPricePerDay1: 0,
-      maxPricePerDay1: 999999999999999999,
+      minPrice: 0,
+      maxPrice: 999999999999999999,
     });
   };
   render() {
@@ -87,19 +84,218 @@ class Posts extends Component {
       <div id="">
         <MDBView src="https://images.pexels.com/photos/21014/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-              <div className="all-post-filtre">
-                <div className="posts-filtre-input white-text">
-                  <MDBInput
-                    label="Search"
-                    icon="search"
-                    className="white-text "
-                    size="sm"
-                    onChange={(e) => this.setState({ search1: e.target.value })}
-                    value={this.state.search1}
+            <div className="all-post-filtre">
+              <div className="profiles d-flex flex-column align-items-center">
+                <div className="all-agencies-filtre">
+                  <Input
+                    value={this.state.search}
+                    className=""
+                    style={{ width: "200px" }}
+                    onChange={(value) => this.setState({ search: value })}
+                    placeholder="    Search"
+                    prefix={<MDBIcon icon="search" />}
                   />
-                </div>
-                <div className="filtre-price white-text">
-                  <div className="vertical-price">
+                  <div className="d-flex flex-column align-items-start">
+                    <label className="white-text">
+                      <MDBIcon icon="flag" size="lg" />
+                      &nbsp; Country :
+                    </label>
+                    <Select
+                      value={this.state.country}
+                      style={{ width: "200px" }}
+                      onChange={(value) => this.setState({ country: value })}
+                    >
+                      <Option Selected value="">
+                        <div className="demo-Option-label-item">
+                          Select country
+                        </div>
+                      </Option>
+                      <Option value="Tunisia">
+                        <span role="img" aria-label="Beja">
+                          <MDBIcon className="tunisia flag" />
+                        </span>
+                        Tunisia
+                      </Option>
+                    </Select>
+                  </div>
+                  <div className="d-flex flex-column align-items-start ">
+                    <label className="white-text">
+                      <MDBIcon icon="flag" size="lg" />
+                      &nbsp; State :
+                    </label>
+                    {this.state.country === "Tunisia" ? (
+                      <Select
+                        value={this.state.state}
+                        style={{ width: "200px" }}
+                        onChange={(value) => this.setState({ state: value })}
+                      >
+                        <Option Selected value="">
+                          <div>
+                            <span role="img" aria-label="Tunisia">
+                              <MDBIcon className="tunisia flag" />
+                            </span>
+                            Select state
+                          </div>
+                        </Option>
+                        <Option value="Ariana">
+                          <span role="img" aria-label="Ariana">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Ariana
+                        </Option>
+                        <Option value="Béja">
+                          <span role="img" aria-label="Beja">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Béja
+                        </Option>
+                        <Option value="Ben Arous">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Ben Arous
+                        </Option>
+                        <Option value="Bizerte">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Bizerte
+                        </Option>
+                        <Option value="Gabés">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Gabés
+                        </Option>
+                        <Option value="Gafsa">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Gafsa
+                        </Option>
+                        <Option value="Jendouba">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Jendouba
+                        </Option>
+                        <Option value="Kairouan">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Kairouan
+                        </Option>
+                        <Option value="Kasserine">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Kasserine
+                        </Option>
+                        <Option value="Kebili">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Kebili
+                        </Option>
+                        <Option value="kef">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          kef
+                        </Option>
+                        <Option value="Mahdia">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Mahdia
+                        </Option>
+                        <Option value="Mannouba">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Mannouba
+                        </Option>
+                        <Option value="Mednine">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Mednine
+                        </Option>
+                        <Option value="Monastir">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Monastir
+                        </Option>
+                        <Option value="Nabeul">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Nabeul
+                        </Option>
+                        <Option value="Sfax">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sfax
+                        </Option>
+                        <Option value="Sidi Bouzid">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sidi Bouzid
+                        </Option>
+                        <Option value="Sliana">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sliana
+                        </Option>
+                        <Option value="Sousse">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Sousse
+                        </Option>
+                        <Option value="Tataouine">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Tataouine
+                        </Option>
+                        <Option value="Tozeur">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Tozeur
+                        </Option>
+                        <Option value="Tunis">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Tunis
+                        </Option>
+                        <Option value="Zaghouan">
+                          <span role="img" aria-label="China">
+                            <MDBIcon className="tunisia flag" />
+                          </span>
+                          Zaghouan
+                        </Option>
+                      </Select>
+                    ) : (
+                      <Select
+                        value={this.state.state}
+                        style={{ width: "200px" }}
+                        onChange={(value) => this.setState({ state: value })}
+                      >
+                        <Option value="" Selected>
+                          Select country first
+                        </Option>
+                      </Select>
+                    )}
+                  </div>
+
+                  <div className="d-flex flex-column align-items-start">
                     <label className="label-filtre-post-price">
                       <MDBIcon icon="dollar-sign" />
                       &nbsp;&nbsp;Min Price :
@@ -108,13 +304,11 @@ class Posts extends Component {
                       type="number"
                       className="input-filtre-post-price"
                       size="sm"
-                      onChange={(e) =>
-                        this.setState({ minPricePerDay1: e.target.value })
-                      }
-                      value={this.state.minPricePerDay1}
+                      onChange={(value) => this.setState({ minPrice: value })}
+                      value={this.state.minPrice}
                     />
                   </div>
-                  <div className="vertical-price">
+                  <div className="d-flex flex-column align-items-start">
                     <label className="label-filtre-post-price">
                       <MDBIcon icon="dollar-sign" size="sm" />
                       &nbsp;&nbsp;Max Price :
@@ -122,416 +316,380 @@ class Posts extends Component {
                     <input
                       type="number"
                       className="input-filtre-post-price"
-                      onChange={(e) =>
-                        this.setState({ maxPricePerDay1: e.target.value })
-                      }
-                      value={this.state.maxPricePerDay1}
+                      onChange={(value) => this.setState({ maxPrice: value })}
+                      value={this.state.maxPrice}
                     />
                   </div>
-                </div>
 
-                <div className="posts-filtre-select white-text">
-                  <label className="label-posts-filtre">
-                    <MDBIcon icon="car-side" />
-                    &nbsp;&nbsp; Brand :
-                  </label>
-                  <select
-                    onChange={(e) => this.setState({ brand1: e.target.value })}
-                    className="select-posts-filtre"
-                    value={this.state.brand1}
-                  >
-                    <option className="option-filtre-post" value="" selected>
-                      Choose the brand
-                    </option>
-                    <option className="option-filtre-post">BMW</option>
-                    <option className="option-filtre-post">Ford</option>
-                    <option className="option-filtre-post">Hyundai</option>
-                    <option className="option-filtre-post">Kia</option>
-                    <option className="option-filtre-post">Nissan</option>
-                    <option className="option-filtre-post">Peugeot</option>
-                    <option className="option-filtre-post">Toyota</option>
-                    <option className="option-filtre-post">Volkswagen</option>
-                  </select>
-                </div>
-                {this.state.brand1 === "BMW" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp;Model:
+                  <div className="d-flex flex-column align-items-start">
+                    <label className="white-text">
+                      <MDBIcon icon="car-side" />
+                      &nbsp;&nbsp; Brand :
                     </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
+                    <Select
+                      onChange={(value) => this.setState({ brand: value })}
+                      className="Select-posts-filtre"
+                      value={this.state.brand}
                     >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">Serie 1</option>
-                      <option className="option-filtre-post">Serie 2</option>
-                      <option className="option-filtre-post">Serie 3</option>
-                      <option className="option-filtre-post">Serie 4</option>
-                      <option className="option-filtre-post">Serie 5</option>
-                      <option className="option-filtre-post">Serie 7</option>
-                      <option className="option-filtre-post">X 1</option>
-                      <option className="option-filtre-post">X 2</option>
-                      <option className="option-filtre-post">X 3</option>
-                      <option className="option-filtre-post">X 4</option>
-                      <option className="option-filtre-post">X 5</option>
-                      <option className="option-filtre-post">X 6</option>
-                      <option className="option-filtre-post">X 7</option>
-                      <option className="option-filtre-post">i3</option>
-                      <option className="option-filtre-post">i8</option>
-                    </select>
+                      <Option className="Option-filtre-post" value="" Selected>
+                        Choose the brand
+                      </Option>
+                      <Option className="Option-filtre-post">BMW</Option>
+                      <Option className="Option-filtre-post">Ford</Option>
+                      <Option className="Option-filtre-post">Hyundai</Option>
+                      <Option className="Option-filtre-post">Kia</Option>
+                      <Option className="Option-filtre-post">Nissan</Option>
+                      <Option className="Option-filtre-post">Peugeot</Option>
+                      <Option className="Option-filtre-post">Toyota</Option>
+                      <Option className="Option-filtre-post">Volkswagen</Option>
+                    </Select>
                   </div>
-                ) : this.state.brand1 === "Hyundai" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
+                  {this.state.brand === "BMW" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp;Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">Serie 1</Option>
+                        <Option className="Option-filtre-post">Serie 2</Option>
+                        <Option className="Option-filtre-post">Serie 3</Option>
+                        <Option className="Option-filtre-post">Serie 4</Option>
+                        <Option className="Option-filtre-post">Serie 5</Option>
+                        <Option className="Option-filtre-post">Serie 7</Option>
+                        <Option className="Option-filtre-post">X 1</Option>
+                        <Option className="Option-filtre-post">X 2</Option>
+                        <Option className="Option-filtre-post">X 3</Option>
+                        <Option className="Option-filtre-post">X 4</Option>
+                        <Option className="Option-filtre-post">X 5</Option>
+                        <Option className="Option-filtre-post">X 6</Option>
+                        <Option className="Option-filtre-post">X 7</Option>
+                        <Option className="Option-filtre-post">i3</Option>
+                        <Option className="Option-filtre-post">i8</Option>
+                      </Select>
+                    </div>
+                  ) : this.state.brand === "Hyundai" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">i10</Option>
+                        <Option className="Option-filtre-post">Gran i10</Option>
+                        <Option className="Option-filtre-post">i20</Option>
+                        <Option className="Option-filtre-post">i30</Option>
+                        <Option className="Option-filtre-post">i40</Option>
+                        <Option className="Option-filtre-post">Accent</Option>
+                        <Option className="Option-filtre-post">Elantra</Option>
+                        <Option className="Option-filtre-post">Sonata</Option>
+                        <Option className="Option-filtre-post">ix-35</Option>
+                        <Option className="Option-filtre-post">Veloster</Option>
+                        <Option className="Option-filtre-post">Tucson</Option>
+                        <Option className="Option-filtre-post">Santa Fe</Option>
+                        <Option className="Option-filtre-post">Palisade</Option>
+                        <Option className="Option-filtre-post">Starex</Option>
+                        <Option className="Option-filtre-post">H350</Option>
+                      </Select>
+                    </div>
+                  ) : this.state.brand === "Ford" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">KA</Option>
+                        <Option className="Option-filtre-post">Fiesta</Option>
+                        <Option className="Option-filtre-post">Focus</Option>
+                        <Option className="Option-filtre-post">Mondeo</Option>
+                        <Option className="Option-filtre-post">Mustang</Option>
+                        <Option className="Option-filtre-post">Ranger</Option>
+                        <Option className="Option-filtre-post">F-150</Option>
+                        <Option className="Option-filtre-post">S-Max</Option>
+                        <Option className="Option-filtre-post">Puma</Option>
+                        <Option className="Option-filtre-post">Escape</Option>
+                        <Option className="Option-filtre-post">Explorer</Option>
+                      </Select>
+                    </div>
+                  ) : this.state.brand === "Kia" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">Picanto</Option>
+                        <Option className="Option-filtre-post">Rio</Option>
+                        <Option className="Option-filtre-post">Cerato</Option>
+                        <Option className="Option-filtre-post">Sorento</Option>
+                        <Option className="Option-filtre-post">Optima</Option>
+                        <Option className="Option-filtre-post">Ranger</Option>
+                        <Option className="Option-filtre-post">Ceed</Option>
+                        <Option className="Option-filtre-post">Sportage</Option>
+                        <Option className="Option-filtre-post">Soul</Option>
+                        <Option className="Option-filtre-post">K900</Option>
+                        <Option className="Option-filtre-post">Cadenza</Option>
+                      </Select>
+                    </div>
+                  ) : this.state.brand === "Nissan" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">Micra</Option>
+                        <Option className="Option-filtre-post">X-trail</Option>
+                        <Option className="Option-filtre-post">Juke</Option>
+                        <Option className="Option-filtre-post">Qashqai</Option>
+                        <Option className="Option-filtre-post">GT-R</Option>
+                        <Option className="Option-filtre-post">Rogue</Option>
+                        <Option className="Option-filtre-post">Versa</Option>
+                        <Option className="Option-filtre-post">NV-100</Option>
+                        <Option className="Option-filtre-post">Navara</Option>
+                        <Option className="Option-filtre-post">Terra</Option>
+                      </Select>
+                    </div>
+                  ) : this.state.brand === "Peugeot" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="oOption-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">108</Option>
+                        <Option className="Option-filtre-post">208</Option>
+                        <Option className="Option-filtre-post">308</Option>
+                        <Option className="Option-filtre-post">508</Option>
+                        <Option className="Option-filtre-post">2008</Option>
+                        <Option className="Option-filtre-post">3008</Option>
+                        <Option className="Option-filtre-post">4008</Option>
+                        <Option className="Option-filtre-post">5008</Option>
+                        <Option className="Option-filtre-post">Partner</Option>
+                        <Option className="Option-filtre-post">Bipper</Option>
+                        <Option className="Option-filtre-post">Boxer</Option>
+                      </Select>
+                    </div>
+                  ) : this.state.brand === "Toyota" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">Aygo</Option>
+                        <Option className="Option-filtre-post">Yaris</Option>
+                        <Option className="Option-filtre-post">Avanza</Option>
+                        <Option className="Option-filtre-post">
+                          Land Cruiser
+                        </Option>
+                        <Option className="Option-filtre-post">Corolla</Option>
+                        <Option className="Option-filtre-post">Glanza</Option>
+                        <Option className="Option-filtre-post">Hillux</Option>
+                        <Option className="Option-filtre-post">Hiace</Option>
+                        <Option className="Option-filtre-post">Fortuner</Option>
+                      </Select>
+                    </div>
+                  ) : this.state.brand === "Volkswagen" ? (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the Model
+                        </Option>
+                        <Option className="Option-filtre-post">UP</Option>
+                        <Option className="Option-filtre-post">Polo</Option>
+                        <Option className="Option-filtre-post">Golf</Option>
+                        <Option className="Option-filtre-post">Jetta</Option>
+                        <Option className="Option-filtre-post">Passat</Option>
+                        <Option className="Option-filtre-post">Amarok</Option>
+                        <Option className="Option-filtre-post">
+                          Transporter
+                        </Option>
+                        <Option className="Option-filtre-post">Tiguan</Option>
+                        <Option className="Option-filtre-post">Touareg</Option>
+                      </Select>
+                    </div>
+                  ) : (
+                    <div className="d-flex flex-column align-items-start">
+                      <label className="white-text">
+                        <MDBIcon icon="question-circle" />
+                        &nbsp;&nbsp; Model:
+                      </label>
+                      <Select
+                        className="Select-posts-filtre"
+                        onChange={(value) => this.setState({ model: value })}
+                        value={this.state.model}
+                      >
+                        <Option
+                          className="Option-filtre-post"
+                          value=""
+                          Selected
+                        >
+                          Choose the brand first
+                        </Option>
+                      </Select>
+                    </div>
+                  )}
+                  <div className="d-flex flex-column align-items-start">
+                    <label className="white-text">
+                      <MDBIcon icon="gas-pump" />
+                      &nbsp;&nbsp; Fuel :
                     </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
+                    <Select
+                      onChange={(value) => this.setState({ fuel: value })}
+                      className="Select-posts-filtre"
+                      value={this.state.fuel}
                     >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">i10</option>
-                      <option className="option-filtre-post">Gran i10</option>
-                      <option className="option-filtre-post">i20</option>
-                      <option className="option-filtre-post">i30</option>
-                      <option className="option-filtre-post">i40</option>
-                      <option className="option-filtre-post">Accent</option>
-                      <option className="option-filtre-post">Elantra</option>
-                      <option className="option-filtre-post">Sonata</option>
-                      <option className="option-filtre-post">ix-35</option>
-                      <option className="option-filtre-post">Veloster</option>
-                      <option className="option-filtre-post">Tucson</option>
-                      <option className="option-filtre-post">Santa Fe</option>
-                      <option className="option-filtre-post">Palisade</option>
-                      <option className="option-filtre-post">Starex</option>
-                      <option className="option-filtre-post">H350</option>
-                    </select>
+                      <Option className="Option-filtre-post" value="" Selected>
+                        Choose the fuel
+                      </Option>
+                      <Option className="Option-filtre-post">Gasoline</Option>
+                      <Option className="Option-filtre-post">Diesel</Option>
+                      <Option className="Option-filtre-post">Hybrid</Option>
+                    </Select>
                   </div>
-                ) : this.state.brand1 === "Ford" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
+                  <div className="d-flex flex-column align-items-start">
+                    <label className="white-text">
+                      <MDBIcon icon="cogs" />
+                      &nbsp;&nbsp; Transmission :
                     </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
+                    <Select
+                      onChange={(value) =>
+                        this.setState({
+                          transmission: value,
+                        })
                       }
-                      value={this.state.model1}
+                      className="Select-posts-filtre"
+                      value={this.state.transmission}
                     >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">KA</option>
-                      <option className="option-filtre-post">Fiesta</option>
-                      <option className="option-filtre-post">Focus</option>
-                      <option className="option-filtre-post">Mondeo</option>
-                      <option className="option-filtre-post">Mustang</option>
-                      <option className="option-filtre-post">Ranger</option>
-                      <option className="option-filtre-post">F-150</option>
-                      <option className="option-filtre-post">S-Max</option>
-                      <option className="option-filtre-post">Puma</option>
-                      <option className="option-filtre-post">Escape</option>
-                      <option className="option-filtre-post">Explorer</option>
-                    </select>
+                      <Option className="Option-filtre-post" value="" Selected>
+                        Choose the transmission
+                      </Option>
+                      <Option className="Option-filtre-post">Manual</Option>
+                      <Option className="Option-filtre-post">Automatic</Option>
+                    </Select>
                   </div>
-                ) : this.state.brand1 === "Kia" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
-                    </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
+                  <div className="mt-4">
+                    <MDBBtn
+                      color="danger"
+                      size="sm"
+                      className="font-weight-bold"
+                      onClick={this.onReset}
                     >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">Picanto</option>
-                      <option className="option-filtre-post">Rio</option>
-                      <option className="option-filtre-post">Cerato</option>
-                      <option className="option-filtre-post">Sorento</option>
-                      <option className="option-filtre-post">Optima</option>
-                      <option className="option-filtre-post">Ranger</option>
-                      <option className="option-filtre-post">Ceed</option>
-                      <option className="option-filtre-post">Sportage</option>
-                      <option className="option-filtre-post">Soul</option>
-                      <option className="option-filtre-post">K900</option>
-                      <option className="option-filtre-post">Cadenza</option>
-                    </select>
+                      Reset&nbsp;&nbsp;
+                      <MDBIcon icon="wrench" />
+                    </MDBBtn>
+                    <MDBBtn
+                      className="font-weight-bold"
+                      color="amber"
+                      size="sm"
+                      onClick={this.handleClickSearch}
+                    >
+                      Search&nbsp;&nbsp;
+                      <MDBIcon icon="search-plus" />
+                    </MDBBtn>
                   </div>
-                ) : this.state.brand1 === "Nissan" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
-                    </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
-                    >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">Micra</option>
-                      <option className="option-filtre-post">X-trail</option>
-                      <option className="option-filtre-post">Juke</option>
-                      <option className="option-filtre-post">Qashqai</option>
-                      <option className="option-filtre-post">GT-R</option>
-                      <option className="option-filtre-post">Rogue</option>
-                      <option className="option-filtre-post">Versa</option>
-                      <option className="option-filtre-post">NV-100</option>
-                      <option className="option-filtre-post">Navara</option>
-                      <option className="option-filtre-post">Terra</option>
-                    </select>
-                  </div>
-                ) : this.state.brand1 === "Peugeot" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
-                    </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
-                    >
-                      <option className="ooption-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">108</option>
-                      <option className="option-filtre-post">208</option>
-                      <option className="option-filtre-post">308</option>
-                      <option className="option-filtre-post">508</option>
-                      <option className="option-filtre-post">2008</option>
-                      <option className="option-filtre-post">3008</option>
-                      <option className="option-filtre-post">4008</option>
-                      <option className="option-filtre-post">5008</option>
-                      <option className="option-filtre-post">Partner</option>
-                      <option className="option-filtre-post">Bipper</option>
-                      <option className="option-filtre-post">Boxer</option>
-                    </select>
-                  </div>
-                ) : this.state.brand1 === "Toyota" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
-                    </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
-                    >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">Aygo</option>
-                      <option className="option-filtre-post">Yaris</option>
-                      <option className="option-filtre-post">Avanza</option>
-                      <option className="option-filtre-post">
-                        Land Cruiser
-                      </option>
-                      <option className="option-filtre-post">Corolla</option>
-                      <option className="option-filtre-post">Glanza</option>
-                      <option className="option-filtre-post">Hillux</option>
-                      <option className="option-filtre-post">Hiace</option>
-                      <option className="option-filtre-post">Fortuner</option>
-                    </select>
-                  </div>
-                ) : this.state.brand1 === "Volkswagen" ? (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
-                    </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
-                    >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the Model
-                      </option>
-                      <option className="option-filtre-post">UP</option>
-                      <option className="option-filtre-post">Polo</option>
-                      <option className="option-filtre-post">Golf</option>
-                      <option className="option-filtre-post">Jetta</option>
-                      <option className="option-filtre-post">Passat</option>
-                      <option className="option-filtre-post">Amarok</option>
-                      <option className="option-filtre-post">
-                        Transporter
-                      </option>
-                      <option className="option-filtre-post">Tiguan</option>
-                      <option className="option-filtre-post">Touareg</option>
-                    </select>
-                  </div>
-                ) : (
-                  <div className="posts-filtre-select white-text">
-                    <label className="label-posts-filtre">
-                      <MDBIcon icon="question-circle" />
-                      &nbsp;&nbsp; Model:
-                    </label>
-                    <select
-                      className="select-posts-filtre"
-                      onChange={(e) =>
-                        this.setState({ model1: e.target.value })
-                      }
-                      value={this.state.model1}
-                    >
-                      <option className="option-filtre-post" value="" selected>
-                        Choose the brand first
-                      </option>
-                    </select>
-                  </div>
-                )}
-                <div className="posts-filtre-select white-text">
-                  <label className="label-posts-filtre">
-                    <MDBIcon icon="gas-pump" />
-                    &nbsp;&nbsp; Fuel :
-                  </label>
-                  <select
-                    onChange={(e) => this.setState({ fuel1: e.target.value })}
-                    className="select-posts-filtre"
-                    value={this.state.fuel1}
-                  >
-                    <option className="option-filtre-post" value="" selected>
-                      Choose the fuel
-                    </option>
-                    <option className="option-filtre-post">Gasoline</option>
-                    <option className="option-filtre-post">Diesel</option>
-                    <option className="option-filtre-post">Hybrid</option>
-                  </select>
-                </div>
-                <div className="posts-filtre-select white-text">
-                  <label className="label-posts-filtre">
-                    <MDBIcon icon="cogs" />
-                    &nbsp;&nbsp; Transmission :
-                  </label>
-                  <select
-                    onChange={(e) =>
-                      this.setState({
-                        transmission1: e.target.value,
-                      })
-                    }
-                    className="select-posts-filtre"
-                    value={this.state.transmission1}
-                  >
-                    <option className="option-filtre-post" value="" selected>
-                      Choose the transmission
-                    </option>
-                    <option className="option-filtre-post">Manual</option>
-                    <option className="option-filtre-post">Automatic</option>
-                  </select>
-                </div>
-
-                <div className="posts-filtre-select white-text">
-                  <label className="label-posts-filtre">
-                    <MDBIcon icon="globe-africa" />
-                    &nbsp;&nbsp; Country :
-                  </label>
-                  <select className="select-posts-filtre">
-                    <option
-                      className="option-filtre-post"
-                      value="Tunisia"
-                      selected
-                    >
-                      Tunisia
-                    </option>
-                  </select>
-                </div>
-                <div className="posts-filtre-select white-text">
-                  <label className="label-posts-filtre">
-                    <MDBIcon icon="map-marker-alt" />
-                    &nbsp;&nbsp; State :
-                  </label>
-                  <select
-                    onChange={(e) => this.setState({ state1: e.target.value })}
-                    className="select-posts-filtre"
-                    value={this.state.state1}
-                  >
-                    <option className="option-filtre-post" value="" selected>
-                      Choose the state
-                    </option>
-                    <option className="option-filtre-post">Ariana</option>
-                    <option className="option-filtre-post">Béja</option>
-                    <option className="option-filtre-post">Ben Arous</option>
-                    <option className="option-filtre-post">Bizerte</option>
-                    <option className="option-filtre-post">Gabés</option>
-                    <option className="option-filtre-post">Gafsa</option>
-                    <option className="option-filtre-post">Jendouba</option>
-                    <option className="option-filtre-post">Kairouan</option>
-                    <option className="option-filtre-post">Kasserine</option>
-                    <option className="option-filtre-post">Kebili</option>
-                    <option className="option-filtre-post">kef</option>
-                    <option className="option-filtre-post">Mahdia</option>
-                    <option className="option-filtre-post">Mannouba</option>
-                    <option className="option-filtre-post">Mednine</option>
-                    <option className="option-filtre-post">Monastir</option>
-                    <option className="option-filtre-post">Nabeul</option>
-                    <option className="option-filtre-post">Sfax</option>
-                    <option className="option-filtre-post">Sidi Bouzid</option>
-                    <option className="option-filtre-post">Sliana</option>
-                    <option className="option-filtre-post">Sousse</option>
-                    <option className="option-filtre-post">Tataouine</option>
-                    <option className="option-filtre-post">Tozeur</option>
-                    <option className="option-filtre-post">Tunis</option>
-                    <option className="option-filtre-post">Zaghouan</option>
-                  </select>
-                </div>
-                <div>
-                  <MDBBtn
-                    color="amber"
-                    size="sm"
-                    onClick={this.handleClickSearch}
-                  >
-                    Search
-                  </MDBBtn>
-                  <MDBBtn
-                    color="danger"
-                    size="sm"
-                    onClick={this.handleClickReset}
-                  >
-                    Reset
-                  </MDBBtn>
                 </div>
               </div>
+            </div>
 
-              <div className="posts-list-page">
-                <h2 className="white-text text-center posts-title">
-                  Cars List
-                </h2>
-                <p className=" white-text posts-sous-titre text-center">
-                  You will find your car here
-                </p>
-                <div className="posts-list">{postContent}</div>
-              </div>
+            <div className="posts-list-page">
+              <h2 className="white-text text-center posts-title">Cars List</h2>
+              <p className=" white-text posts-sous-titre text-center">
+                You will find your car here
+              </p>
+              <div className="posts-list">{postContent}</div>
+            </div>
           </MDBMask>
         </MDBView>
       </div>
