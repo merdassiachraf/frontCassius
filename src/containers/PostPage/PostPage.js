@@ -127,8 +127,8 @@ class PostPage extends Component {
       );
     } else {
       postContent = (
-        <div>
-          <div className="post-carousel">
+        <div className="d-flex">
+          <div className="post-carousel mr-5">
             <Carousel>
               <div className="carousel-picture">
                 <img

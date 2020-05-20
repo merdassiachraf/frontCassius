@@ -18,19 +18,20 @@ import "./containers/Posts/PostsCard.css";
 import "./containers/Common/TextFieldGroup.css";
 import "./containers/CreateProfile/CreateProfile.css";
 import "./containers/Profile/Profile.css";
-import "./containers/PostPage/PostPage.css"
-import "./containers/AddContactInformation/AddContactInformation.css"
-import './containers/Profiles/Profiles.css'
-import "./containers/Common/Spinner.css"
-import "./containers/MyPosts/MyPosts.css"
-import "./containers/MyPosts/MyPostCard.css"
-import "./containers/ReservationPage/ReservationPage.css"
-import "./containers/ReservationPage/ReservationCard.css"
-import "./containers/Reservations/Reservations.css"
-import "./containers/Reservations/ReservationsCard.css"
-import "./containers/Profile/ProfilePostCard.css"
-import "./containers/Profile/ProfilePosts.css"
-import "./containers/Posts/FitreItems.css"
+import "./containers/PostPage/PostPage.css";
+import "./containers/AddContactInformation/AddContactInformation.css";
+import "./containers/Profiles/Profiles.css";
+import "./containers/Common/Spinner.css";
+import "./containers/MyPosts/MyPosts.css";
+import "./containers/MyPosts/MyPostCard.css";
+import "./containers/ReservationPage/ReservationPage.css";
+import "./containers/ReservationPage/ReservationCard.css";
+import "./containers/Reservations/Reservations.css";
+import "./containers/Reservations/ReservationsCard.css";
+import "./containers/Profile/ProfilePostCard.css";
+import "./containers/Profile/ProfilePosts.css";
+import "./containers/Posts/FitreItems.css";
+import "./containers/EditPost/EditPost.css";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
@@ -41,7 +42,6 @@ import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

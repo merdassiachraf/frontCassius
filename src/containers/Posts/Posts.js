@@ -25,14 +25,7 @@ class Posts extends Component {
       postContent = (
         <div className="d-flex flex-wrap">
           <PostFeed posts={posts} />
-          <PostFeed posts={posts} />
-          <PostFeed posts={posts} />
-          <PostFeed posts={posts} />
-          <PostFeed posts={posts} />
-          <PostFeed posts={posts} />
-          <PostFeed posts={posts} />
-          <PostFeed posts={posts} />
-        </div>
+             </div>
       );
     }
 
