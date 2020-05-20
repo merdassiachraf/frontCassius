@@ -30,6 +30,7 @@ import "./containers/Reservations/Reservations.css"
 import "./containers/Reservations/ReservationsCard.css"
 import "./containers/Profile/ProfilePostCard.css"
 import "./containers/Profile/ProfilePosts.css"
+import "./containers/Posts/FitreItems.css"
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";

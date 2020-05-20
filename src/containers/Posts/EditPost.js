@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 
 import { editPost, getPostById } from "../../actions/postActions";
 
@@ -12,12 +11,12 @@ import {
   MDBIcon,
   MDBBtn,
   MDBView,
-  MDBContainer,
   MDBCard,
   MDBCardBody,
   MDBInput,
   MDBAnimation,
 } from "mdbreact";
+
 import errorsReducer from "../../reducers/errorsReducer";
 
 class EditPost extends Component {
@@ -62,7 +61,6 @@ class EditPost extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
   onSubmit = (e) => {
-    const { user } = this.props.auth;
     const postData = {
       brand: this.state.brand,
       model: this.state.model,
@@ -936,7 +934,6 @@ class EditPost extends Component {
 EditPost.propTypes = {
   editPost: PropTypes.func.isRequired,
   getPostById: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
@@ -944,7 +941,6 @@ EditPost.propTypes = {
 const mapStatetoProps = (state) => ({
   errors: state.errors,
   post: state.post,
-  auth: state.auth,
 });
 
 export default connect(mapStatetoProps, { getPostById, editPost })(EditPost);

@@ -49,7 +49,6 @@ class AddContactInformation extends Component {
 
   render() {
     const { errors } = this.state;
-    const { role } = this.props.auth.user;
 
     // Select options for adress
 

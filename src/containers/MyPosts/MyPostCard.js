@@ -13,7 +13,7 @@ class MyPostCard extends Component {
   };
 
   render() {
-    const { post, key } = this.props;
+    const { post } = this.props;
     return (
       <div className="d-flex flex-column align-items-center p-3 flex-nowwrap my-post-card m-3">
         <img

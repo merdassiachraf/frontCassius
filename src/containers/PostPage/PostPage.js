@@ -210,7 +210,7 @@ class PostPage extends Component {
                 </h4>
               </div>
             </MDBTypography>
-            {auth.user.id != post.user && post.role != "Agency" ? (
+            {auth.user.id !== post.user && post.role !== "Agency" ? (
               <MDBBtn
                 size="lg"
                 rounded

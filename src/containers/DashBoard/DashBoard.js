@@ -19,7 +19,6 @@ import ProfileActions from "./ProfileActions";
 import {
   MDBMask,
   MDBView,
-  MDBContainer,
   MDBBtn,
   MDBIcon,
   MDBModal,

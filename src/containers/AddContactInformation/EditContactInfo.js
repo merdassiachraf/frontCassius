@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Link, withRouter } from "react-router-dom";
+import {  withRouter } from "react-router-dom";
 
 import { addContactInformation } from "../../actions/profileActions";
 
-import { MDBMask, MDBView, MDBContainer, MDBIcon, MDBBtn } from "mdbreact";
+import {  MDBIcon, MDBBtn } from "mdbreact";
 
 import TextFieldGroup from "../Common/TextFieldGroup";
 import SelectListGoup from "../Common/SelectListGoup";
