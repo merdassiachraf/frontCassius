@@ -5,6 +5,12 @@ import PropTypes from "prop-types";
 import { Avatar } from "antd";
 
 class PostCard extends Component {
+
+  state={
+    status:""
+  }
+
+
   render() {
     const { post } = this.props;
     return (

@@ -29,11 +29,23 @@ export const addPost = (postData) => (dispatch) => {
 };
 
 //Edit Post
-export const editPost = (id, postData) => (dispatch) => {
+export const editPost = (
+  id,
+  { brand, model, fuel, transmission, adress, state, country, pricePerDay }
+) => (dispatch) => {
   dispatch(setPostLoading());
 
   axios
-    .put(`/posts/edit_post/${id}`, postData)
+    .put(`/posts/edit_post/${id}`, {
+      brand,
+      model,
+      fuel,
+      transmission,
+      adress,
+      state,
+      country,
+      pricePerDay,
+    })
     .then((res) =>
       dispatch({
         type: EDIT_POST,

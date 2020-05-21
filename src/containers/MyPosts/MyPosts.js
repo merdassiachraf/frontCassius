@@ -29,11 +29,11 @@ class MyPosts extends Component {
       myPostItem = <Spinner />;
     } else {
       if (my_posts.length > 0) {
-        myPostItem = my_posts.map((post) => (
+        myPostItem = my_posts.map((my_post) => (
           <MyPostCard
-            key={post._id}
-            onClickDelete={() => this.onClickDelete.bind(this, post._id)}
-            post={post}
+            key={my_post._id}
+            onClickDelete={() => this.onClickDelete.bind(this, my_post._id)}
+            my_post={my_post}
           />
         ));
       } else {
@@ -57,8 +57,8 @@ class MyPosts extends Component {
 
     return (
       <div id="classicformpage">
-        <MDBView src="https://images.pexels.com/photos/21014/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
-          <MDBMask className="d-flex justify-content-center align-items-center gradient">
+        <MDBView src="https://images.pexels.com/photos/3631711/pexels-photo-3631711.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+          <MDBMask className="d-flex justify-content-center align-items-center  " overlay="brown-light">
             <Link className="go-back" to="/dashboard">
               <MDBIcon icon="arrow-circle-left" />
               &nbsp;Go back
