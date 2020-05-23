@@ -1,12 +1,5 @@
 .field-label {
-  font-size: 17px;
+  font-size: 10px;
   font-weight: 500;
   font-family: monospace;
-
-}
-.text-field {
-margin: 20px 0px 0px 00px;
-}
-.info{
-margin-left: 60px;
 }

@@ -6,6 +6,7 @@ import {
   PROFILE_LOADING,
   SET_CURRENT_USER,
   GET_PROFILES,
+  GET_SUCCESS,
 } from "./types";
 
 //Get current profile
@@ -51,7 +52,12 @@ export const getProfileByHandle = (handle) => (dispatch) => {
 export const createProfile = (profileData, history) => (dispatch) => {
   axios
     .post("/profile", profileData)
-    .then((res) => history.push("/dashboard"))
+    .then((res) =>
+      dispatch({
+        type: GET_SUCCESS,
+        payload: res.data,
+      })
+    )
     .catch((err) => {
       dispatch({
         type: GET_ERRORS,
@@ -129,18 +135,18 @@ export const deleteContactInformation = (id) => (dispatch) => {
 
 //Delete account
 export const deleteAccount = () => (dispatch) => {
-    axios
-      .delete("/profile/delete")
-      .then((res) =>
-        dispatch({
-          type: SET_CURRENT_USER,
-          payload: {},
-        })
-      )
-      .catch((err) =>
-        dispatch({
-          type: GET_ERRORS,
-          payload: err.response.data,
-        })
-      );
+  axios
+    .delete("/profile/delete")
+    .then((res) =>
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: {},
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
 };

@@ -6,7 +6,6 @@ import { withRouter } from "react-router-dom";
 import {
   MDBMask,
   MDBView,
-  MDBContainer,
   MDBBtn,
   MDBIcon,
   MDBModal,
@@ -272,244 +271,228 @@ class CreateProfile extends Component {
           }
         >
           <MDBMask className=" gradient">
-            <MDBContainer>
-              <div className="create-profile text-center">
-                <div
-                  className="creat-pro-head text-center"
-                  style={{ marginLeft: 300 }}
-                >
-                  <h2 className="text-center white-text">
-                    Create your profile {name}
-                  </h2>
-                  <p className="lead white-text text-center">
-                    Let's get some information to make your profile stand out
-                  </p>
-                </div>
-
-                <form onSubmit={this.onSubmit} className="form-group">
-                  <div className="form-profile d-flex">
-                    <div className="text-field1">
-                      <TextFieldGroup
-                        divClassName="col-md-10 "
-                        placeholder="Profile Handle"
-                        name="handle"
-                        type="text"
-                        value={this.state.handle}
-                        onChange={this.onChange}
-                        error={errors.handle}
-                      />
-                    </div>
-                    <div className="text-field2">
-                      {role === "Client" ? (
-                        <TextFieldGroup
-                          divClassName="col-md-10"
-                          name="dateOfBirth"
-                          type="date"
-                          value={this.state.dateOfBirth}
-                          onChange={this.onChange}
-                          error={errors.dateOfBirth}
-                        />
-                      ) : null}
-                    </div>
-                    <div className="text-field3">
-                      <TextFieldGroup
-                        divClassName="col-md-10"
-                        placeholder={
-                          role === "Agency" ? "Agency Adress" : "Your adress"
-                        }
-                        name="adress"
-                        type="text"
-                        value={this.state.adress}
-                        onChange={this.onChange}
-                        error={errors.adress}
-                      />
-                    </div>
-                    <div className="select-field1">
-                      <SelectListGoup
-                        placeholder="Country"
-                        name="country"
-                        value={this.state.country}
-                        onChange={this.onChange}
-                        error={errors.country}
-                        options={
-                          role === "Agency"
-                            ? optionsAgencyCountry
-                            : optionsCountry
-                        }
-                      />
-                    </div>
-                    <div className="select-field2">
-                      {this.state.country === "Algeria" ? (
-                        <SelectListGoup
-                          placeholder="State"
-                          name="state"
-                          value={this.state.state}
-                          onChange={this.onChange}
-                          error={errors.state}
-                          options={optionsStateAlgeria}
-                        />
-                      ) : this.state.country === "France" ? (
-                        <SelectListGoup
-                          placeholder="State"
-                          name="state"
-                          value={this.state.state}
-                          onChange={this.onChange}
-                          error={errors.state}
-                          options={optionsStateFrance}
-                        />
-                      ) : this.state.country === "Italy" ? (
-                        <SelectListGoup
-                          placeholder="State"
-                          name="state"
-                          value={this.state.state}
-                          onChange={this.onChange}
-                          error={errors.state}
-                          options={optionsStateItaly}
-                        />
-                      ) : this.state.country === "Tunisia" ? (
-                        <SelectListGoup
-                          placeholder="State"
-                          name="state"
-                          value={this.state.state}
-                          onChange={this.onChange}
-                          error={errors.state}
-                          options={optionsStateTunisia}
-                        />
-                      ) : this.state.country === "Germany" ? (
-                        <SelectListGoup
-                          placeholder="State"
-                          name="state"
-                          value={this.state.state}
-                          onChange={this.onChange}
-                          error={errors.state}
-                          options={optionsStateGermany}
-                        />
-                      ) : (
-                        <SelectListGoup
-                          placeholder="State"
-                          name="state"
-                          value={this.state.state}
-                          onChange={this.onChange}
-                          error={errors.state}
-                          options={optionsError}
-                        />
-                      )}
-                    </div>
-                    <div className="select-field3">
-                      <SelectListGoup
-                        placeholder="Country phone code"
-                        name="countryCode"
-                        value={this.state.countryCode}
-                        onChange={this.onChange}
-                        error={errors.countryCode}
-                        options={
-                          role === "Agency"
-                            ? optionsAgencyCountryCode
-                            : optionsCountryCode
-                        }
-                      />
-                    </div>
-                    <div className="text-field4">
-                      <TextFieldGroup
-                        divClassName="col-md-10 phone-Field "
-                        placeholder={
-                          role === "Agency"
-                            ? "Agency phone number"
-                            : "Your phone number"
-                        }
-                        name="phoneNumber"
-                        type="number"
-                        value={this.state.phoneNumber}
-                        onChange={this.onChange}
-                        error={errors.phoneNumber}
-                      />
-                    </div>
-                    <div className="profile-picture-upload white-text">
-                      <label style={{ marginLeft: 8 }}>Profile Picture:</label>
-                      <ProfilePicture />
-                    </div>
-                    <div className="social-inputs">
-                      <div className="social-button">
-                        <MDBBtn
-                          onClick={this.toggle}
-                          className="font-weight-bold "
-                          size="lg"
-                          style={{ height: 70 }}
-                        >
-                          Social Network Links&nbsp;&nbsp;
-                          <MDBIcon
-                            size="lg"
-                            className="black-text"
-                            fab
-                            icon="internet-explorer"
-                          />
-                        </MDBBtn>
-                        {errors.facebook ||
-                        errors.youtube ||
-                        errors.linkedin ||
-                        errors.twitter ||
-                        errors.instagram ? (
-                          <div className="d-flex flex-column invalid-tooltip align-items-start">
-                            <h6 class="white-text font-weight-light">
-                              {errors.facebook}
-                            </h6>
-                            <h6 class="white-text font-weight-light">
-                              {errors.youtube}
-                            </h6>
-                            <h6 class="white-text font-weight-light">
-                              {errors.linkedin}
-                            </h6>
-                            <h6 class="white-text font-weight-light">
-                              {errors.instagram}
-                            </h6>
-                            <h6 class="white-text font-weight-light">
-                              {errors.twitter}
-                            </h6>
-                            <h6 className="d-flex white-text font-weight-light">
-                              To fix click
-                              <a
-                                className="font-weight-bold"
-                                onClick={this.toggle}
-                              >
-                                &nbsp;HERE
-                              </a>
-                            </h6>
-                          </div>
-                        ) : null}
-                        <h6 className="white-text">Optional</h6>
-                      </div>
-                      <MDBModal
-                        isOpen={this.state.modal}
-                        toggle={this.toggle}
-                        side
-                        position="top-left"
-                      >
-                        <MDBModalHeader toggle={this.toggle}>
-                          Put your social Links
-                        </MDBModalHeader>
-                        <MDBModalBody>{socialnputs} </MDBModalBody>
-                        <MDBModalFooter>
-                          <MDBBtn color="danger" onClick={this.toggle}>
-                            Done
-                          </MDBBtn>
-                        </MDBModalFooter>
-                      </MDBModal>
-                    </div>
-                    <MDBBtn
-                      value="submit"
-                      className="black-text font-weight-bold submit-profile"
-                      style={{ width: 200 }}
-                      onClick={this.onSubmit}
-                      color="amber"
-                      size="lg"
-                    >
-                      Submit&nbsp;&nbsp;
-                      <MDBIcon size="lg" icon="hdd" />
-                    </MDBBtn>
-                  </div>
-                </form>
+            <div className="text-center create-prof">
+              <div className="text-center">
+                <h2 className="text-center white-text">
+                  Create your profile {name}
+                </h2>
+                <p className="lead white-text text-center">
+                  Let's get some information to make your profile stand out
+                </p>
               </div>
-            </MDBContainer>
+
+              <form
+                onSubmit={this.onSubmit}
+                className="d-flex flex-column justify-content-between align-items-end"
+              >
+                <div
+                  style={{ width: "1200px" }}
+                  className="form-group d-flex align-items-start justify-content-between "
+                >
+                  <div className="d-flex flex-column">
+                    <TextFieldGroup
+                      icon="user-tie"
+                      placeholder="Profile Handle"
+                      name="handle"
+                      type="text"
+                      value={this.state.handle}
+                      onChange={this.onChange}
+                      error={errors.handle}
+                      label="Profile handle :"
+                    />
+
+                    {role === "Client" ? (
+                      <TextFieldGroup
+                        icon="birthday-cake"
+                        label="Date of birth :"
+                        name="dateOfBirth"
+                        type="date"
+                        value={this.state.dateOfBirth}
+                        onChange={this.onChange}
+                        error={errors.dateOfBirth}
+                      />
+                    ) : null}
+
+                    <TextFieldGroup
+                      icon="map-marker-alt"
+                      label="Adress :"
+                      placeholder={
+                        role === "Agency" ? "Agency Adress" : "Your adress"
+                      }
+                      name="adress"
+                      type="text"
+                      value={this.state.adress}
+                      onChange={this.onChange}
+                      error={errors.adress}
+                    />
+                  </div>
+                  <div className="d-flex flex-column">
+                    <SelectListGoup
+                      icon="flag-usa"
+                      label="Country :"
+                      placeholder="Country"
+                      name="country"
+                      value={this.state.country}
+                      onChange={this.onChange}
+                      error={errors.country}
+                      options={
+                        role === "Agency"
+                          ? optionsAgencyCountry
+                          : optionsCountry
+                      }
+                    />
+
+                    {this.state.country === "Algeria" ? (
+                      <SelectListGoup
+                        label="State :"
+                        icon="street-view"
+                        placeholder="State"
+                        name="state"
+                        value={this.state.state}
+                        onChange={this.onChange}
+                        error={errors.state}
+                        options={optionsStateAlgeria}
+                      />
+                    ) : this.state.country === "France" ? (
+                      <SelectListGoup
+                        label="State :"
+                        icon="street-view"
+                        placeholder="State"
+                        name="state"
+                        value={this.state.state}
+                        onChange={this.onChange}
+                        error={errors.state}
+                        options={optionsStateFrance}
+                      />
+                    ) : this.state.country === "Italy" ? (
+                      <SelectListGoup
+                        label="State :"
+                        icon="street-view"
+                        placeholder="State"
+                        name="state"
+                        value={this.state.state}
+                        onChange={this.onChange}
+                        error={errors.state}
+                        options={optionsStateItaly}
+                      />
+                    ) : this.state.country === "Tunisia" ? (
+                      <SelectListGoup
+                        label="State :"
+                        icon="street-view"
+                        placeholder="State"
+                        name="state"
+                        value={this.state.state}
+                        onChange={this.onChange}
+                        error={errors.state}
+                        options={optionsStateTunisia}
+                      />
+                    ) : this.state.country === "Germany" ? (
+                      <SelectListGoup
+                        label="State :"
+                        icon="street-view"
+                        placeholder="State"
+                        name="state"
+                        value={this.state.state}
+                        onChange={this.onChange}
+                        error={errors.state}
+                        options={optionsStateGermany}
+                      />
+                    ) : (
+                      <SelectListGoup
+                        label="State :"
+                        icon="street-view"
+                        placeholder="State"
+                        name="state"
+                        value={this.state.state}
+                        onChange={this.onChange}
+                        error={errors.state}
+                        options={optionsError}
+                      />
+                    )}
+                    <SelectListGoup
+                      icon="globe-africa"
+                      label="Country phone code :"
+                      placeholder="Country phone code"
+                      name="countryCode"
+                      value={this.state.countryCode}
+                      onChange={this.onChange}
+                      error={errors.countryCode}
+                      options={
+                        role === "Agency"
+                          ? optionsAgencyCountryCode
+                          : optionsCountryCode
+                      }
+                    />
+                  </div>
+                  <div className="d-flex flex-column justify-content-start">
+                    <TextFieldGroup
+                      icon="phone-square-alt"
+                      label="Phone number :"
+                      placeholder={
+                        role === "Agency"
+                          ? "Agency phone number"
+                          : "Your phone number"
+                      }
+                      name="phoneNumber"
+                      type="number"
+                      value={this.state.phoneNumber}
+                      onChange={this.onChange}
+                      error={errors.phoneNumber}
+                    />
+                    <div className="d-flex mt-3">
+                      <MDBBtn
+                        onClick={this.toggle}
+                        className="font-weight-bold "
+                        style={{ height: 70 }}
+                      >
+                        Social Network Links&nbsp;&nbsp;
+                        <MDBIcon
+                          size="lg"
+                          className="black-text"
+                          fab
+                          icon="internet-explorer"
+                        />
+                      </MDBBtn>
+                      <h6 className="white-text">Optional</h6>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="white-text d-flex mb-3">
+                      <MDBIcon icon="camera" />
+                      &nbsp;&nbsp;Profile Picture:
+                    </label>
+                    <ProfilePicture />
+                  </div>
+                </div>
+                <MDBModal
+                  isOpen={this.state.modal}
+                  toggle={this.toggle}
+                  side
+                  position="top-left"
+                >
+                  <MDBModalHeader toggle={this.toggle}>
+                    Put your social Links
+                  </MDBModalHeader>
+                  <MDBModalBody>{socialnputs} </MDBModalBody>
+                  <MDBModalFooter>
+                    <MDBBtn color="danger" onClick={this.toggle}>
+                      Done
+                    </MDBBtn>
+                  </MDBModalFooter>
+                </MDBModal>
+                <MDBBtn
+                  value="submit"
+                  className="black-text font-weight-bold submit-profile"
+                  style={{ width: 200 }}
+                  onClick={this.onSubmit}
+                  color="amber"
+                  size="lg"
+                >
+                  Submit&nbsp;&nbsp;
+                  <MDBIcon size="lg" icon="hdd" />
+                </MDBBtn>
+              </form>
+            </div>
           </MDBMask>
         </MDBView>
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import { MDBIcon } from "mdbreact";
 
 const SelectListGroup = ({
   name,
@@ -9,6 +10,8 @@ const SelectListGroup = ({
   placeholder,
   onChange,
   options,
+  label,
+  icon
 }) => {
   const selectOptions = options.map((option) => (
     <option key={option.label} value={option.value}>
@@ -16,7 +19,14 @@ const SelectListGroup = ({
     </option>
   ));
   return (
-    <div className="form-group col-md-13 ">
+    <div className="form-group ">
+       <div className="d-flex mb-3 mt-3">
+        <MDBIcon className="white-text" size="lg" icon={icon} />
+        &nbsp;&nbsp;
+        <label className="white-text">
+          {label}
+        </label>
+      </div>
       <select
         className={classnames("form-control ", { "is-invalid": error })}
         value={value}

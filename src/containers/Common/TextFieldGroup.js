@@ -5,6 +5,7 @@ import { MDBIcon } from "mdbreact";
 
 const TextFieldGroup = ({
   name,
+  icon,
   placeholder,
   value,
   label,
@@ -12,18 +13,13 @@ const TextFieldGroup = ({
   type,
   onChange,
   disabled,
-  id,
-  labelFor,
-  icon,
-  divClassName,
-  max,
 }) => {
   return (
-    <div className={divClassName + "form-group"}>
-      <div className={classnames("field-margin,form-group")}>
-        <MDBIcon size="sm" icon={icon} />
+    <div className="form-group">
+      <div className="d-flex  mb-3 mt-3">
+        <MDBIcon size="lg" icon={icon} className="white-text" />
         &nbsp;&nbsp;
-        <label for={labelFor} className="field-label">
+        <label className="white-text">
           {label}
         </label>
       </div>
@@ -31,13 +27,10 @@ const TextFieldGroup = ({
         disabled={disabled}
         placeholder={placeholder}
         type={type}
-        className={classnames("form-control ", { "is-invalid": error })}
-        id={id}
+        className={classnames("form-control form-control-lg", { "is-invalid": error })}
         value={value}
         name={name}
         onChange={onChange}
-        max={max}
-        required
       />
       {error && <div class="invalid-tooltip">{error}</div>}
       <div class="valid-tooltip">Looks good!</div>
@@ -47,18 +40,15 @@ const TextFieldGroup = ({
 
 TextFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.string.isRequired,
   disabled: PropTypes.string,
-  id: PropTypes.string.isRequired,
   labelFor: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
-  divClassName: PropTypes.string.isRequired,
-  max: PropTypes.string,
 };
 TextFieldGroup.defaultProps = {
   type: "text",

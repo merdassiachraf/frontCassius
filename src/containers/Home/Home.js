@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import StartNavigation from "./StartNavigation";
 import Icon from "../../atests/logo/Icon";
 
 import {
@@ -57,16 +58,7 @@ class Home extends Component {
                       <hr className="hr-light white-text" />
                     </div>
                     <div className="home-buttons">
-                      <Link to="/posts">
-                        <MDBBtn
-                          className="font-weight-bold black-text"
-                          color="success"
-                          style={{ fontSize: 21, height: 70, width: 300 }}
-                        >
-                          Start Navigation &nbsp; &nbsp;
-                          <MDBIcon icon="shopping-cart" />
-                        </MDBBtn>
-                      </Link>
+                      <StartNavigation />
                       {!isAuthenticated ? (
                         <Link to="/signup">
                           <MDBBtn

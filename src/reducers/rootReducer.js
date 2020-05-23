@@ -5,11 +5,13 @@ import errorsReducers from "./errorsReducer";
 import profileReducer from "./profileReducer";
 import postReducer from "./postReducer";
 import resevationReducer from "./reservationReducer"
+import successReducer from "./successReducer"
 
 export const rootReducer = combineReducers({
   auth: authReducer,
   errors: errorsReducers,
   profile: profileReducer,
   post: postReducer,
-  reservation:resevationReducer
+  reservation:resevationReducer,
+  success:successReducer
 });

@@ -10,6 +10,7 @@ import { getReservationById } from "../../actions/reservationActions";
 import { MDBMask, MDBView } from "mdbreact";
 
 class ReservationPage extends Component {
+  
   componentDidMount = () => {
     if (this.props.match.params._id) {
       this.props.getReservationById(this.props.match.params._id);

@@ -8,7 +8,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  reservations: [],
+  reservations: null,
   my_reservations: null,
   reservation: {},
   loading: false,
@@ -33,12 +33,12 @@ export default function (state = initialState, action) {
         reservations: action.payload,
         loading: false,
       };
-      case GET_RESERVATION:
-        return {
-          ...state,
-          reservation: action.payload,
-          loading: false,
-        }
+    case GET_RESERVATION:
+      return {
+        ...state,
+        reservation: action.payload,
+        loading: false,
+      }
     case ADD_RESERVATION:
       return {
         ...state,

@@ -7,7 +7,8 @@ import {
   RESERVATION_LOADING,
   GET_RESERVATION,
   GET_MY_RESERVATIONS,
-  GET_RESERVATIONS
+  GET_RESERVATIONS,
+  GET_SUCCESS
 } from "./types";
 
 //Add Resevation
@@ -16,7 +17,7 @@ export const addReservation = (post_id, reservationData) => (dispatch) => {
     .post(`/reservations/add/${post_id}`, reservationData)
     .then((res) =>
       dispatch({
-        type: ADD_RESERVATION,
+        type: GET_SUCCESS,
         payload: res.data,
       })
     )
