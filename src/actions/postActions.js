@@ -12,11 +12,10 @@ import {
 } from "./types";
 
 //Add Post
-export const addPost = (postData,history) => (dispatch) => {
+export const addPost = (postData, history) => (dispatch) => {
   axios
     .post("/posts", postData)
-    .then(() =>history.push('/dashboard/my_posts')
-    )
+    .then(() => history.push("/dashboard/my_posts"))
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
@@ -26,28 +25,16 @@ export const addPost = (postData,history) => (dispatch) => {
 };
 
 //Edit Post
-export const editPost = (
-  id,
-  { brand, model, fuel, transmission, adress, state, country, pricePerDay }
-) => (dispatch) => {
+export const editPost = (id, postData) => (dispatch) => {
   dispatch(setPostLoading());
 
   axios
-    .put(`/posts/edit_post/${id}`, {
-      brand,
-      model,
-      fuel,
-      transmission,
-      adress,
-      state,
-      country,
-      pricePerDay,
-    })
+    .put(`/posts/edit_post/${id}`, postData)
     .then((res) =>
-    dispatch({
-      type: GET_SUCCESS,
-      payload: res.data,
-    })
+      dispatch({
+        type: GET_SUCCESS,
+        payload: res.data,
+      })
     )
     .catch((err) =>
       dispatch({
@@ -62,10 +49,10 @@ export const deletePost = (id) => (dispatch) => {
   axios
     .delete(`/posts/delete/${id}`)
     .then((res) =>
-    dispatch({
-      type: GET_SUCCESS,
-      payload: res.data,
-    })
+      dispatch({
+        type: GET_POSTS,
+        payload: res.data,
+      })
     )
     .catch((err) =>
       dispatch({

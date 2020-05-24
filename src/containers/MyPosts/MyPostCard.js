@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 
 import { deletePost, editPost } from "../../actions/postActions";
 
-import Spinner from "../Common/Spinner";
-
 import { Input, Select } from "antd";
 import {
   MDBBtn,
@@ -33,7 +31,6 @@ class MyPostCard extends Component {
     errors: {},
   };
 
-
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -58,6 +55,8 @@ class MyPostCard extends Component {
 
   onClickDelete = (id) => {
     this.props.deletePost(id);
+    window.location.reload(false);
+
   };
 
   onSubmit = (id) => {
@@ -81,9 +80,9 @@ class MyPostCard extends Component {
     const onChooseEdit = (id) => {
       this.setState({
         brand: my_post.brand,
-        model:my_post.model,
+        model: my_post.model,
         fuel: my_post.fuel,
-        transmission:my_post.transmission,
+        transmission: my_post.transmission,
         adress: my_post.adress,
         state: my_post.state,
         country: my_post.country,
@@ -105,11 +104,7 @@ class MyPostCard extends Component {
           <h5 className="my-car-info">{my_post.pricePerDay}</h5>
         </Link>
         <div className="d-flex ">
-          <MDBBtn
-            onClick={onChooseEdit}
-            size="sm"
-            color="yellow"
-          >
+          <MDBBtn onClick={onChooseEdit} size="sm" color="yellow">
             <MDBIcon far icon="edit" />
           </MDBBtn>
 
@@ -139,13 +134,15 @@ class MyPostCard extends Component {
                   >
                     Cancel
                   </MDBBtn>
-                  <MDBBtn
-                    className="font-weight-bold"
-                    color="danger"
-                    onClick={this.onClickDelete.bind(this, my_post._id)}
-                  >
-                    Confirm <MDBIcon icon="trash-alt" />
-                  </MDBBtn>
+                  <Link to="/dashboard/my_posts">
+                    <MDBBtn
+                      className="font-weight-bold"
+                      color="danger"
+                      onClick={this.onClickDelete.bind(this, my_post._id)}
+                    >
+                      Confirm <MDBIcon icon="trash-alt" />
+                    </MDBBtn>
+                  </Link>
                 </MDBModalFooter>
               </div>
             ) : (
@@ -660,6 +657,4 @@ const mapStateToProps = (state) => ({
   post: state.errors,
 });
 
-export default connect(mapStateToProps, { deletePost, editPost })(
-  MyPostCard
-);
+export default connect(mapStateToProps, { deletePost, editPost })(MyPostCard);
