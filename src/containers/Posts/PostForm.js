@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+
 import { addPost } from "../../actions/postActions";
 
 import { Upload, Modal } from "antd";
@@ -84,7 +86,7 @@ class PostForm extends Component {
       transmission: this.state.transmission,
       pricePerDay: this.state.pricePerDay,
     };
-    this.props.addPost(newPost);
+    this.props.addPost(newPost, this.props.history);
   };
   onDrop = (picture) => {
     {
@@ -979,4 +981,4 @@ const mapStatetoProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStatetoProps, { addPost })(PostForm);
+export default connect(mapStatetoProps, { addPost })(withRouter(PostForm));

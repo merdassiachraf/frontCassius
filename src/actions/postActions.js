@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import {
+  GET_SUCCESS,
   ADD_POST,
   EDIT_POST,
   GET_ERRORS,
@@ -11,14 +12,10 @@ import {
 } from "./types";
 
 //Add Post
-export const addPost = (postData) => (dispatch) => {
+export const addPost = (postData,history) => (dispatch) => {
   axios
     .post("/posts", postData)
-    .then((res) =>
-      dispatch({
-        type: ADD_POST,
-        payload: res.data,
-      })
+    .then(() =>history.push('/dashboard/my_posts')
     )
     .catch((err) =>
       dispatch({
@@ -47,10 +44,10 @@ export const editPost = (
       pricePerDay,
     })
     .then((res) =>
-      dispatch({
-        type: EDIT_POST,
-        payload: res.data,
-      })
+    dispatch({
+      type: GET_SUCCESS,
+      payload: res.data,
+    })
     )
     .catch((err) =>
       dispatch({
@@ -65,10 +62,10 @@ export const deletePost = (id) => (dispatch) => {
   axios
     .delete(`/posts/delete/${id}`)
     .then((res) =>
-      dispatch({
-        type: GET_POST,
-        payload: res.data,
-      })
+    dispatch({
+      type: GET_SUCCESS,
+      payload: res.data,
+    })
     )
     .catch((err) =>
       dispatch({

@@ -44,7 +44,6 @@ class PostPage extends Component {
     country: "",
     pricePerDay: "",
     errors: {},
-    errors: {},
   };
 
   componentDidMount = () => {

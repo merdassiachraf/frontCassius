@@ -2,40 +2,45 @@ import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import { MDBIcon } from "mdbreact";
+import {  Select } from "antd";
+
+const { Option } = Select;
 
 const SelectListGroup = ({
-  name,
+  size,
   value,
   error,
   placeholder,
   onChange,
   options,
   label,
-  icon
+  icon,
 }) => {
   const selectOptions = options.map((option) => (
-    <option key={option.label} value={option.value}>
+    <Option className="black-text" value={option.value}>
+      <span role="img" aria-label="Beja">
+        <MDBIcon className={option.className} />
+      </span>
       {option.label}
-    </option>
+    </Option>
   ));
   return (
-    <div className="form-group ">
-       <div className="d-flex mb-3 mt-3">
-        <MDBIcon className="white-text" size="lg" icon={icon} />
+    <div className="d-flex flex-column align-items-start form-group ">
+      <div className="d-flex  mb-3 mt-3">
+        <MDBIcon size="lg" icon={icon} className="white-text" />
         &nbsp;&nbsp;
-        <label className="white-text">
-          {label}
-        </label>
+        <label className="white-text">{label}</label>
       </div>
-      <select
-        className={classnames("form-control ", { "is-invalid": error })}
-        value={value}
-        name={name}
-        onChange={onChange}
+      <Select
+        className={classnames( { "is-invalid": error })}
         placeholder={placeholder}
+        size={size}
+        value={value}
+        style={{ width: 300 }}
+        onChange={onChange}
       >
         {selectOptions}
-      </select>
+      </Select>
       {error && <div className="invalid-tooltip">{error}</div>}
       <div className="valid-feedback">Looks good!</div>
     </div>
@@ -43,7 +48,9 @@ const SelectListGroup = ({
 };
 
 SelectListGroup.propTypes = {
-  name: PropTypes.string.isRequired,
+  icon: PropTypes.string,
+  size: PropTypes.string,
+  label: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   error: PropTypes.string,

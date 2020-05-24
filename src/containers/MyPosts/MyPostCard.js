@@ -33,6 +33,7 @@ class MyPostCard extends Component {
     errors: {},
   };
 
+
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -42,23 +43,6 @@ class MyPostCard extends Component {
   onChooseDelete = () => {
     this.toggle();
     this.setState({ status: "Delete" });
-  };
-
-  onChooseEdit = () => {
-    const post = this.props.post;
-    this.setState({
-      brand: post.brand,
-      model: post.model,
-      fuel: post.fuel,
-      transmission: post.transmission,
-      adress: post.adress,
-      state: post.state,
-      country: post.country,
-      pricePerDay: post.pricePerDay,
-      status: "Edit"
-    });
-    this.toggle();
-    console.log(this.state.status,this.state.model,this.state.fuel)
   };
 
   onClickClose = () => {
@@ -93,6 +77,21 @@ class MyPostCard extends Component {
 
   render() {
     const { my_post } = this.props;
+
+    const onChooseEdit = (id) => {
+      this.setState({
+        brand: my_post.brand,
+        model:my_post.model,
+        fuel: my_post.fuel,
+        transmission:my_post.transmission,
+        adress: my_post.adress,
+        state: my_post.state,
+        country: my_post.country,
+        pricePerDay: my_post.pricePerDay,
+        status: "Edit",
+      });
+      this.toggle();
+    };
     return (
       <div className="d-flex flex-column align-items-center p-3 flex-nowwrap my-post-card m-3">
         <Link to={`/posts/${my_post._id}`} style={{ textDecoration: "none" }}>
@@ -100,11 +99,17 @@ class MyPostCard extends Component {
             id="my-card-img"
             src="https://catalogue.automobile.tn/big/2019/10/46263.jpg"
           />
-          <h5 className="mt-2 my-car-info">{my_post.brand + "  " + my_post.model}</h5>
+          <h5 className="mt-2 my-car-info">
+            {my_post.brand + "  " + my_post.model}
+          </h5>
           <h5 className="my-car-info">{my_post.pricePerDay}</h5>
         </Link>
         <div className="d-flex ">
-          <MDBBtn onClick={this.onChooseEdit} size="sm" color="yellow">
+          <MDBBtn
+            onClick={onChooseEdit}
+            size="sm"
+            color="yellow"
+          >
             <MDBIcon far icon="edit" />
           </MDBBtn>
 
@@ -123,7 +128,8 @@ class MyPostCard extends Component {
                   Delete {my_post.brand + " " + my_post.model}
                 </MDBModalHeader>
                 <MDBModalBody>
-                  Do you want to delete {my_post.brand + " " + my_post.model} post ?
+                  Do you want to delete {my_post.brand + " " + my_post.model}{" "}
+                  post ?
                 </MDBModalBody>
                 <MDBModalFooter>
                   <MDBBtn
@@ -628,7 +634,7 @@ class MyPostCard extends Component {
                   <MDBBtn
                     className="font-weight-bold"
                     color="danger"
-                    onClick={this.onSubmit.bind(this,my_post._id)}
+                    onClick={this.onSubmit.bind(this, my_post._id)}
                   >
                     Confirm <MDBIcon icon="trash-alt" />
                   </MDBBtn>
@@ -654,4 +660,6 @@ const mapStateToProps = (state) => ({
   post: state.errors,
 });
 
-export default connect(mapStateToProps, { deletePost, editPost })(MyPostCard);
+export default connect(mapStateToProps, { deletePost, editPost })(
+  MyPostCard
+);

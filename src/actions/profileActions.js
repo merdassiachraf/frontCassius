@@ -52,12 +52,7 @@ export const getProfileByHandle = (handle) => (dispatch) => {
 export const createProfile = (profileData, history) => (dispatch) => {
   axios
     .post("/profile", profileData)
-    .then((res) =>
-      dispatch({
-        type: GET_SUCCESS,
-        payload: res.data,
-      })
-    )
+    .then(() => history.push("/dashboard"))
     .catch((err) => {
       dispatch({
         type: GET_ERRORS,
@@ -87,7 +82,7 @@ export const addContactInformation = (contactInformationData, history) => (
 ) => {
   axios
     .post("/profile/contact/add", contactInformationData)
-    .then((res) => history.push("/dashboard"))
+    .then(() => history.push("/dashboard"))
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,
@@ -121,7 +116,7 @@ export const deleteContactInformation = (id) => (dispatch) => {
     .delete(`/profile/contact/delete/${id}`)
     .then((res) =>
       dispatch({
-        type: GET_PROFILE,
+        type: GET_SUCCESS,
         payload: res.data,
       })
     )
@@ -139,8 +134,8 @@ export const deleteAccount = () => (dispatch) => {
     .delete("/profile/delete")
     .then((res) =>
       dispatch({
-        type: SET_CURRENT_USER,
-        payload: {},
+        type: GET_SUCCESS,
+        payload: res.data,
       })
     )
     .catch((err) =>

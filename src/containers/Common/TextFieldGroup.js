@@ -1,10 +1,12 @@
 import React from "react";
-import classnames from "classnames";
 import PropTypes from "prop-types";
+
 import { MDBIcon } from "mdbreact";
+import { Input } from "antd";
 
 const TextFieldGroup = ({
   name,
+  size,
   icon,
   placeholder,
   value,
@@ -12,26 +14,24 @@ const TextFieldGroup = ({
   error,
   type,
   onChange,
-  disabled,
-}) => {
+className}) => {
   return (
     <div className="form-group">
-      <div className="d-flex  mb-3 mt-3">
+      <div className={className}>
         <MDBIcon size="lg" icon={icon} className="white-text" />
         &nbsp;&nbsp;
-        <label className="white-text">
-          {label}
-        </label>
+        <label className="white-text">{label}</label>
       </div>
-      <input
-        disabled={disabled}
-        placeholder={placeholder}
-        type={type}
-        className={classnames("form-control form-control-lg", { "is-invalid": error })}
+      <Input
         value={value}
+        type={type}
         name={name}
         onChange={onChange}
+        size={size}
+        placeholder={placeholder}
+        prefix={<MDBIcon icon={icon} />}
       />
+
       {error && <div class="invalid-tooltip">{error}</div>}
       <div class="valid-tooltip">Looks good!</div>
     </div>
@@ -46,9 +46,9 @@ TextFieldGroup.propTypes = {
   error: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.string.isRequired,
-  disabled: PropTypes.string,
   labelFor: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 TextFieldGroup.defaultProps = {
   type: "text",

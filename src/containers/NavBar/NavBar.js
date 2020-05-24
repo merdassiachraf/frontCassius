@@ -114,7 +114,7 @@ class NavBar extends React.Component {
               className="font-weight-normal Account-connection black-text font-weight-bold"
             >
               <MDBDropdownItem>
-                <MDBIcon icon="sign-in-alt" /> &nbsp;&nbsp; Sign Up
+                <MDBIcon icon="user-plus" /> &nbsp;&nbsp; Sign Up
               </MDBDropdownItem>
             </MDBNavLink>
             <hr className=" black-text" />

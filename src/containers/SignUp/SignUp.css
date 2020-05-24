@@ -25,7 +25,7 @@
   border-radius: 50%;
 }
 
-.text-field{  
+.text-field {
   margin-left: 50px;
 }
 
@@ -60,6 +60,12 @@
   border-radius: 50%;
   background: white;
 }
-.container input {
-  margin-left: 50px;
+
+.right-signup{
+  position: fixed;
+  left:0
+}
+
+.success-user{
+  font-family: monospace;
 }

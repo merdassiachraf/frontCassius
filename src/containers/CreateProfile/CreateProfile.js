@@ -14,7 +14,8 @@ import {
   MDBModalFooter,
 } from "mdbreact";
 
-import TextFieldGroup from "../Common/TextFieldGroup";
+import TextFieldGroup from "../Common/TextFieldGroup"
+
 import InputGoup from "../Common/InputGoup";
 import SelectListGoup from "../Common/SelectListGoup";
 import ProfilePicture from "./ProfilePicture";
@@ -38,6 +39,7 @@ class CreateProfile extends Component {
       countryCode: "",
       phoneNumber: "",
       errors: {},
+      success:{},
       modal: false,
     };
   }
@@ -61,6 +63,9 @@ class CreateProfile extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
+    }
+    if (nextProps.success) {
+      this.setState({ success: nextProps.success });
     }
   };
 
@@ -108,7 +113,7 @@ class CreateProfile extends Component {
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors,success } = this.state;
     const { role, name } = this.props.auth.user;
     let socialnputs;
 
@@ -170,96 +175,95 @@ class CreateProfile extends Component {
     // Select options for status
     const optionsCountry = [
       { label: "Select Country", value: "" },
-      { label: "Algeria", value: "Algeria" },
-      { label: "France", value: "France" },
-      { label: "Germany", value: "Germany" },
-      { label: "Italy", value: "Italy" },
-      { label: "Tunisia", value: "Tunisia" },
+      { label: "Algeria", value: "Algeria", className: "algeria flag" },
+      { label: "France", value: "France", className: "france flag" },
+      { label: "Germany", value: "Germany", className: "germany flag" },
+      { label: "Italy", value: "Italy", className: "italy flag" },
+      { label: "Tunisia", value: "Tunisia", className: "tunisia flag" },
     ];
 
     const optionsStateTunisia = [
-      { label: "Select State", value: "" },
-      { label: "Ariana", value: "Ariana" },
-      { label: "Béja", value: "Béja" },
-      { label: "Ben Arous", value: "Ben Arous" },
-      { label: "Bizerte", value: "Bizerte" },
-      { label: "Gabés", value: "Gabés" },
-      { label: "Gafsa", value: "Gafsa" },
-      { label: "Jendouba", value: "Jendouba" },
-      { label: "Kairouan", value: "Kairouan" },
-      { label: "Kasserine", value: "Kasserine" },
-      { label: "Kebili", value: "Kebili" },
-      { label: "Kef", value: "Kef" },
-      { label: "Mahdia", value: "Mahdia" },
-      { label: "Mannouba", value: "Mannouba" },
-      { label: "Mahdia", value: "Mahdia" },
-      { label: "Medenine", value: "Medenine" },
-      { label: "Monastir", value: "Monastir" },
-      { label: "Nabeul", value: "Nabeul" },
-      { label: "Sfax", value: "Sfax" },
-      { label: "Sidi Bouzid", value: "Sidi Bouzid" },
-      { label: "Siliana", value: "Siliana" },
-      { label: "Sousse", value: "Sousse" },
-      { label: "Tataouine", value: "Tataouine" },
-      { label: "Tozeur", value: "Tozeur" },
-      { label: "Tunis", value: "Tunis" },
-      { label: "Zaghouan", value: "Zaghouan" },
+      { label: "Select State", value: "", className: "tunisia flag" },
+      { label: "Ariana", value: "Ariana", className: "tunisia flag" },
+      { label: "Béja", value: "Béja", className: "tunisia flag" },
+      { label: "Ben Arous", value: "Ben Arous", className: "tunisia flag" },
+      { label: "Bizerte", value: "Bizerte", className: "tunisia flag" },
+      { label: "Gabés", value: "Gabés", className: "tunisia flag" },
+      { label: "Gafsa", value: "Gafsa", className: "tunisia flag" },
+      { label: "Jendouba", value: "Jendouba", className: "tunisia flag" },
+      { label: "Kairouan", value: "Kairouan", className: "tunisia flag" },
+      { label: "Kasserine", value: "Kasserine", className: "tunisia flag" },
+      { label: "Kebili", value: "Kebili", className: "tunisia flag" },
+      { label: "Kef", value: "Kef", className: "tunisia flag" },
+      { label: "Mahdia", value: "Mahdia", className: "tunisia flag" },
+      { label: "Mannouba", value: "Mannouba", className: "tunisia flag" },
+      { label: "Medenine", value: "Medenine", className: "tunisia flag" },
+      { label: "Monastir", value: "Monastir", className: "tunisia flag" },
+      { label: "Nabeul", value: "Nabeul", className: "tunisia flag" },
+      { label: "Sfax", value: "Sfax", className: "tunisia flag" },
+      { label: "Sidi Bouzid", value: "Sidi Bouzid", className: "tunisia flag" },
+      { label: "Siliana", value: "Siliana", className: "tunisia flag" },
+      { label: "Sousse", value: "Sousse", className: "tunisia flag" },
+      { label: "Tataouine", value: "Tataouine", className: "tunisia flag" },
+      { label: "Tozeur", value: "Tozeur", className: "tunisia flag" },
+      { label: "Tunis", value: "Tunis", className: "tunisia flag" },
+      { label: "Zaghouan", value: "Zaghouan", className: "tunisia flag" },
     ];
     const optionsStateFrance = [
-      { label: "Select State", value: "" },
-      { label: "Paris", value: "Paris" },
-      { label: "Bourges", value: "Bourges" },
-      { label: "Orléans", value: "Orléans" },
-      { label: "Rouen", value: "Rouen" },
-      { label: "Toulouse", value: "Toulouse" },
-      { label: "Lyon", value: "Lyon" },
-      { label: "Grenoble", value: "Grenoble" },
-      { label: "Troyes", value: "Troyes" },
+      { label: "Select State", value: "", className: "france flag" },
+      { label: "Paris", value: "Paris", className: "france flag" },
+      { label: "Bourges", value: "Bourges", className: "france flag" },
+      { label: "Orléans", value: "Orléans", className: "france flag" },
+      { label: "Rouen", value: "Rouen", className: "france flag" },
+      { label: "Toulouse", value: "Toulouse", className: "france flag" },
+      { label: "Lyon", value: "Lyon", className: "france flag" },
+      { label: "Grenoble", value: "Grenoble", className: "france flag" },
+      { label: "Troyes", value: "Troyes", className: "france flag" },
     ];
     const optionsStateItaly = [
-      { label: "Select State", value: "" },
-      { label: "Abruzzo", value: "Abruzzo" },
-      { label: "Apulia", value: "Apulia" },
-      { label: "Rome", value: "Rome" },
-      { label: "Milan", value: "Milan" },
-      { label: "Napoli", value: "Napoli" },
-      { label: "Lazio", value: "Lazio" },
+      { label: "Select State", value: "", className: "italy flag" },
+      { label: "Abruzzo", value: "Abruzzo", className: "italy flag" },
+      { label: "Apulia", value: "Apulia", className: "italy flag" },
+      { label: "Rome", value: "Rome", className: "italy flag" },
+      { label: "Milan", value: "Milan", className: "italy flag" },
+      { label: "Napoli", value: "Napoli", className: "italy flag" },
+      { label: "Lazio", value: "Lazio", className: "italy flag" },
     ];
     const optionsStateGermany = [
-      { label: "Select State", value: "" },
-      { label: "Berlin", value: "Berlin" },
-      { label: "Hamburg", value: "Hamburg" },
-      { label: "Mainz", value: "Mainz" },
-      { label: "Düsseldorf", value: "Düsseldorf" },
-      { label: "Bremen", value: "Bremen" },
+      { label: "Select State", value: "", className: "germany flag" },
+      { label: "Berlin", value: "Berlin", className: "germany flag" },
+      { label: "Hamburg", value: "Hamburg", className: "germany flag" },
+      { label: "Mainz", value: "Mainz", className: "germany flag" },
+      { label: "Düsseldorf", value: "Düsseldorf", className: "germany flag" },
+      { label: "Bremen", value: "Bremen", className: "germany flag" },
     ];
     const optionsStateAlgeria = [
-      { label: "Select State", value: "" },
-      { label: "Annaba", value: "Annaba" },
-      { label: "Batna", value: "Batna" },
-      { label: "Béjaïa", value: "Béjaïa" },
-      { label: "Adrar", value: "Adrar" },
-      { label: "Algiers", value: "Algiers" },
+      { label: "Select State", value: "", className: "algeria flag" },
+      { label: "Annaba", value: "Annaba", className: "algeria flag" },
+      { label: "Batna", value: "Batna", className: "algeria flag" },
+      { label: "Béjaïa", value: "Béjaïa", className: "algeria flag" },
+      { label: "Adrar", value: "Adrar", className: "algeria flag" },
+      { label: "Algiers", value: "Algiers", className: "algeria flag" },
     ];
     const optionsCountryCode = [
       { label: "Select country phone code", value: "" },
-      { label: "+213", value: "+213" },
-      { label: "+216", value: "+216" },
-      { label: "+33", value: "+33" },
-      { label: "+49", value: "+49" },
-      { label: "+39", value: "+39" },
+      { label: "+213", value: "+213", className: "algeria flag" },
+      { label: "+216", value: "+216", className: "tunisia flag" },
+      { label: "+33", value: "+33", className: "france flag" },
+      { label: "+49", value: "+49", className: "germany flag" },
+      { label: "+39", value: "+39", className: "italy flag" },
     ];
 
     const optionsAgencyCountry = [
       { label: "Choose country", value: "" },
-      { label: "Tunisia", value: "Tunisia" },
+      { label: "Tunisia", value: "Tunisia", className: "tunisia flag" },
     ];
 
     const optionsError = [{ label: "Select country first", value: "" }];
 
     const optionsAgencyCountryCode = [
       { label: "Choose country code", value: "" },
-      { label: "+216", value: "+216" },
+      { label: "+216", value: "+216", className: "tunisia flag" },
     ];
     return (
       <div id="classicformpage">
@@ -291,7 +295,10 @@ class CreateProfile extends Component {
                 >
                   <div className="d-flex flex-column">
                     <TextFieldGroup
+                    className="d-flex  mb-3 mt-3"
+                      size="large"
                       icon="user-tie"
+                      prefix="user-tie"
                       placeholder="Profile Handle"
                       name="handle"
                       type="text"
@@ -303,6 +310,8 @@ class CreateProfile extends Component {
 
                     {role === "Client" ? (
                       <TextFieldGroup
+                      className="d-flex  mb-3 mt-3"
+                        size="large"
                         icon="birthday-cake"
                         label="Date of birth :"
                         name="dateOfBirth"
@@ -314,6 +323,8 @@ class CreateProfile extends Component {
                     ) : null}
 
                     <TextFieldGroup
+                    className="d-flex  mb-3 mt-3"
+                      size="large"
                       icon="map-marker-alt"
                       label="Adress :"
                       placeholder={
@@ -328,12 +339,12 @@ class CreateProfile extends Component {
                   </div>
                   <div className="d-flex flex-column">
                     <SelectListGoup
+                      size="large"
                       icon="flag-usa"
                       label="Country :"
                       placeholder="Country"
-                      name="country"
                       value={this.state.country}
-                      onChange={this.onChange}
+                      onChange={(value) => this.setState({ country: value })}
                       error={errors.country}
                       options={
                         role === "Agency"
@@ -344,78 +355,87 @@ class CreateProfile extends Component {
 
                     {this.state.country === "Algeria" ? (
                       <SelectListGoup
+                        size="large"
                         label="State :"
                         icon="street-view"
                         placeholder="State"
                         name="state"
                         value={this.state.state}
-                        onChange={this.onChange}
+                        onChange={(value) => this.setState({ state: value })}
                         error={errors.state}
                         options={optionsStateAlgeria}
                       />
                     ) : this.state.country === "France" ? (
                       <SelectListGoup
+                        size="large"
                         label="State :"
                         icon="street-view"
                         placeholder="State"
                         name="state"
                         value={this.state.state}
-                        onChange={this.onChange}
+                        onChange={(value) => this.setState({ state: value })}
                         error={errors.state}
                         options={optionsStateFrance}
                       />
                     ) : this.state.country === "Italy" ? (
                       <SelectListGoup
+                        size="large"
                         label="State :"
                         icon="street-view"
                         placeholder="State"
                         name="state"
                         value={this.state.state}
-                        onChange={this.onChange}
+                        onChange={(value) => this.setState({ state: value })}
                         error={errors.state}
                         options={optionsStateItaly}
                       />
                     ) : this.state.country === "Tunisia" ? (
                       <SelectListGoup
+                        size="large"
                         label="State :"
                         icon="street-view"
                         placeholder="State"
                         name="state"
                         value={this.state.state}
-                        onChange={this.onChange}
+                        onChange={(value) => this.setState({ state: value })}
                         error={errors.state}
                         options={optionsStateTunisia}
                       />
                     ) : this.state.country === "Germany" ? (
                       <SelectListGoup
+                        size="large"
                         label="State :"
                         icon="street-view"
                         placeholder="State"
                         name="state"
                         value={this.state.state}
-                        onChange={this.onChange}
+                        onChange={(value) => this.setState({ state: value })}
                         error={errors.state}
                         options={optionsStateGermany}
                       />
                     ) : (
                       <SelectListGoup
+                        size="large"
                         label="State :"
                         icon="street-view"
                         placeholder="State"
                         name="state"
                         value={this.state.state}
-                        onChange={this.onChange}
+                        onChange={(value) => this.setState({ state: value })}
                         error={errors.state}
                         options={optionsError}
                       />
                     )}
                     <SelectListGoup
+                      size="large"
                       icon="globe-africa"
                       label="Country phone code :"
                       placeholder="Country phone code"
                       name="countryCode"
                       value={this.state.countryCode}
-                      onChange={this.onChange}
+                      onChange={(value) =>
+                        this.setState({ countryCode: value })
+                      }
                       error={errors.countryCode}
                       options={
                         role === "Agency"
@@ -426,6 +446,8 @@ class CreateProfile extends Component {
                   </div>
                   <div className="d-flex flex-column justify-content-start">
                     <TextFieldGroup
+                    className="d-flex  mb-3 mt-3"
+                      size="large"
                       icon="phone-square-alt"
                       label="Phone number :"
                       placeholder={
@@ -500,13 +522,16 @@ class CreateProfile extends Component {
   }
 }
 CreateProfile.propTypes = {
+  createProfile:PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
+  success: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   errors: state.errors,
+  success: state.success,
   profile: state.profile,
   auth: state.auth,
 });

@@ -132,7 +132,7 @@ class SignUp extends Component {
         password: this.state.password,
         confirmPassword: this.state.confirmPassword,
         role: this.state.role,
-        agree: this.state.agree,
+        agree: this.state.agree.toString(),
       };
       this.props.registerUser(newUser, this.props.history);
     }
@@ -146,7 +146,7 @@ class SignUp extends Component {
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
       role: this.state.role,
-      agree: this.state.agree,
+      agree: this.state.agree.toString(),
     };
     this.props.registerUser(newUser, this.props.history);
   };
@@ -158,9 +158,9 @@ class SignUp extends Component {
     return (
       <div id="classicformpage">
         <MDBView src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg">
-          <MDBMask className="d-flex justify-content-center align-items-center gradient">
-            <MDBRow>
-              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+          <MDBMask className="d-flex align-items-center gradient">
+            <MDBRow className="d-flex align-items-center mr-5">
+            <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
                 <MDBModalHeader toggle={this.toggle}>
                   Privacy and GDPR Policy
                 </MDBModalHeader>
@@ -176,17 +176,18 @@ class SignUp extends Component {
                   </MDBBtn>
                 </MDBModalFooter>
               </MDBModal>
-              <MDBCol className="">
+              
+              <MDBCol className="ml-5">
                 <MDBAnimation
                   type="fadeInLeft"
                   delay=".3s"
-                  className="white-text text-center text-md-left col-md-6 mt-xl-5 mb-5 ml-5"
+                  className="white-text text-center text-md-left col-md-6 mt-xl-5 ml-5"
                 >
-                  <h1 className="h1-responsive font-weight-bold white-text ">
+                  <h1 className="h1-responsive font-weight-bold white-text  ">
                     Create your account for free
                   </h1>
                   <hr className="hr-light white-text" />
-                  <div className="d-flex">
+                  <div className="d-flex align-items-center mt-4">
                     <MDBBtn
                       size="lg"
                       disabled={this.state.clientButton}
@@ -212,88 +213,85 @@ class SignUp extends Component {
               </MDBCol>
               {this.state.accountStep === "Social" &&
               (this.state.role === "Client" || this.state.role === "Agency") ? (
-                <MDBCol md="" xl="5" className="mb-4">
-                  <MDBAnimation type="fadeInRight" delay=".3s">
+                <MDBCol md="" xl="5" className="mt-4 mr-5">
+                  <MDBAnimation type="fadeInRight" delay=".3s" className="mr-5">
                     <MDBCard
+                
                       id="classic-card "
                       style={{
                         padding: 20,
                         width: 660,
                         height: 570,
-                        marginTop: 20,
+                        marginTop: "10px",
                       }}
                     >
-                      <MDBCardBody className="white-text">
-                        <div>
-                          <h3 id="social-h3" className="white-text">
-                            Sign up with :
-                          </h3>
-                          <div className="row Fmy-3">
-                            <MDBBtn
-                              type="button"
-                              color="blue"
-                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
-                              style={{
-                                marginTop: 20,
-                                width: 250,
-                                height: 50,
-                              }}
-                            >
-                              <MDBIcon
-                                fab
-                                icon="facebook-f"
-                                className=" white-text text-center font-weight-bold"
-                              />
-                              &nbsp; &nbsp; Facebook
-                            </MDBBtn>
-                            <MDBBtn
-                              type="button"
-                              color="danger"
-                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
-                              style={{
-                                marginTop: 20,
-                                width: 250,
-                                height: 50,
-                              }}
-                            >
-                              <MDBIcon
-                                fab
-                                icon="google-plus-g"
-                                className=" white-text font-weight-bold"
-                              />
-                              &nbsp; &nbsp; Google+
-                            </MDBBtn>
+                      <MDBCardBody className="white-text d-flex flex-column align-items-center">
+                        <h3 className="white-text">Sign up with :</h3>
+                        <div className="d-flex flex-column mt-5 mb-5">
+                          <MDBBtn
+                            type="button"
+                            color="blue"
+                            className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                            style={{
+                              marginTop: 20,
+                              width: 250,
+                              height: 50,
+                            }}
+                          >
+                            <MDBIcon
+                              fab
+                              icon="facebook-f"
+                              className=" white-text text-center font-weight-bold"
+                            />
+                            &nbsp; &nbsp; Facebook
+                          </MDBBtn>
+                          <MDBBtn
+                            type="button"
+                            color="danger"
+                            className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                            style={{
+                              marginTop: 20,
+                              width: 250,
+                              height: 50,
+                            }}
+                          >
+                            <MDBIcon
+                              fab
+                              icon="google-plus-g"
+                              className=" white-text font-weight-bold"
+                            />
+                            &nbsp; &nbsp; Google+
+                          </MDBBtn>
 
-                            <MDBBtn
-                              type="button"
-                              color="black"
-                              className="mr-md-3 z-depth-1a white-text font-weight-bold"
-                              style={{
-                                marginTop: 20,
-                                width: 250,
-                                height: 50,
-                              }}
-                            >
-                              <MDBIcon
-                                fab
-                                icon="github"
-                                className=" white-text font-weight-bold"
-                              />
-                              &nbsp; &nbsp; Github
-                            </MDBBtn>
-                          </div>
-                          <div className="field-button">
-                            <MDBBtn
-                              color="warning"
-                              style={{ fontSize: 14 }}
-                              className="font-weight-bold black-text btn-md"
-                              onClick={this.handleClickFields}
-                              size="lg"
-                            >
-                              Sign Up &nbsp;
-                              <MDBIcon icon="share" />
-                            </MDBBtn>
-                          </div>
+                          <MDBBtn
+                            type="button"
+                            color="black"
+                            className="mr-md-3 z-depth-1a white-text font-weight-bold"
+                            style={{
+                              marginTop: 20,
+                              width: 250,
+                              height: 50,
+                            }}
+                          >
+                            <MDBIcon
+                              fab
+                              icon="github"
+                              className=" white-text font-weight-bold"
+                            />
+                            &nbsp; &nbsp; Github
+                          </MDBBtn>
+                        </div>
+                        <div className="">
+                          <MDBBtn
+                            color="warning"
+                            style={{ fontSize: 14 }}
+                            className="font-weight-bold black-text btn-md"
+                            onClick={this.handleClickFields}
+                            size="lg"
+                          >
+                            Sign Up &nbsp;
+                            <MDBIcon icon="share" />
+                          </MDBBtn>
                         </div>
                       </MDBCardBody>
                     </MDBCard>
@@ -301,26 +299,27 @@ class SignUp extends Component {
                 </MDBCol>
               ) : this.state.accountStep === "Fill the fields" &&
                 this.state.role === "Client" ? (
-                <MDBCol md="" xl="5" className="mb-4">
+                <MDBCol md="" xl="5" className="mt-4 mr-5">
                   <MDBAnimation type="fadeInRight" delay=".3s">
                     <MDBCard
-                      id="classic-card"
+                      id="classic-card "
                       style={{
                         padding: 20,
                         width: 660,
                         height: 570,
-                        marginTop: 20,
+                        marginTop: "10px",
                       }}
                     >
-                      <MDBCardBody className="white-text">
+                      <MDBCardBody className="white-text d-flex flex-column align-items-center">
                         <h3 className=" text-center font-weight-bold">
                           <MDBIcon icon="user-edit" />
                           &nbsp; Your Information
                         </h3>
                         <hr className="hr-light" />
                         <form onSubmit={this.onSubmit}>
-                          <div className="d-flex justify-content-between">
+                          <div className="d-flex flex-wrap justify-content-between ">
                             <TextFieldGroup
+                              size="large"
                               name="fname"
                               icon="user"
                               placeholder="First name"
@@ -331,6 +330,7 @@ class SignUp extends Component {
                               onChange={this.onChange}
                             />
                             <TextFieldGroup
+                              size="large"
                               name="lname"
                               icon="user"
                               placeholder="Last name"
@@ -340,11 +340,11 @@ class SignUp extends Component {
                               type="text"
                               onChange={this.onChange}
                             />
-                          </div>
-                          <div className="d-flex justify-content-between">
+
                             <TextFieldGroup
+                              size="large"
                               name="email"
-                              icon="email"
+                              icon="envelope-open"
                               placeholder="Your email"
                               value={this.state.email}
                               label="E-mail :"
@@ -353,8 +353,9 @@ class SignUp extends Component {
                               onChange={this.onChange}
                             />
                             <TextFieldGroup
+                              size="large"
                               name="confirmEmail"
-                              icon="email"
+                              icon="envelope-open"
                               placeholder="Confirm your email"
                               value={this.state.confirmEmail}
                               label="Confrm E-mail :"
@@ -362,11 +363,11 @@ class SignUp extends Component {
                               type="email"
                               onChange={this.onChange}
                             />
-                          </div>
-                          <div className="d-flex justify-content-between">
+
                             <TextFieldGroup
+                              size="large"
                               name="password"
-                              icon="user"
+                              icon="user-lock"
                               placeholder="Password"
                               value={this.state.password}
                               label="Password :"
@@ -375,8 +376,9 @@ class SignUp extends Component {
                               onChange={this.onChange}
                             />
                             <TextFieldGroup
+                              size="large"
                               name="confirmPassword"
-                              icon="user"
+                              icon="user-lock"
                               placeholder="Confirm password"
                               value={this.state.confirmPassword}
                               label="Confirm password :"
@@ -384,29 +386,34 @@ class SignUp extends Component {
                               type="password"
                               onChange={this.onChange}
                             />
-                          </div>
-                          <div className="form-group mb-5 mt-3">
-                            <div className="form-group">
-                              <div className="form-check">
-                                <input
-                                  name="agree"
-                                  type="checkbox"
-                                  onChange={this.onChange}
-                                  required
-                                />
-                                <label for="invalidCheck">
-                                  Agree to
-                                  <a onClick={this.toggle}>
-                                    terms and conditions
-                                  </a>
-                                </label>
-                                <div className="invalid-feedback">
-                                  {errors.agree}
-                                </div>
-                              </div>
+                            <div className="d-flex align-items-start ml-3 mt-3">
+                              <input
+                              className="mr-3"
+                                type="checkbox"
+                                onChange={this.onAgree}
+                                checked={this.state.agree}
+                                error={errors.agree}
+                              />
+                              <label
+                             
+                                style={{ fontSize: 15, width: 200 }}
+                              >
+                                Agree to&nbsp;
+                                <a
+                                  className="terms"
+                                  onClick={this.toggle}
+                                  style={{
+                                    color: "green",
+                                    fontWeight: "bold",
+                                    fontSize: 17,
+                                    textDecoration: "underline",
+                                  }}
+                                >
+                                  terms and conditions
+                                </a>
+                              </label>
                             </div>
                           </div>
-
                           <div
                             className=" text-center black-text d-flex justify-content-between mt-5"
                             style={{ marginTop: 4 }}
@@ -438,137 +445,96 @@ class SignUp extends Component {
                 </MDBCol>
               ) : this.state.accountStep === "Fill the fields" &&
                 this.state.role === "Agency" ? (
-                <MDBCol md="" xl="5" className="mb-4 all-post-card">
+                  <MDBCol md="" xl="5" className="mt-4 mr-5 ">
                   <MDBAnimation type="fadeInRight" delay=".3s">
                     <MDBCard
-                      id="classic-card"
+                      id="classic-card "
                       style={{
                         padding: 20,
                         width: 660,
                         height: 570,
-                        marginTop: 20,
+                        marginTop: "10px",
                       }}
                     >
-                      <MDBCardBody className="white-text">
+                      <MDBCardBody className="white-text d-flex flex-column ">
                         <h3 className=" text-center font-weight-bold">
-                          <MDBIcon icon="user-edit" />
+                          <MDBIcon icon="building" />
                           &nbsp; Agency Information
                         </h3>
                         <hr className="hr-light" />
-                        <form className="needs-validation" novalidate>
-                          <div className="d-flex sign-row">
-                            <div className="d-flex flex-column">
-                              <div className="d-flex">
-                                <label className="">
-                                  <MDBIcon icon="key" />
-                                  &nbsp;Agency name
-                                </label>
-                              </div>
-                              <Input
-                                style={{ width: 230, height: 35 }}
-                                name="name"
-                                placeholder="Agency name"
-                                value={this.state.name}
-                                error={errors.name}
-                                type="text"
-                                onChange={this.changeHandler}
-                                className="sign-input"
-                              />
-                            </div>
-                          </div>
-                          <div className="d-flex sign-row">
-                            <div className="d-flex flex-column ">
-                              <div className="d-flex">
-                                <label className="">
-                                  <MDBIcon icon="envelope" />
-                                  &nbsp;Email
-                                </label>
-                              </div>
-                              <Input
-                                style={{ width: 230, height: 35 }}
-                                name="email"
-                                placeholder="Email"
-                                value={this.state.email}
-                                error={errors.email}
-                                type="email"
-                                onChange={this.changeHandler}
-                                className="sign-input"
-                              />
-                            </div>
-                            <div className="d-flex flex-column">
-                              <div className="d-flex">
-                                <label className="">
-                                  <MDBIcon icon="envelope" />
-                                  &nbsp;Confirm email
-                                </label>
-                              </div>
-                              <Input
-                                style={{ width: 230, height: 35 }}
-                                name="confirmEmail"
-                                placeholder="Confirm email"
-                                value={this.state.confirmEmail}
-                                error={errors.confirmEmail}
-                                type="email"
-                                onChange={this.changeHandler}
-                                className="sign-input"
-                              />
-                            </div>
-                          </div>
-                          <div className="d-flex sign-row">
-                            <div className="d-flex flex-column pass-row">
-                              <div className="d-flex">
-                                <label className="">
-                                  <MDBIcon icon="key" />
-                                  &nbsp;Password
-                                </label>
-                              </div>
-                              <Input.Password
-                                style={{ width: 230, height: 35 }}
-                                name="password"
-                                placeholder="Password"
-                                value={this.state.password}
-                                error={errors.password}
-                                type="password"
-                                onChange={this.changeHandler}
-                                className="sign-pass-input black-text"
-                              />
-                            </div>
-                            <div className="d-flex flex-column pass-row">
-                              <div className="d-flex">
-                                <label className="">
-                                  <MDBIcon icon="key" />
-                                  &nbsp;Confirm password
-                                </label>
-                              </div>
-                              <Input.Password
-                                style={{ width: 230, height: 35 }}
-                                name="confirmPassword"
-                                placeholder="confirmPassword"
-                                value={this.state.confirmPassword}
-                                error={errors.confirmPassword}
-                                type="password"
-                                onChange={this.changeHandler}
-                                className="sign-pass-input"
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <div className="custom-control custom-checkbox  agree-check  d-flex">
+                        <form
+                          className="needs-validation d-flex flex-wrap justify-content-between align-items-center"
+                          novalidate
+                        >
+                          <TextFieldGroup
+                            size="large"
+                            name="name"
+                            icon="city"
+                            placeholder="Agency name"
+                            value={this.state.name}
+                            label="Agency name :"
+                            error={errors.name}
+                            type="text"
+                            onChange={this.onChange}
+                          />
+
+                          <TextFieldGroup
+                            size="large"
+                            name="email"
+                            icon="envelope-open"
+                            placeholder="Agency email"
+                            value={this.state.email}
+                            label="E-mail :"
+                            error={errors.email}
+                            type="email"
+                            onChange={this.onChange}
+                          />
+                          <TextFieldGroup
+                            size="large"
+                            name="confirmEmail"
+                            icon="envelope-open"
+                            placeholder="Confirm Agency email"
+                            value={this.state.confirmEmail}
+                            label="Confrm E-mail :"
+                            error={errors.confirmEmail}
+                            type="email"
+                            onChange={this.onChange}
+                          />
+                          <TextFieldGroup
+                            size="large"
+                            name="password"
+                            icon="user-lock"
+                            placeholder="Password"
+                            value={this.state.password}
+                            label="Password :"
+                            error={errors.password}
+                            type="password"
+                            onChange={this.onChange}
+                          />
+                          <TextFieldGroup
+                            size="large"
+                            name="confirmPassword"
+                            icon="user-lock"
+                            placeholder="Confirm password"
+                            value={this.state.confirmPassword}
+                            label="Confirm password :"
+                            error={errors.confirmPassword}
+                            type="password"
+                            onChange={this.onChange}
+                          />
+                              <div className="d-flex align-items-start ml-3 mt-3">
                               <input
-                                className="custom-control-input"
+                              className="mr-3"
                                 type="checkbox"
-                                id="invalidCheck"
                                 onChange={this.onAgree}
-                                required
                                 checked={this.state.agree}
                                 error={errors.agree}
                               />
                               <label
-                                className="custom-control-label"
-                                htmlFor="invalidCheck"
+                             
                                 style={{ fontSize: 15, width: 200 }}
                               >
-                                Agree to
+                                Agree to&nbsp;
                                 <a
                                   className="terms"
                                   onClick={this.toggle}
@@ -583,13 +549,10 @@ class SignUp extends Component {
                                 </a>
                               </label>
                             </div>
-                          </div>
-                          <div
-                            className=" text-center black-text"
-                            style={{ marginTop: 4 }}
-                          >
+                          <div className="d-flex justify-content-between black-text mt-4">
                             <MDBBtn
-                              className=" font-weight-bold  btn-md"
+                              className=" font-weight-bold  mr-5"
+                              size="lg"
                               color="warning"
                               style={{ fontSize: 14 }}
                               onClick={this.handleClickClient}
@@ -599,7 +562,8 @@ class SignUp extends Component {
                             </MDBBtn>
                             <MDBBtn
                               type="submit"
-                              className=" font-weight-bold  btn-md"
+                              className=" font-weight-bold ml-5"
+                              size="lg"
                               color="deep-orange"
                               style={{ fontSize: 14 }}
                               onClick={this.onSubmit}
@@ -614,9 +578,9 @@ class SignUp extends Component {
                   </MDBAnimation>
                 </MDBCol>
               ) : (
-                <MDBCol md="" xl="5" className="mb-4 all-post-card social-auth">
+                <MDBCol md="" xl="5" className="mb-4 mr-5">
                   <MDBAnimation type="fadeInRight" delay=".3s">
-                    <MDBCardBody className="white-text social-body">
+                    <MDBCardBody className="white-text ">
                       <h1 className="white-text">
                         Choose the type of your account please on the left side
                         <br />
