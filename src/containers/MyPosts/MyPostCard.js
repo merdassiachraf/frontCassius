@@ -56,11 +56,10 @@ class MyPostCard extends Component {
   onClickDelete = (id) => {
     this.props.deletePost(id);
     window.location.reload(false);
-
   };
 
   onSubmit = (id) => {
-    const postUpdate = {
+    const postData = {
       brand: this.state.brand,
       model: this.state.model,
       fuel: this.state.fuel,
@@ -68,10 +67,10 @@ class MyPostCard extends Component {
       adress: this.state.adress,
       state: this.state.state,
       country: this.state.country,
-      pricePerDay: this.state.pricePerDay,
+      pricePerDay: this.state.pricePerDay+ " " +"dt/day",
     };
 
-    this.props.editPost(id, postUpdate);
+    this.props.editPost(id, postData);
   };
 
   render() {
@@ -86,7 +85,7 @@ class MyPostCard extends Component {
         adress: my_post.adress,
         state: my_post.state,
         country: my_post.country,
-        pricePerDay: my_post.pricePerDay,
+        pricePerDay: parseInt(my_post.pricePerDay, 10),
         status: "Edit",
       });
       this.toggle();
@@ -610,7 +609,7 @@ class MyPostCard extends Component {
                     </label>
                     <Input
                       type="number"
-                      value={parseInt(this.state.pricePerDay, 10)}
+                      value={this.state.pricePerDay}
                       placeholder="Price per day"
                       size="large"
                       style={{ width: "230px" }}

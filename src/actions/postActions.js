@@ -32,7 +32,7 @@ export const editPost = (id, postData) => (dispatch) => {
     .put(`/posts/edit_post/${id}`, postData)
     .then((res) =>
       dispatch({
-        type: GET_SUCCESS,
+        type:GET_POST,
         payload: res.data,
       })
     )

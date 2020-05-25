@@ -120,26 +120,18 @@ class PostPage extends Component {
   };
 
   onSubmitEdit = (id) => {
-   const brand = this.state.brand;
-   const model = this.state.model;
-   const fuel = this.state.fuel;
-   const transmission = this.state.transmission;
-   const adress = this.state.adress;
-   const state = this.state.state;
-   const country = this.state.country;
-   const pricePerDay = this.state.pricePerDay;
+    const postData = {
+      brand: this.state.brand,
+      model: this.state.model,
+      fuel: this.state.fuel,
+      transmission: this.state.transmission,
+      adress: this.state.adress,
+      state: this.state.state,
+      country: this.state.country,
+      pricePerDay: this.state.pricePerDay+ " " +"dt/day",
+    };
 
-    this.props.editPost(
-      id,
-     { brand,
-      model,
-      fuel,
-      transmission,
-      adress,
-      state,
-      country,
-      pricePerDay}
-    );
+    this.props.editPost(id, postData);
   };
 
   onSubmit = (id) => {
