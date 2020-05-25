@@ -67,16 +67,18 @@ class MyPostCard extends Component {
       adress: this.state.adress,
       state: this.state.state,
       country: this.state.country,
-      pricePerDay: this.state.pricePerDay+ " " +"dt/day",
+      pricePerDay: (this.state.pricePerDay + " "+"dt/day")
     };
 
     this.props.editPost(id, postData);
+    window.location.reload(false);
+
   };
 
   render() {
     const { my_post } = this.props;
 
-    const onChooseEdit = (id) => {
+    const onChooseEdit = () => {
       this.setState({
         brand: my_post.brand,
         model: my_post.model,
@@ -85,7 +87,7 @@ class MyPostCard extends Component {
         adress: my_post.adress,
         state: my_post.state,
         country: my_post.country,
-        pricePerDay: parseInt(my_post.pricePerDay, 10),
+        pricePerDay:my_post.pricePerDay,
         status: "Edit",
       });
       this.toggle();
@@ -609,12 +611,12 @@ class MyPostCard extends Component {
                     </label>
                     <Input
                       type="number"
-                      value={this.state.pricePerDay}
+                      value={parseInt(this.state.pricePerDay, 10)}
                       placeholder="Price per day"
                       size="large"
                       style={{ width: "230px" }}
                       onChange={(e) =>
-                        this.setState({ pricePerDay: e.target.vlue })
+                        this.setState({ pricePerDay: e.target.value })
                       }
                     />
                   </div>

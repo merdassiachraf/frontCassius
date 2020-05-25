@@ -128,10 +128,12 @@ class PostPage extends Component {
       adress: this.state.adress,
       state: this.state.state,
       country: this.state.country,
-      pricePerDay: this.state.pricePerDay+ " " +"dt/day",
+      pricePerDay: (this.state.pricePerDay + " "+"dt/day")
     };
 
     this.props.editPost(id, postData);
+    window.location.reload(false);
+
   };
 
   onSubmit = (id) => {
@@ -919,7 +921,7 @@ class PostPage extends Component {
                       size="large"
                       style={{ width: "230px" }}
                       onChange={(e) =>
-                        this.setState({ pricePerDay: e.target.vlue })
+                        this.setState({ pricePerDay: e.target.value })
                       }
                     />
                   </div>

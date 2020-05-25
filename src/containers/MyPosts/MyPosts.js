@@ -12,6 +12,7 @@ import Spinner from "../Common/Spinner";
 import { MDBMask, MDBView, MDBIcon, MDBBtn } from "mdbreact";
 
 class MyPosts extends Component {
+  
   componentDidMount = () => {
     this.props.getUserPosts();
   };
