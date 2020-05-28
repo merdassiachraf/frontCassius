@@ -5,7 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 
 import { addContactInformation } from "../../actions/profileActions";
 
-import { MDBMask, MDBView, MDBContainer, MDBIcon, MDBBtn } from "mdbreact";
+import { MDBMask, MDBView,  MDBIcon, MDBBtn } from "mdbreact";
 
 import TextFieldGroup from "../Common/TextFieldGroup";
 import SelectListGoup from "../Common/SelectListGoup";
@@ -43,9 +43,6 @@ class AddContactInformation extends Component {
       this.props.history
     );
   };
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
 
   render() {
     const { errors } = this.state;
@@ -53,151 +50,150 @@ class AddContactInformation extends Component {
     // Select options for adress
 
     const optionsStateTunisia = [
-      { label: "Select State", value: "" },
-      { label: "Ariana", value: "Ariana" },
-      { label: "Béja", value: "Béja" },
-      { label: "Ben Arous", value: "Ben Arous" },
-      { label: "Bizerte", value: "Bizerte" },
-      { label: "Gabés", value: "Gabés" },
-      { label: "Gafsa", value: "Gafsa" },
-      { label: "Jendouba", value: "Jendouba" },
-      { label: "Kairouan", value: "Kairouan" },
-      { label: "Kasserine", value: "Kasserine" },
-      { label: "Kebili", value: "Kebili" },
-      { label: "Kef", value: "Kef" },
-      { label: "Mahdia", value: "Mahdia" },
-      { label: "Mannouba", value: "Mannouba" },
-      { label: "Mahdia", value: "Mahdia" },
-      { label: "Medenine", value: "Medenine" },
-      { label: "Monastir", value: "Monastir" },
-      { label: "Nabeul", value: "Nabeul" },
-      { label: "Sfax", value: "Sfax" },
-      { label: "Sidi Bouzid", value: "Sidi Bouzid" },
-      { label: "Siliana", value: "Siliana" },
-      { label: "Sousse", value: "Sousse" },
-      { label: "Tataouine", value: "Tataouine" },
-      { label: "Tozeur", value: "Tozeur" },
-      { label: "Tunis", value: "Tunis" },
-      { label: "Zaghouan", value: "Zaghouan" },
+      { label: "Select State", value: "", className: "tunisia flag" },
+      { label: "Ariana", value: "Ariana", className: "tunisia flag" },
+      { label: "Béja", value: "Béja", className: "tunisia flag" },
+      { label: "Ben Arous", value: "Ben Arous", className: "tunisia flag" },
+      { label: "Bizerte", value: "Bizerte", className: "tunisia flag" },
+      { label: "Gabés", value: "Gabés", className: "tunisia flag" },
+      { label: "Gafsa", value: "Gafsa", className: "tunisia flag" },
+      { label: "Jendouba", value: "Jendouba", className: "tunisia flag" },
+      { label: "Kairouan", value: "Kairouan", className: "tunisia flag" },
+      { label: "Kasserine", value: "Kasserine", className: "tunisia flag" },
+      { label: "Kebili", value: "Kebili", className: "tunisia flag" },
+      { label: "Kef", value: "Kef", className: "tunisia flag" },
+      { label: "Mahdia", value: "Mahdia", className: "tunisia flag" },
+      { label: "Mannouba", value: "Mannouba", className: "tunisia flag" },
+      { label: "Medenine", value: "Medenine", className: "tunisia flag" },
+      { label: "Monastir", value: "Monastir", className: "tunisia flag" },
+      { label: "Nabeul", value: "Nabeul", className: "tunisia flag" },
+      { label: "Sfax", value: "Sfax", className: "tunisia flag" },
+      { label: "Sidi Bouzid", value: "Sidi Bouzid", className: "tunisia flag" },
+      { label: "Siliana", value: "Siliana", className: "tunisia flag" },
+      { label: "Sousse", value: "Sousse", className: "tunisia flag" },
+      { label: "Tataouine", value: "Tataouine", className: "tunisia flag" },
+      { label: "Tozeur", value: "Tozeur", className: "tunisia flag" },
+      { label: "Tunis", value: "Tunis", className: "tunisia flag" },
+      { label: "Zaghouan", value: "Zaghouan", className: "tunisia flag" },
     ];
 
     const optionsAgencyCountry = [
       { label: "Choose country", value: "" },
-      { label: "Tunisia", value: "Tunisia" },
+      { label: "Tunisia", value: "Tunisia", className: "tunisia flag" },
     ];
 
     const optionsError = [{ label: "Select country first", value: "" }];
 
     const optionsAgencyCountryCode = [
       { label: "Choose country code", value: "" },
-      { label: "+216", value: "+216" },
+      { label: "+216", value: "+216", className: "tunisia flag" },
     ];
     return (
       <div id="classicformpage">
         <MDBView src="https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
           <MDBMask className="d-flex justify-content-center align-items-center gradient">
-            <MDBContainer>
-              <Link
-                className="go-back"
-                to="/dashboard"
-                onClick={() => this.setState({ errors: {} })}
-              >
-                <MDBIcon icon="arrow-circle-left" />
-                &nbsp;Go back
-              </Link>
-              <div className="add-agency-cont">
-                <div className="d-flex flex-column text-center">
-                  <h2 className="text-center white-text">
-                    Add contact information
-                  </h2>
-                  <p className="lead white-text text-center">
-                    add an other contact to your agency
-                  </p>
-                </div>
-                <form onSubmit={this.onSubmit} className="form-group">
-                  <div className="form-profile d-flex">
-                    <div className="left-add-con-info">
-                      <div className="cont-inf-field-1">
-                        <TextFieldGroup
-                          divClassName="col-md-11 d-flex flex-column align-items-start"
-                          placeholder="Agency Adress"
-                          name="adress"
-                          type="text"
-                          value={this.state.adress}
-                          onChange={this.onChange}
-                          error={errors.adress}
-                        />
-                      </div>
-                      <div className="cont-inf-field-2">
-                        <SelectListGoup
-                          placeholder="Country"
-                          name="country"
-                          value={this.state.country}
-                          onChange={this.onChange}
-                          error={errors.country}
-                          options={optionsAgencyCountry}
-                        />
-                      </div>
-                      <div className="cont-inf-field-3">
-                        {this.state.country === "Tunisia" ? (
-                          <SelectListGoup
-                            placeholder="State"
-                            name="state"
-                            value={this.state.state}
-                            onChange={this.onChange}
-                            error={errors.state}
-                            options={optionsStateTunisia}
-                          />
-                        ) : (
-                          <SelectListGoup
-                            placeholder="State"
-                            name="state"
-                            value={this.state.state}
-                            onChange={this.onChange}
-                            error={errors.state}
-                            options={optionsError}
-                          />
-                        )}
-                      </div>
-                    </div>
-                    <div className="middle-add-con-info">
-                      <div className="cont-inf-field-4">
-                        <SelectListGoup
-                          placeholder="Country phone code"
-                          name="countryCode"
-                          value={this.state.countryCode}
-                          onChange={this.onChange}
-                          error={errors.countryCode}
-                          options={optionsAgencyCountryCode}
-                        />
-                      </div>
-                      <div className="cont-inf-field-5">
-                        <TextFieldGroup
-                          divClassName="col-md-15 text-field"
-                          placeholder="Agency phone number"
-                          name="phoneNumber"
-                          type="text"
-                          value={this.state.phoneNumber}
-                          onChange={this.onChange}
-                          error={errors.phoneNumber}
-                        />
-                      </div>
-                    </div>
-                    <MDBBtn
-                      value="submit"
-                      className="black-text font-weight-bold submit-profile"
-                      style={{ width: 200 }}
-                      onClick={this.onSubmit}
-                      color="amber"
-                      size="lg"
-                    >
-                      Submit&nbsp;&nbsp;
-                      <MDBIcon size="lg" icon="hdd" />
-                    </MDBBtn>
-                  </div>
-                </form>
+            <Link
+              className="go-back"
+              to="/dashboard"
+              onClick={() => this.setState({ errors: {} })}
+            >
+              <MDBIcon icon="arrow-circle-left" />
+              &nbsp;Go back
+            </Link>
+            <div className=" mt-5">
+              <div className="d-flex flex-column text-center">
+                <h2 className="text-center white-text">
+                  Add contact information
+                </h2>
+                <p className="lead white-text text-center">
+                  add an other contact to your agency
+                </p>
               </div>
-            </MDBContainer>
+              <form onSubmit={this.onSubmit} className="form-group mt-5">
+                <div className="d-flex flex-column align-items-end">
+                  <div className="d-flex align-items-center">
+                    <div className="mr-5">
+                      <TextFieldGroup
+                        size="large"
+                        placeholder="Agency Adress"
+                        name="adress"
+                        type="text"
+                        value={this.state.adress}
+                        onChange={(e) =>
+                          this.setState({ adress: e.target.value })
+                        }
+                        error={errors.adress}
+                      />
+                      <SelectListGoup
+                        size="large"
+                        placeholder="Country"
+                        name="country"
+                        value={this.state.country}
+                        onChange={(value) => this.setState({ country: value })}
+                        error={errors.country}
+                        options={optionsAgencyCountry}
+                      />
+
+                      {this.state.country === "Tunisia" ? (
+                        <SelectListGoup
+                          size="large"
+                          placeholder="State"
+                          value={this.state.state}
+                          onChange={(value) => this.setState({ state: value })}
+                          error={errors.state}
+                          options={optionsStateTunisia}
+                        />
+                      ) : (
+                        <SelectListGoup
+                          size="large"
+                          placeholder="State"
+                          name="state"
+                          value={this.state.state}
+                          onChange={(value) => this.setState({ state: value })}
+                          error={errors.state}
+                          options={optionsError}
+                        />
+                      )}
+                    </div>
+                    <div className="ml-5">
+                      <SelectListGoup
+                        size="large"
+                        placeholder="Country phone code"
+                        name="countryCode"
+                        value={this.state.countryCode}
+                        onChange={(value) =>
+                          this.setState({ countryCode: value })
+                        }
+                        error={errors.countryCode}
+                        options={optionsAgencyCountryCode}
+                      />
+                      <TextFieldGroup
+                        size="large"
+                        placeholder="Agency phone number"
+                        name="phoneNumber"
+                        type="text"
+                        value={this.state.phoneNumber}
+                        onChange={(e) =>
+                          this.setState({ phoneNumber: e.target.value })
+                        }
+                        error={errors.phoneNumber}
+                      />
+                    </div>
+                  </div>
+                  <MDBBtn
+                    value="submit"
+                    className="black-text font-weight-bold mt-5 "
+                    style={{ width: 200 }}
+                    onClick={this.onSubmit}
+                    color="amber"
+                    size="lg"
+                  >
+                    Submit&nbsp;&nbsp;
+                    <MDBIcon size="lg" icon="hdd" />
+                  </MDBBtn>
+                </div>
+              </form>
+            </div>
           </MDBMask>
         </MDBView>
       </div>

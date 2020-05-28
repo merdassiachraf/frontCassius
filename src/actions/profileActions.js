@@ -77,11 +77,26 @@ export const clearCurrentProfile = () => {
 };
 
 //Add adress
-export const addContactInformation = (contactInformationData, history) => (
+export const addContactInformation = (contact_id,contactInformationData, history) => (
   dispatch
 ) => {
   axios
-    .post("/profile/contact/add", contactInformationData)
+    .put(`/profile/contact/edit/${contact_id}`, contactInformationData)
+    .then(() => history.push("/dashboard"))
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+//Edit contact info
+export const editContactInformation = (contactInformationData, history) => (
+  dispatch
+) => {
+  axios
+    .put("/profile/contact/add", contactInformationData)
     .then(() => history.push("/dashboard"))
     .catch((err) =>
       dispatch({

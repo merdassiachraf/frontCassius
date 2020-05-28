@@ -3,8 +3,6 @@ import {
   MDBBtn,
   MDBModal,
   MDBModalBody,
-  MDBModalHeader,
-  MDBModalFooter,
   MDBIcon,
 } from "mdbreact";
 import { Link } from "react-router-dom";
