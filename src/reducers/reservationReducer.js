@@ -8,8 +8,8 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  reservations: null,
-  my_reservations: null,
+  reservations: [],
+  my_reservations: [],
   reservation: {},
   loading: false,
 };

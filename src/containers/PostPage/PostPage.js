@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link , withRouter } from "react-router-dom";
 
 import Spinner from "../Common/Spinner";
 import { getPostById, deletePost, editPost } from "../../actions/postActions";
@@ -33,7 +33,6 @@ class PostPage extends Component {
     returnTime: "",
     totalDays: "",
     totalPrice: "",
-    status: "",
     status: "",
     brand: "",
     model: "",
@@ -70,7 +69,7 @@ class PostPage extends Component {
   };
 
   onConfirmDelete = (id) => {
-    this.props.deletePost(id);
+    this.props.deletePost(id,this.props.history);
   };
 
   onClickDelete = () => {
@@ -1017,4 +1016,4 @@ export default connect(mapStateToProps, {
   deletePost,
   addReservation,
   editPost,
-})(PostPage);
+})(withRouter(PostPage));

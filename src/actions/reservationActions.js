@@ -8,7 +8,7 @@ import {
   GET_RESERVATION,
   GET_MY_RESERVATIONS,
   GET_RESERVATIONS,
-  GET_SUCCESS
+  GET_SUCCESS,
 } from "./types";
 
 //Add Resevation
@@ -44,7 +44,7 @@ export const getReservationById = (id) => (dispatch) => {
     .catch((err) =>
       dispatch({
         type: GET_RESERVATION,
-        payload: null,
+        payload: {},
       })
     );
 };
@@ -73,4 +73,61 @@ export const setReservationLoading = () => {
   return {
     type: RESERVATION_LOADING,
   };
+};
+
+//Edit reservation
+export const editReservation = (id, reservationData) => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .put(`/reservations/edit_reservation/${id}`, reservationData)
+    .then((res) =>
+      dispatch({
+        type: GET_RESERVATION,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+//Cancel reservation
+export const cancelReservation = (id) => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .put(`/reservations/cancel/${id}`)
+    .then((res) =>
+      dispatch({
+        type: GET_RESERVATION,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
+//Confirm reservation
+export const confirmReservation = (id) => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .put(`/reservations/confirm/${id}`)
+    .then((res) =>
+      dispatch({
+        type: GET_RESERVATION,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
 };

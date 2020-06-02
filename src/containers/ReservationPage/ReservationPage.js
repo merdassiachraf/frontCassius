@@ -12,10 +12,11 @@ import { MDBMask, MDBView } from "mdbreact";
 class ReservationPage extends Component {
   
   componentDidMount = () => {
-    if (this.props.match.params._id) {
-      this.props.getReservationById(this.props.match.params._id);
+    if (this.props.match.params.id) {
+      this.props.getReservationById(this.props.match.params.id);
     }
   };
+
 
   render() {
     const { reservation, loading } = this.props.reservation;
@@ -48,6 +49,7 @@ class ReservationPage extends Component {
 }
 
 ReservationPage.propTypes = {
+  getReservationById:PropTypes.func.isRequired,
   reservation: PropTypes.object.isRequired,
   getReservationById: PropTypes.func.isRequired,
 };

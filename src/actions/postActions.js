@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {
-    GET_ERRORS,
+  GET_ERRORS,
   GET_POSTS,
   POST_LOADING,
   GET_POST,
@@ -24,12 +24,11 @@ export const addPost = (postData, history) => (dispatch) => {
 //Edit Post
 export const editPost = (id, postData) => (dispatch) => {
   dispatch(setPostLoading());
-
   axios
     .put(`/posts/edit_post/${id}`, postData)
     .then((res) =>
       dispatch({
-        type:GET_POST,
+        type: GET_POST,
         payload: res.data,
       })
     )
@@ -42,15 +41,10 @@ export const editPost = (id, postData) => (dispatch) => {
 };
 
 //Delete Post
-export const deletePost = (id) => (dispatch) => {
+export const deletePost = (id, history) => (dispatch) => {
   axios
     .delete(`/posts/delete/${id}`)
-    .then((res) =>
-      dispatch({
-        type: GET_POSTS,
-        payload: res.data,
-      })
-    )
+    .then(() => history.push("/dashboard/my_posts"))
     .catch((err) =>
       dispatch({
         type: GET_ERRORS,

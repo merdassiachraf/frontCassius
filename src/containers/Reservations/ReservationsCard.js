@@ -12,11 +12,11 @@ class ReservationsCard extends Component {
         <div className="card-reservation p-4 m-4 align-items-center">
           <div className="d-flex justify-content-between">
             <h5>N°{reservation._id}</h5>
-            {(reservation.status === "Changed and waiting for confirmation") ? (
+            {reservation.status === "Changed and waiting for confirmation" ? (
+              <MDBIcon className="text-warning" size="lg" icon="tools" />
+            ) : reservation.status === "Waiting for confirmation" ? (
               <MDBIcon className="text-warning" size="lg" icon="user-edit" />
-            ) : (reservation.status === "Waiting for confirmation") ? (
-              <MDBIcon className="text-warning" size="lg" icon="play" />
-            ) : (reservation.status === "Confirmed") ? (
+            ) : reservation.status === "Confirmed" ? (
               <MDBIcon className="green-text" size="lg" icon="check" />
             ) : (
               <MDBIcon className="text-danger" size="lg" icon="times" />

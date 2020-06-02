@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import {
   deleteContactInformation,
@@ -18,25 +19,40 @@ import {
   MDBIcon,
 } from "mdbreact";
 
+import "./scrollbar2.css";
+
 class ContactInformation extends Component {
   state = {
+    scrollContainerStyle: {
+      width: "550px",
+      height: "598px",
+      backgroundColor: "white",
+      border: "black",
+    },
     modal: false,
     adress: "",
     state: "",
     country: "",
     countryCode: "",
     phoneNumber: "",
+    step: "",
     errors: {},
   };
 
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps) {
-      this.setState({ errors: nextProps });
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
     }
+  };
+
+  onChooseDelete = () => {
+    this.setState({ step: "Delete" });
+    this.toggle()
   };
 
   onDeleteClick = (id) => {
     this.props.deleteContactInformation(id);
+    window.location.reload(false);
   };
 
   toggle = () => {
@@ -46,7 +62,6 @@ class ContactInformation extends Component {
   };
 
   onSubmit = (id) => {
-
     const contactInformationData = {
       adress: this.state.adress,
       state: this.state.state,
@@ -54,15 +69,15 @@ class ContactInformation extends Component {
       countryCode: this.state.countryCode,
       phoneNumber: this.state.phoneNumber,
     };
-    this.props.editContactInformation(id,
+    this.props.editContactInformation(
+      id,
       contactInformationData,
       this.props.history
     );
   };
 
   render() {
-    const { errors } = this.state;
-    const { contact } = this.props;
+    const { errors, step } = this.state;
 
     // Select options for adress
 
@@ -122,97 +137,120 @@ class ContactInformation extends Component {
                 country: contact.country,
                 countryCode: contact.countryCode,
                 phoneNumber: contact.phoneNumber,
+                step: "Edit",
               });
             }}
           >
             <MDBIcon icon="edit" />
           </MDBBtn>
-          <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-            <MDBModalHeader toggle={this.toggle}>
-              Edit contact information
-            </MDBModalHeader>
-            <MDBModalBody>
-              <form onSubmit={this.onSubmit} className="form-group mt-5">
-                <TextFieldGroup
-                  size="large"
-                  placeholder="Agency Adress"
-                  name="adress"
-                  type="text"
-                  value={this.state.adress}
-                  onChange={(e) => this.setState({ adress: e.target.value })}
-                  error={errors.adress}
-                />
-                <SelectListGoup
-                  size="large"
-                  placeholder="Country"
-                  name="country"
-                  value={this.state.country}
-                  onChange={(value) => this.setState({ country: value })}
-                  error={errors.country}
-                  options={optionsAgencyCountry}
-                />
 
-                {this.state.country === "Tunisia" ? (
+          {step === "Delete" ? (
+            <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+              <div className="d-flex flex-column align-items-center p-5">
+                <h6> Do you want to delete this contact information ?</h6>
+                <div className="d-flex">
+                  <MDBBtn color="yellow" className="mr-5" onClick={this.toggle}>
+                    <MDBIcon icon="ban" />
+                    &nbsp;Cancel
+                  </MDBBtn>
+                  <MDBBtn
+                    color="danger"
+                    onClick={this.onDeleteClick.bind(this, contact._id)}
+                  >
+                    <MDBIcon icon="trash-alt" />
+                    &nbsp;Delete Contact
+                  </MDBBtn>
+                </div>
+              </div>
+            </MDBModal>
+          ) : (
+            <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+              <MDBModalHeader toggle={this.toggle}>
+                Edit contact information
+              </MDBModalHeader>
+              <MDBModalBody>
+                <form onSubmit={this.onSubmit} className="form-group mt-5">
+                  <TextFieldGroup
+                    size="large"
+                    placeholder="Agency Adress"
+                    name="adress"
+                    type="text"
+                    value={this.state.adress}
+                    onChange={(e) => this.setState({ adress: e.target.value })}
+                    error={errors.adress}
+                  />
                   <SelectListGoup
                     size="large"
-                    placeholder="State"
-                    value={this.state.state}
-                    onChange={(value) => this.setState({ state: value })}
-                    error={errors.state}
-                    options={optionsStateTunisia}
+                    placeholder="Country"
+                    name="country"
+                    value={this.state.country}
+                    onChange={(value) => this.setState({ country: value })}
+                    error={errors.country}
+                    options={optionsAgencyCountry}
                   />
-                ) : (
+
+                  {this.state.country === "Tunisia" ? (
+                    <SelectListGoup
+                      size="large"
+                      placeholder="State"
+                      value={this.state.state}
+                      onChange={(value) => this.setState({ state: value })}
+                      error={errors.state}
+                      options={optionsStateTunisia}
+                    />
+                  ) : (
+                    <SelectListGoup
+                      size="large"
+                      placeholder="State"
+                      name="state"
+                      value={this.state.state}
+                      onChange={(value) => this.setState({ state: value })}
+                      error={errors.state}
+                      options={optionsError}
+                    />
+                  )}
                   <SelectListGoup
                     size="large"
-                    placeholder="State"
-                    name="state"
-                    value={this.state.state}
-                    onChange={(value) => this.setState({ state: value })}
-                    error={errors.state}
-                    options={optionsError}
+                    placeholder="Country phone code"
+                    name="countryCode"
+                    value={this.state.countryCode}
+                    onChange={(value) => this.setState({ countryCode: value })}
+                    error={errors.countryCode}
+                    options={optionsAgencyCountryCode}
                   />
-                )}
-                <SelectListGoup
-                  size="large"
-                  placeholder="Country phone code"
-                  name="countryCode"
-                  value={this.state.countryCode}
-                  onChange={(value) => this.setState({ countryCode: value })}
-                  error={errors.countryCode}
-                  options={optionsAgencyCountryCode}
-                />
-                <TextFieldGroup
-                  size="large"
-                  placeholder="Agency phone number"
-                  name="phoneNumber"
-                  type="text"
-                  value={this.state.phoneNumber}
-                  onChange={(e) =>
-                    this.setState({ phoneNumber: e.target.value })
-                  }
-                  error={errors.phoneNumber}
-                />
-              </form>
-            </MDBModalBody>
-            <MDBModalFooter>
-              <MDBBtn color="secondary" onClick={this.toggle}>
-                Cancel
-              </MDBBtn>
-              <MDBBtn
-                value="submit"
-                className="black-text font-weight-bold mt-5 "
-                onClick={this.onSubmit(contact._id)}
-                color="amber"
-              >
-                Submit&nbsp;&nbsp;
-                <MDBIcon size="lg" icon="hdd" />
-              </MDBBtn>
-            </MDBModalFooter>
-          </MDBModal>
+                  <TextFieldGroup
+                    size="large"
+                    placeholder="Agency phone number"
+                    name="phoneNumber"
+                    type="text"
+                    value={this.state.phoneNumber}
+                    onChange={(e) =>
+                      this.setState({ phoneNumber: e.target.value })
+                    }
+                    error={errors.phoneNumber}
+                  />
+                </form>
+              </MDBModalBody>
+              <MDBModalFooter>
+                <MDBBtn color="secondary" onClick={this.toggle}>
+                  Cancel
+                </MDBBtn>
+                <MDBBtn
+                  value="submit"
+                  className="black-text font-weight-bold "
+                  onClick={this.onSubmit.bind(this,contact._id)}
+                  color="amber"
+                >
+                  Submit&nbsp;&nbsp;
+                  <MDBIcon size="lg" icon="hdd" />
+                </MDBBtn>
+              </MDBModalFooter>
+            </MDBModal>
+          )}
           <MDBBtn
             className="black-text"
             color="danger"
-            onClick={this.onDeleteClick.bind(this, contact._id)}
+            onClick={this.onChooseDelete}
           >
             <MDBIcon icon="trash-alt" />
           </MDBBtn>
@@ -220,7 +258,10 @@ class ContactInformation extends Component {
       </tr>
     ));
     return (
-      <div>
+      <div
+        className="scrollbar2 scrollbar-primary  mt-5 mx-auto"
+        style={this.state.scrollContainerStyle}
+      >
         <h4 className="mb-4 white-text">
           <MDBIcon icon="file-contract" />
           &nbsp;&nbsp;Agency contact :
@@ -245,9 +286,11 @@ ContactInformation.propTypes = {
   editContactInformation: PropTypes.func.isRequired,
   deleteContactInformation: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  errors: state.errors,
   profile: state.profile,
 });
 
