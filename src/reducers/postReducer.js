@@ -5,11 +5,13 @@ import {
   GET_POST,
   EDIT_POST,
   GET_USER_POSTS,
+  GET_AGENCY_POSTS,
 } from "../actions/types";
 
 const initialState = {
   posts: [],
-  my_posts:[],
+  agency_posts: [],
+  my_posts: [],
   post: {},
   loading: false,
 };
@@ -47,6 +49,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         my_posts: action.payload,
+        loading: false,
+      };
+    case GET_AGENCY_POSTS:
+      return {
+        ...state,
+        agency_posts: action.payload,
         loading: false,
       };
     default:

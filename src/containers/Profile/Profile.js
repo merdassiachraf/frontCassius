@@ -8,19 +8,21 @@ import ProfilePosts from "./ProfilePosts";
 import Spinner from "../Common/Spinner";
 
 import { getProfileByHandle } from "../../actions/profileActions";
+import { getAgencyPosts } from "../../actions/postActions";
 
 import { MDBMask, MDBView, MDBIcon } from "mdbreact";
 
 class Profile extends Component {
-  
   componentDidMount = () => {
     if (this.props.match.params.handle) {
+      this.props.getAgencyPosts(this.props.match.params.handle)
       this.props.getProfileByHandle(this.props.match.params.handle);
-    }
+    }    
   };
 
   render() {
     const { profile, loading } = this.props.profile;
+    const {agency_posts}= this.props.post;
     const { auth } = this.props;
     let profileContent;
 
@@ -41,7 +43,7 @@ class Profile extends Component {
               profile={profile}
               auth={auth}
             />
-            <ProfilePosts />
+            <ProfilePosts agency_posts={agency_posts} />
           </div>
         ) : (
           <div>
@@ -71,6 +73,7 @@ class Profile extends Component {
 }
 
 Profile.prototypes = {
+  getAgencyPosts: Proptypes.func.isRequired,
   getProfileByHandle: Proptypes.func.isRequired,
   profile: Proptypes.object.isRequired,
   auth: Proptypes.object.isRequired,
@@ -79,6 +82,9 @@ Profile.prototypes = {
 const mapStateToProps = (state) => ({
   profile: state.profile,
   auth: state.auth,
+  post: state.post,
 });
 
-export default connect(mapStateToProps, { getProfileByHandle })(Profile);
+export default connect(mapStateToProps, { getProfileByHandle, getAgencyPosts })(
+  Profile
+);

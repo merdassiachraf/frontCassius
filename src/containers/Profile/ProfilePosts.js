@@ -3,25 +3,22 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import ProfilePostCard from "./ProfilePostCard";
-import { getUserPosts, deletePost, editPost } from "../../actions/postActions";
+import {  deletePost, editPost } from "../../actions/postActions";
 
 import Spinner from "../Common/Spinner";
 import "./scrollbar.css";
-import MyPostCard from "../MyPosts/MyPostCard";
 
 class ProfilePosts extends Component {
   state = {
     scrollContainerStyle: {
       width: "550px",
-      height: "578px",
+      height: "599px",
       backgroundColor: "white",
       border: "black",
     },
   };
 
-  componentDidMount = () => {
-    this.props.getUserPosts();
-  };
+ 
 
   onSubmit = (id) => {
     const postData = {
@@ -38,19 +35,19 @@ class ProfilePosts extends Component {
   };
 
   render() {
-    const { my_posts, loading } = this.props.post;
+    const { posts, loading } = this.props.post;
 
-    let my_postsContent;
+    let postsContent;
 
     if (loading) {
-      my_postsContent = <Spinner />;
+      postsContent = <Spinner />;
     } else {
-      if (my_posts.length > 0) {
-        my_postsContent = my_posts.map((my_post) => (
-          <ProfilePostCard key={my_post._id} my_post={my_post} />
+      if (posts.length > 0) {
+        postsContent = posts.map((post) => (
+          <ProfilePostCard key={post._id} post={post} />
         ));
       } else {
-        my_postsContent = <h1>No posts</h1>;
+        postsContent = <h1>No posts</h1>;
       }
     }
     return (
@@ -58,14 +55,13 @@ class ProfilePosts extends Component {
         className="scrollbar scrollbar-primary  mt-5 mx-auto"
         style={this.state.scrollContainerStyle}
       >
-        {my_postsContent}
+        {postsContent}
       </div>
     );
   }
 }
 
 ProfilePosts.propTypes = {
-  getUserPosts: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired,
 };
@@ -74,6 +70,6 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   post: state.post,
 });
-export default connect(mapStateToProps, { getUserPosts, deletePost, editPost })(
+export default connect(mapStateToProps, {  deletePost, editPost })(
   ProfilePosts
 );

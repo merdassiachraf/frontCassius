@@ -37,8 +37,7 @@ const ReservationCard = ({ reservation, editReservation }) => {
           <div className="m-5 d-flex">
             <h6>Status : </h6>
             <h6>
-              {" "}
-              {reservation.status}{" "}
+              {reservation.status}
               {reservation.status === "Changed and waiting for confirmation" ? (
                 <MDBIcon className="text-warning" size="lg" icon="tools" />
               ) : reservation.status === "Waiting for confirmation" ? (

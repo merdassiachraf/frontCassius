@@ -8,10 +8,10 @@ class ReservationsCard extends Component {
   render() {
     const { reservation } = this.props;
     return (
-      <Link to={`/reservations/${reservation._id}`}>
+      <Link to={`/reservations/${reservation._id}`} style={{ textDecoration: 'none' }}>
         <div className="card-reservation p-4 m-4 align-items-center">
           <div className="d-flex justify-content-between">
-            <h5>N°{reservation._id}</h5>
+            <h5>N°{reservation._id}&nbsp;</h5>
             {reservation.status === "Changed and waiting for confirmation" ? (
               <MDBIcon className="text-warning" size="lg" icon="tools" />
             ) : reservation.status === "Waiting for confirmation" ? (

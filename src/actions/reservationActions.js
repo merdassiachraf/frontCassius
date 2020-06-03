@@ -131,3 +131,60 @@ export const confirmReservation = (id) => (dispatch) => {
       })
     );
 };
+
+//Get confirmed reservation
+export const getConfirmedReservations = () => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .get("reservations/user/confirmed")
+    .then((res) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: {},
+      })
+    );
+};
+
+//Get canceled reservation
+export const getCanceledReservations = () => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .get("reservations/user/canceled")
+    .then((res) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: {},
+      })
+    );
+};
+
+//Get waiting reservation
+export const getWaitingReservations = () => (dispatch) => {
+  dispatch(setReservationLoading());
+  axios
+    .get("reservations/user/waiting")
+    .then((res) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: GET_MY_RESERVATIONS,
+        payload: {},
+      })
+    );
+};

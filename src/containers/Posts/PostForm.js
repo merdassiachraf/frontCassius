@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
+import { getCurrentProfile } from "../../actions/profileActions";
+
 import { addPost } from "../../actions/postActions";
 
 import { Upload, Modal } from "antd";
@@ -20,7 +22,6 @@ import {
   MDBInput,
   MDBAnimation,
 } from "mdbreact";
-import errorsReducer from "../../reducers/errorsReducer";
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -50,6 +51,10 @@ class PostForm extends Component {
       fileList: [],
     };
   }
+
+  componentDidMount = () => {
+    this.props.getCurrentProfile();
+  };
 
   handleCancel = () => this.setState({ previewVisible: false });
 
@@ -107,8 +112,18 @@ class PostForm extends Component {
   };
 
   render() {
-    const { errors } = this.state;
-    const { previewVisible, previewImage, fileList, previewTitle } = this.state;
+    const { profile } = this.props.profile;
+
+    console.log(profile);
+
+    const {
+      errors,
+      previewVisible,
+      previewImage,
+      fileList,
+      previewTitle,
+    } = this.state;
+
     const uploadButton = (
       <div>
         <PlusOutlined />
@@ -800,7 +815,7 @@ class PostForm extends Component {
                             <div className="full-selector">
                               <label className="label-post-add">
                                 <MDBIcon icon="globe-africa" />
-                                &nbsp;&nbsp; Country :
+                                &nbsp;&nbsp; Postion :
                               </label>
                               <select
                                 name="country"
@@ -816,7 +831,33 @@ class PostForm extends Component {
                                 >
                                   Choose country
                                 </option>
-                                <option>Tunisia</option>
+                                <option className="option-add-post black-text">
+                                  {/* {profile.profile.} */}
+                                </option>
+                              </select>
+                            </div>
+                            <div className="full-selector">
+                              <label className="label-post-add">
+                                <MDBIcon icon="globe-africa" />
+                                &nbsp;&nbsp; Country :
+                              </label>
+                              <select
+                                name="country"
+                                onChange={this.onChange}
+                                error={errors.country}
+                                value={this.state.country}
+                                className="select-post-add "
+                              >
+                                <option
+                                  className="option-add-post black-text"
+                                  value=""
+                                  selected
+                                >
+                                  Choose country
+                                </option>
+                                <option className="option-add-post black-text">
+                                  Tunisia
+                                </option>
                               </select>
                             </div>
                             <div className="full-selector">
@@ -971,14 +1012,19 @@ class PostForm extends Component {
 }
 
 PostForm.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
   addPost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStatetoProps = (state) => ({
   errors: state.errors,
   auth: state.auth,
+  profile: state.profile,
 });
 
-export default connect(mapStatetoProps, { addPost })(withRouter(PostForm));
+export default connect(mapStatetoProps, { addPost, getCurrentProfile })(
+  withRouter(PostForm)
+);

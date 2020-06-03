@@ -6,6 +6,7 @@ import {
   POST_LOADING,
   GET_POST,
   GET_USER_POSTS,
+  GET_AGENCY_POSTS,
 } from "./types";
 
 //Add Post
@@ -114,6 +115,26 @@ export const getUserPosts = () => (dispatch) => {
       dispatch({
         type: GET_USER_POSTS,
         payload: null,
+      })
+    );
+};
+
+//Get agency posts
+
+export const getAgencyPosts = (handle) => (dispatch) => {
+  dispatch(setPostLoading());
+  axios
+    .get(`/posts/agencies_posts/${handle}`)
+    .then((res) =>
+      dispatch({
+        type: GET_AGENCY_POSTS,
+        payload: res.data,
+      })
+    )
+    .then((err) =>
+      dispatch({
+        type: GET_AGENCY_POSTS,
+        payload: [],
       })
     );
 };

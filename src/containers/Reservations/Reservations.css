@@ -2,5 +2,12 @@
     margin-top:290px
 }
 .reservations-list{
-    margin-left:90px
+    width:1300px;
+    margin-left:20px;
+    height: 700px;
+}
+.filtre-reservation{
+    position: fixed;
+    right:100px;
+    top:110px
 }
